@@ -1,16 +1,40 @@
 import * as core from '@actions/core'
-import {wait} from './wait'
+import { isSupportedEvent, getEventWebhookAsync } from './event'
+import { sendCommentAsync } from './send-comment'
+
+const isLGTM = (comment: string | null) =>
+  !!comment && comment.toLowerCase() === 'lgtm'
 
 async function run(): Promise<void> {
   try {
-    const ms: string = core.getInput('milliseconds')
-    core.debug(`Waiting ${ms} milliseconds ...`)
+    const eventName = process.env.GITHUB_EVENT_NAME
+    if (!isSupportedEvent(eventName)) {
+      core.warning(`Not supported Event: ${eventName}`)
+      return
+    }
+    if (!process.env.GITHUB_REPOSITORY) {
+      throw new Error(
+        'GITHUB_REPOSITORY is not set in an environment variable. This package only works with GitHub Actions.'
+      )
+    }
+    const token = core.getInput('token', { required: true })
+    const imageUrl = core.getInput('image-url', { required: true })
+    const repoOwner = process.env.GITHUB_REPOSITORY.split('/')[0]
+    const repoName = process.env.GITHUB_REPOSITORY.split('/')[1]
 
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
+    const hook = await getEventWebhookAsync(eventName)
+    if (!isLGTM(hook.comment)) {
+      core.info('Comment is not LGTM.')
+      return
+    }
 
-    core.setOutput('time', new Date().toTimeString())
+    await sendCommentAsync(
+      token,
+      repoOwner,
+      repoName,
+      hook.issueNumber,
+      `![LGTM](${imageUrl})`
+    )
   } catch (error) {
     core.setFailed(error.message)
   }
