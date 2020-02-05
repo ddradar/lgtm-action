@@ -20,6 +20,19 @@
   ],
   "author": "ddradar",
   "license": "MIT",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,js,vue}": [
+      "eslint --fix"
+    ],
+    "*.{json,yaml,yml}": [
+      "prettier --write"
+    ]
+  },
   "dependencies": {
     "@actions/core": "^1.2.0",
     "@octokit/rest": "^16.43.1"
