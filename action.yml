@@ -1,0 +1,13 @@
+name: 'Post LGTM Image'
+description: 'Post image if you comment "LGTM"'
+author: 'ddradar'
+inputs:
+  token:
+    description: 'Your GitHub Token (provided by Actions)'
+    required: true
+  image-url:
+    description: 'Image URL path'
+    required: true
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
