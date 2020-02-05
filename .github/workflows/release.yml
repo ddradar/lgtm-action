@@ -1,4 +1,4 @@
-name: Release
+name: Release for GitHub Actions
 
 on: create
 
@@ -11,3 +11,4 @@ jobs:
         uses: technote-space/release-github-actions@v2
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COMMIT_MESSAGE: "build: release for GitHub Actions"
