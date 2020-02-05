@@ -1,10 +1,13 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'Post LGTM Image'
+description: 'Post image if you comment "LGTM"'
+author: 'ddradar'
 inputs:
-  myInput:              # change this
-    description: 'input description here'
-    default: 'default value if applicable'
+  token:
+    description: 'Your GitHub Token (provided by Actions)'
+    required: true
+  image-url:
+    description: 'Image URL path'
+    required: true
 runs:
   using: 'node12'
   main: 'dist/index.js'
