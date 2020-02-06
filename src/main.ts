@@ -2,7 +2,7 @@ import * as core from '@actions/core'
 import { isSupportedEvent, getEventWebhookAsync } from './event'
 import { sendCommentAsync } from './send-comment'
 
-const isLGTM = (comment: string | null) =>
+const isLGTM = (comment: string | null): boolean =>
   !!comment && comment.toLowerCase() === 'lgtm'
 
 async function run(): Promise<void> {
