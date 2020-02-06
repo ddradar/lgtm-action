@@ -9,6 +9,5 @@ module.exports = {
   },
   coverageDirectory: './coverage/',
   collectCoverage: true,
-  collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
-  verbose: true
+  collectCoverageFrom: ['<rootDir>/src/**/*.ts']
 }

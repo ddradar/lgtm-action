@@ -5,7 +5,7 @@ import { sendCommentAsync } from './send-comment'
 const isLGTM = (comment: string | null): boolean =>
   !!comment && comment.toLowerCase() === 'lgtm'
 
-async function run(): Promise<void> {
+export async function run(): Promise<void> {
   try {
     const eventName = process.env.GITHUB_EVENT_NAME
     if (!isSupportedEvent(eventName)) {
@@ -22,7 +22,7 @@ async function run(): Promise<void> {
     const repoOwner = process.env.GITHUB_REPOSITORY.split('/')[0]
     const repoName = process.env.GITHUB_REPOSITORY.split('/')[1]
 
-    const hook = await getEventWebhook(eventName)
+    const hook = getEventWebhook(eventName)
     if (!isLGTM(hook.comment)) {
       core.info('Comment is not LGTM.')
       return
