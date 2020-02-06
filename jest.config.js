@@ -1,11 +1,14 @@
+/** @type {import('@jest/types/build/Config').InitialOptions} */
 module.exports = {
   clearMocks: true,
   moduleFileExtensions: ['js', 'ts'],
   testEnvironment: 'node',
   testMatch: ['**/*.test.ts'],
-  testRunner: 'jest-circus/runner',
   transform: {
     '^.+\\.ts$': 'ts-jest'
   },
+  coverageDirectory: './coverage/',
+  collectCoverage: true,
+  collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
   verbose: true
 }
