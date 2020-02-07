@@ -1,6 +1,6 @@
 {
   "name": "lgtm-action",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "private": true,
   "description": "Post image if you comment \"LGTM\"",
   "main": "lib/main.js",
