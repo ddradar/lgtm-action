@@ -46,7 +46,7 @@ jobs:
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
   release:
-    name: Release GitHub Actions
+    name: Release
     if: contains(github.ref, 'tags/v')
     runs-on: ubuntu-latest
     steps:
@@ -54,4 +54,5 @@ jobs:
         uses: technote-space/release-github-actions@v2
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          COMMIT_MESSAGE: "build: release for GitHub Actions"
+          CLEAN_TARGETS: .[!.]*,__tests__,coverage,lib,node_modules,src,*.js,*.ts,*.json,*.lock,_config.yml
+          COMMIT_MESSAGE: "build: release for GitHub Actions via ${{ github.sha }}"
