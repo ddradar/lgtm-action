@@ -7,23 +7,23 @@
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=ddradar/lgtm-action)](https://dependabot.com)
 [![License](https://img.shields.io/github/license/ddradar/lgtm-action)](LICENSE)
 
-日本語版のガイドは[こちら](./README.md)です。
+English guide is [here](./README.md).
 
-Post image if you comment "LGTM"
+"LGTM" コメント時に画像を投稿します。
 
 ## TOC
 
-- [Usage](#usage)
-- [Options](#options)
+- [使い方](#usage)
+- [オプション](#options)
   - [token](#token)
   - [image-url](#image-url)
-- [Screenshots](#screnshots)
-- [License](#license)
-- [Contributing](#contributing)
+- [スクリーンショット](#screnshots)
+- [ライセンス](#license)
+- [プロジェクトへの貢献](#contributing)
 
 ## Usage
 
-See [action.yml](./action.yml)
+[action.yml](./action.yml)をご覧ください。
 
 ```yaml
 name: Send LGTM Image
@@ -46,29 +46,29 @@ jobs:
 
 ### token
 
-*Required.*
+*必須です。*
 
-Set token provided by GitHub Actions. (`${{ secrets.GITHUB_TOKEN }}`)
+GitHub Actionsが提供するトークンをセットします。 (`${{ secrets.GITHUB_TOKEN }}`)
 
 ### image-url
 
-*Required.*
+*必須です。*
 
-Set your image URL.
+画像URLをセットします。
 
 ## Screenshots
 
-1. Post "LGTM" or "lgtm" issue comment.
+1. issue に "LGTM" または "lgtm" とコメントします。
   ![Send issue comment](https://raw.githubusercontent.com/ddradar/lgtm-action/images/screenshot_comment.png)
-1. Or review comment.
+1. またはレビューにコメントします。
   ![Send review comment](https://raw.githubusercontent.com/ddradar/lgtm-action/images/screenshot_pull_request_review.png)
-1. Post LGTM image automatically.
+1. LGTM画像が自動的に投稿されます。
   ![LGTM image post](https://raw.githubusercontent.com/ddradar/lgtm-action/images/screenshot_action_works.png)
 
 ## License
 
-[MIT License](LICENSE)
+[MIT ライセンス](LICENSE)
 
 ## Contributing
 
-See [guide](CONTRIBUTING.md).
+[ガイド](CONTRIBUTING-ja.md)をご覧ください。
