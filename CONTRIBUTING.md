@@ -4,6 +4,16 @@
 
 Thank you for your interest in this project. This project is open source, and anyone can contribute to the project. Please follow the instructions below to ensure that you can contribute smoothly.
 
+## TOC
+
+- [Getting Started](#getting-started)
+- [Send issue](#send-issue)
+- [Making Changes](#making-changes)
+  - [Coding Style](#coding-style)
+  - [Documentation or Translation](#documentation-or-translation)
+- [Pull Request](#pull-request)
+- [Thanks](#thanks)
+
 ## Getting Started
 
 - You need your [GitHub account](https://github.com/signup/free) to contribute this project.
