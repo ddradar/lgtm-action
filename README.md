@@ -11,6 +11,16 @@
 
 Post image if you comment "LGTM"
 
+## TOC
+
+- [Usage](#usage)
+- [Options](#options)
+  - [token](#token)
+  - [image-url](#image-url)
+- [Screenshots](#screnshots)
+- [License](#license)
+- [Contributing](#contributing)
+
 ## Usage
 
 See [action.yml](./action.yml)
@@ -57,4 +67,8 @@ Set your image URL.
 
 ## License
 
-[MIT License](./LICENSE)
+[MIT License](LICENSE)
+
+## Contributing
+
+See [guide](CONTRIBUTING.md).

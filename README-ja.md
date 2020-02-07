@@ -11,6 +11,16 @@ English guide is [here](./README.md).
 
 "LGTM" コメント時に画像を投稿します。
 
+## TOC
+
+- [使い方](#usage)
+- [オプション](#options)
+  - [token](#token)
+  - [image-url](#image-url)
+- [スクリーンショット](#screnshots)
+- [ライセンス](#license)
+- [プロジェクトへの貢献](#contributing)
+
 ## Usage
 
 [action.yml](./action.yml)をご覧ください。
@@ -57,4 +67,8 @@ GitHub Actionsが提供するトークンをセットします。 (`${{ secrets.
 
 ## License
 
-[MIT ライセンス](./LICENSE)
+[MIT ライセンス](LICENSE)
+
+## Contributing
+
+[ガイド](CONTRIBUTING-ja.md)をご覧ください。
