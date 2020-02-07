@@ -59,11 +59,11 @@ Set your image URL.
 ## Screenshots
 
 1. Post "LGTM" or "lgtm" issue comment.
-  ![Send issue comment](https://raw.githubusercontent.com/ddradar/lgtm-action/images/screenshot_comment.png)
+  ![Send issue comment](https://raw.githubusercontent.com/ddradar/lgtm-action/master/images/screenshot_comment.png)
 1. Or review comment.
-  ![Send review comment](https://raw.githubusercontent.com/ddradar/lgtm-action/images/screenshot_pull_request_review.png)
+  ![Send review comment](https://raw.githubusercontent.com/ddradar/lgtm-action/master/images/screenshot_pull_request_review.png)
 1. Post LGTM image automatically.
-  ![LGTM image post](https://raw.githubusercontent.com/ddradar/lgtm-action/images/screenshot_action_works.png)
+  ![LGTM image post](https://raw.githubusercontent.com/ddradar/lgtm-action/master/images/screenshot_action_works.png)
 
 ## License
 

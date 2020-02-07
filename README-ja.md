@@ -59,11 +59,11 @@ GitHub Actionsが提供するトークンをセットします。 (`${{ secrets.
 ## Screenshots
 
 1. issue に "LGTM" または "lgtm" とコメントします。
-  ![Send issue comment](https://raw.githubusercontent.com/ddradar/lgtm-action/images/screenshot_comment.png)
+  ![Send issue comment](https://raw.githubusercontent.com/ddradar/lgtm-action/master/images/screenshot_comment.png)
 1. またはレビューにコメントします。
-  ![Send review comment](https://raw.githubusercontent.com/ddradar/lgtm-action/images/screenshot_pull_request_review.png)
+  ![Send review comment](https://raw.githubusercontent.com/ddradar/lgtm-action/master/images/screenshot_pull_request_review.png)
 1. LGTM画像が自動的に投稿されます。
-  ![LGTM image post](https://raw.githubusercontent.com/ddradar/lgtm-action/images/screenshot_action_works.png)
+  ![LGTM image post](https://raw.githubusercontent.com/ddradar/lgtm-action/master/images/screenshot_action_works.png)
 
 ## License
 
