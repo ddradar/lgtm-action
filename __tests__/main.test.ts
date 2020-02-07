@@ -1,8 +1,11 @@
 import * as core from '@actions/core'
+import * as yaml from 'js-yaml'
+import * as path from 'path'
 import { mocked } from 'ts-jest/utils'
 import { isSupportedEvent, getEventWebhook } from '../src/event'
 import { sendCommentAsync } from '../src/send-comment'
 import { run } from '../src/main'
+import { readFileSync } from 'fs'
 
 jest.mock('@actions/core')
 jest.mock('../src/event')
@@ -98,5 +101,32 @@ describe('main.ts', () => {
         )
       }
     )
+    test('uses all input parameters', async () => {
+      // Arrange
+      process.env.GITHUB_REPOSITORY = 'owner/repo'
+      mocked(isSupportedEvent).mockReturnValue(true)
+      mocked(getEventWebhook).mockReturnValue({
+        comment: 'foo',
+        issueNumber: 1
+      })
+      // Load action.yml settings
+      const yamlText = readFileSync(
+        path.join(__dirname, '..', 'action.yml'),
+        'utf8'
+      )
+      const actionSettings = yaml.safeLoad(yamlText)
+      const expectedInputs = Object.keys(actionSettings.inputs)
+      // Act
+      await run()
+      // Assert
+      expect(core.getInput).toHaveBeenCalledTimes(expectedInputs.length)
+      for (const key of expectedInputs) {
+        if (actionSettings.inputs[key].required) {
+          expect(core.getInput).toHaveBeenCalledWith(key, { required: true })
+        } else {
+          expect(core.getInput).toHaveBeenCalledWith(key)
+        }
+      }
+    })
   })
 })

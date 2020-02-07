@@ -9,5 +9,5 @@
     "esModuleInterop": true
   },
   "exclude": ["node_modules", "__tests__"],
-  "types": ["@types/jest", "@types/node"]
+  "types": ["jest", "js-yaml", "node"]
 }
