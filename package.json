@@ -5,7 +5,7 @@
   "description": "Post image if you comment \"LGTM\"",
   "main": "lib/main.js",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && ncc build -m",
     "lint": "eslint --ext .ts,.js --ignore-path .gitignore .",
     "test": "jest"
   },
