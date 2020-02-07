@@ -36,7 +36,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: ddradar/lgtm-action@v0
+      - uses: ddradar/lgtm-action@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           image-url: "{ Your LGTM image URL }"
