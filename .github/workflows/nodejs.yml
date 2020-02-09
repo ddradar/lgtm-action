@@ -47,6 +47,7 @@ jobs:
         token: ${{ secrets.CODECOV_TOKEN }}
   release:
     name: Release
+    needs: [build]
     if: contains(github.ref, 'tags/v')
     runs-on: ubuntu-latest
     steps:
