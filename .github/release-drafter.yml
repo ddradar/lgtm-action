@@ -1,0 +1,6 @@
+# Config for https://github.com/apps/release-drafter
+name-template: 'Post LGTM Image v$NEXT_PATCH_VERSION'
+tag-template: 'v$NEXT_PATCH_VERSION'
+template: |
+  ## What’s Changed
+  $CHANGES
