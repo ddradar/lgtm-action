@@ -13,6 +13,7 @@ on:
     paths:
       - '**'
       - '!**.md'
+
 jobs:
   build:
     name: Build & Test
@@ -45,6 +46,11 @@ jobs:
       uses: codecov/codecov-action@v1.0.5
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
+    - name: Drafts next Release notes
+      uses: release-drafter/release-drafter@v5
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   release:
     name: Release
     needs: [build]
