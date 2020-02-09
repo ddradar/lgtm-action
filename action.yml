@@ -8,6 +8,9 @@ inputs:
   image-url:
     description: 'Image URL path'
     required: true
+branding:
+  icon: 'thumbs-up'
+  color: 'purple'
 runs:
   using: 'node12'
   main: 'dist/index.js'
