@@ -1,6 +1,7 @@
 import { Octokit } from '@octokit/rest'
-import { sendCommentAsync } from '../src/send-comment'
 import { mocked } from 'ts-jest/utils'
+
+import { sendCommentAsync } from '../src/send-comment'
 import { generateRandomString } from './util'
 
 jest.mock('@octokit/rest')

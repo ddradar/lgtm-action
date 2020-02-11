@@ -1,5 +1,6 @@
 import * as core from '@actions/core'
-import { isSupportedEvent, getEventWebhook } from './event'
+
+import { getEventWebhook, isSupportedEvent } from './event'
 import { sendCommentAsync } from './send-comment'
 
 const isLGTM = (comment: string | null): boolean =>

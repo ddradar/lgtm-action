@@ -1,9 +1,10 @@
-import fs from 'fs'
+import { readFileSync } from 'fs'
 import { mocked } from 'ts-jest/utils'
-import { isSupportedEvent, getEventWebhook } from '../src/event'
+
+import { getEventWebhook, isSupportedEvent } from '../src/event'
 
 jest.mock('fs')
-const mockedFs = mocked(fs.readFileSync)
+const mockedFs = mocked(readFileSync)
 
 describe('event.ts', () => {
   const oldEnv = process.env

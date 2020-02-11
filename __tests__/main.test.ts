@@ -1,11 +1,12 @@
 import * as core from '@actions/core'
+import { readFileSync } from 'fs'
 import * as yaml from 'js-yaml'
 import * as path from 'path'
 import { mocked } from 'ts-jest/utils'
-import { isSupportedEvent, getEventWebhook } from '../src/event'
-import { sendCommentAsync } from '../src/send-comment'
+
+import { getEventWebhook, isSupportedEvent } from '../src/event'
 import { run } from '../src/main'
-import { readFileSync } from 'fs'
+import { sendCommentAsync } from '../src/send-comment'
 
 jest.mock('@actions/core')
 jest.mock('../src/event')
