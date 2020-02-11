@@ -20,6 +20,10 @@
   ],
   "author": "ddradar",
   "license": "MIT",
+  "engines": {
+    "node": "12",
+    "npm": "^6.12.0"
+  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
