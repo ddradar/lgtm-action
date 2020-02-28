@@ -7,7 +7,7 @@
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=ddradar/lgtm-action)](https://dependabot.com)
 [![License](https://img.shields.io/github/license/ddradar/lgtm-action)](LICENSE)
 
-日本語版のガイドは[こちら](./README.md)です。
+日本語版のガイドは[こちら](./README-ja.md)です。
 
 Post image if you comment "LGTM"
 
