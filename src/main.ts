@@ -1,6 +1,7 @@
 import * as core from '@actions/core'
 
 import { getEventWebhook, isSupportedEvent } from './event'
+import { getInputParams } from './input-helper'
 import { sendCommentAsync } from './send-comment'
 
 const isLGTM = (comment: string | null): boolean =>
@@ -18,8 +19,7 @@ export async function run(): Promise<void> {
         'GITHUB_REPOSITORY is not set in an environment variable. This package only works with GitHub Actions.'
       )
     }
-    const token = core.getInput('token', { required: true })
-    const imageUrl = core.getInput('image-url', { required: true })
+    const { token, imageUrl } = getInputParams()
     const repoOwner = process.env.GITHUB_REPOSITORY.split('/')[0]
     const repoName = process.env.GITHUB_REPOSITORY.split('/')[1]
 
