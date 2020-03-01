@@ -17,11 +17,14 @@ describe('input-helper.ts', () => {
       // Arrange
       const token = generateRandomString(10)
       const imageUrl = generateRandomString(30)
+      const searchPattern = '^LGTM$\n^lgtm$'
       mocked(getInput).mockImplementation((name) =>
         name === 'token'
           ? token
           : name === 'image-url'
           ? imageUrl
+          : name === 'search-pattern'
+          ? searchPattern
           : generateRandomString(10)
       )
 
@@ -31,6 +34,7 @@ describe('input-helper.ts', () => {
       // Arrange
       expect(params.token).toBe(token)
       expect(params.imageUrl).toBe(imageUrl)
+      expect(params.searchPattern).toStrictEqual([/^LGTM$/, /^lgtm$/])
     })
     test('uses all input parameters', async () => {
       // Arrange

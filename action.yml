@@ -8,6 +8,10 @@ inputs:
   image-url:
     description: 'Image URL path'
     required: true
+  search-pattern:
+    description: 'Regexp pattern this action reacts'
+    required: false
+    default: ^(lgtm|LGTM)$
 branding:
   icon: 'thumbs-up'
   color: 'purple'

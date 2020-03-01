@@ -26,7 +26,8 @@ describe('main.ts', () => {
 
     mocked(getInputParams).mockReturnValue({
       token: 'token',
-      imageUrl: 'imageUrl'
+      imageUrl: 'imageUrl',
+      searchPattern: [/^(lgtm|LGTM)$/]
     })
   })
 
