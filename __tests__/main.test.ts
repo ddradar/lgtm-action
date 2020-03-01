@@ -28,7 +28,7 @@ describe('main.ts', () => {
       mocked(getInputParams).mockReturnValue({
         token: 'token',
         imageUrl: 'imageUrl',
-        searchPattern: [/^(lgtm|LGTM)$/]
+        searchPattern: [/^(lgtm|LGTM)$/m]
       })
     })
     afterEach(() => envProvider.reset())
@@ -61,7 +61,7 @@ describe('main.ts', () => {
         process.env.GITHUB_EVENT_NAME = 'event_name'
         process.env.GITHUB_REPOSITORY = 'owner/repo'
         mocked(isSupportedEvent).mockReturnValue(true)
-        mocked(getEventWebhook).mockReturnValue({
+        mocked(getEventWebhook).mockResolvedValue({
           comment,
           issueNumber: 1
         })
@@ -70,18 +70,20 @@ describe('main.ts', () => {
         // Assert
         expect(getInputParams).toHaveBeenCalledTimes(1)
         expect(core.info).toHaveBeenCalledTimes(1)
-        expect(core.info).toHaveBeenCalledWith('Comment is not LGTM.')
+        expect(core.info).toHaveBeenCalledWith(
+          'Comment does not match pattern.'
+        )
         expect(core.setFailed).not.toHaveBeenCalled()
         expect(sendCommentAsync).not.toHaveBeenCalled()
       }
     )
-    test.each(['LGTM', 'lgtm'])(
+    test.each(['LGTM', 'lgtm', 'this is multi-line\nlgtm'])(
       'calls sendCommentAsync if comment is "%s"',
       async (comment) => {
         // Arrange
         process.env.GITHUB_REPOSITORY = 'owner/repo'
         mocked(isSupportedEvent).mockReturnValue(true)
-        mocked(getEventWebhook).mockReturnValue({
+        mocked(getEventWebhook).mockResolvedValue({
           comment,
           issueNumber: 1
         })
