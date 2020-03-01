@@ -1,4 +1,7 @@
-import fs from 'fs'
+import { readFile } from 'fs'
+import { promisify } from 'util'
+
+const readFileAsync = promisify(readFile)
 
 type SupportedEvent = 'issue_comment' | 'pull_request_review'
 const supportedEvent: SupportedEvent[] = [
@@ -11,18 +14,18 @@ export const isSupportedEvent = (
 ): eventName is SupportedEvent =>
   !!eventName && (supportedEvent as string[]).includes(eventName)
 
-export const getEventWebhook = (
+export const getEventWebhook = async (
   eventName: SupportedEvent
-): {
+): Promise<{
   comment: string | null
   issueNumber: number
-} => {
+}> => {
   if (!process.env.GITHUB_EVENT_PATH) {
     throw new Error(
       'GITHUB_EVENT_PATH is not set in an environment variable. This package only works with GitHub Actions.'
     )
   }
-  const jsonString = fs.readFileSync(process.env.GITHUB_EVENT_PATH, 'utf-8')
+  const jsonString = await readFileAsync(process.env.GITHUB_EVENT_PATH, 'utf-8')
   const webhookObject = JSON.parse(jsonString)
   switch (eventName) {
     case 'issue_comment': // https://developer.github.com/v3/activity/events/types/#issuecommentevent

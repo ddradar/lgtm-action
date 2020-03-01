@@ -23,7 +23,7 @@ export async function run(): Promise<void> {
     const repoOwner = process.env.GITHUB_REPOSITORY.split('/')[0]
     const repoName = process.env.GITHUB_REPOSITORY.split('/')[1]
 
-    const hook = getEventWebhook(eventName)
+    const hook = await getEventWebhook(eventName)
     if (!isLGTM(hook.comment)) {
       core.info('Comment is not LGTM.')
       return

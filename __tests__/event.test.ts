@@ -1,10 +1,26 @@
-import { readFileSync } from 'fs'
-import { mocked } from 'ts-jest/utils'
-
 import { getEventWebhook, isSupportedEvent } from '../src/event'
 import EnvProvider from './env-provider'
 
-jest.mock('fs')
+const mockJsonData = {
+  comment: {
+    body: 'comment.body'
+  },
+  issue: {
+    number: 9
+  },
+  review: {
+    body: 'review.body'
+  },
+  // eslint-disable-next-line @typescript-eslint/camelcase
+  pull_request: {
+    number: 10
+  }
+}
+jest.mock('fs', () => ({
+  readFile: jest.fn((_path, _opt, cb) => {
+    cb(null, JSON.stringify(mockJsonData))
+  })
+}))
 
 describe('event.ts', () => {
   describe('isSupportedEvent()', () => {
@@ -30,37 +46,16 @@ describe('event.ts', () => {
     )
   })
   describe('getEventWebhookAsync()', () => {
-    const mockedFs = mocked(readFileSync)
     const envProvider = new EnvProvider('GITHUB_EVENT_PATH')
-    const mockJsonData = {
-      comment: {
-        body: 'comment.body'
-      },
-      issue: {
-        number: 9
-      },
-      review: {
-        body: 'review.body'
-      },
-      // eslint-disable-next-line @typescript-eslint/camelcase
-      pull_request: {
-        number: 10
-      }
-    }
-
     beforeEach(() => {
       jest.resetModules()
-
       envProvider.load()
-
-      mockedFs.mockReset()
-      mockedFs.mockImplementation(() => JSON.stringify(mockJsonData))
     })
     afterEach(() => envProvider.reset())
 
     test('throws Error if GITHUB_EVENT_PATH not set', async () => {
       // Act & Assert
-      expect(() => getEventWebhook('issue_comment')).toThrow(
+      await expect(getEventWebhook('issue_comment')).rejects.toThrow(
         /GITHUB_EVENT_PATH/
       )
     })
@@ -68,7 +63,7 @@ describe('event.ts', () => {
       // Arrange
       process.env.GITHUB_EVENT_PATH = 'foo'
       // Act
-      const webhook = getEventWebhook('issue_comment')
+      const webhook = await getEventWebhook('issue_comment')
       // Assert
       expect(webhook).toStrictEqual({
         comment: mockJsonData.comment.body,
@@ -79,7 +74,7 @@ describe('event.ts', () => {
       // Arrange
       process.env.GITHUB_EVENT_PATH = 'foo'
       // Act
-      const webhook = getEventWebhook('pull_request_review')
+      const webhook = await getEventWebhook('pull_request_review')
       // Assert
       expect(webhook).toStrictEqual({
         comment: mockJsonData.review.body,
