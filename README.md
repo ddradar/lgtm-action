@@ -7,7 +7,7 @@
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=ddradar/lgtm-action)](https://dependabot.com)
 [![License](https://img.shields.io/github/license/ddradar/lgtm-action)](LICENSE)
 
-日本語版のガイドは[こちら](./README.md)です。
+日本語版のガイドは[こちら](./README-ja.md)です。
 
 Post image if you comment "LGTM"
 
@@ -40,6 +40,9 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           image-url: "{ Your LGTM image URL }"
+          search-pattern: |
+            ^(lgtm|LGTM)$
+            ^:\+1:$
 ```
 
 ## Options
@@ -55,6 +58,15 @@ Set token provided by GitHub Actions. (`${{ secrets.GITHUB_TOKEN }}`)
 *Required.*
 
 Set your image URL.
+
+### search-pattern
+
+*Optional.*
+
+Set regexp pattern this action reacts.
+This action uses Multi-line(`RegExp.prototype.multiline`) search.
+
+default: `(lgtm|LGTM)$`
 
 ## Screenshots
 
