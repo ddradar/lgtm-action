@@ -5,6 +5,7 @@ import { getEventWebhook, isSupportedEvent } from '../src/event'
 import { getInputParams } from '../src/input-helper'
 import { run } from '../src/main'
 import { sendCommentAsync } from '../src/send-comment'
+import EnvProvider from './env-provider'
 
 jest.mock('@actions/core')
 jest.mock('../src/event')
@@ -12,31 +13,26 @@ jest.mock('../src/input-helper')
 jest.mock('../src/send-comment')
 
 describe('main.ts', () => {
-  const oldEnv = process.env
-
-  beforeEach(() => {
-    jest.resetAllMocks()
-    // clear cache
-    jest.resetModules()
-
-    // load process.env except used for testing
-    process.env = { ...oldEnv }
-    const keys = ['GITHUB_EVENT_PATH', 'GITHUB_REPOSITORY']
-    keys.forEach((key) => delete process.env[key])
-
-    mocked(getInputParams).mockReturnValue({
-      token: 'token',
-      imageUrl: 'imageUrl',
-      searchPattern: [/^(lgtm|LGTM)$/]
-    })
-  })
-
-  afterEach(() => {
-    // restore process.env
-    process.env = oldEnv
-  })
-
   describe('run()', () => {
+    const envProvider = new EnvProvider(
+      'GITHUB_EVENT_PATH',
+      'GITHUB_REPOSITORY'
+    )
+
+    beforeEach(() => {
+      jest.resetAllMocks()
+      jest.resetModules()
+
+      envProvider.load()
+
+      mocked(getInputParams).mockReturnValue({
+        token: 'token',
+        imageUrl: 'imageUrl',
+        searchPattern: [/^(lgtm|LGTM)$/]
+      })
+    })
+    afterEach(() => envProvider.reset())
+
     test('ends with warning if isSupportedEvent() is false', async () => {
       // Arrange
       mocked(isSupportedEvent).mockReturnValue(false)
@@ -59,7 +55,7 @@ describe('main.ts', () => {
       expect(sendCommentAsync).not.toHaveBeenCalled()
     })
     test.each([null, '', 'not lgtm'])(
-      'never calls sendCommentAsync if comment is not LGTM',
+      'never calls sendCommentAsync if comment is "%s"',
       async (comment) => {
         // Arrange
         process.env.GITHUB_EVENT_NAME = 'event_name'
@@ -80,7 +76,7 @@ describe('main.ts', () => {
       }
     )
     test.each(['LGTM', 'lgtm'])(
-      'calls sendCommentAsync if comment is LGTM',
+      'calls sendCommentAsync if comment is "%s"',
       async (comment) => {
         // Arrange
         process.env.GITHUB_REPOSITORY = 'owner/repo'

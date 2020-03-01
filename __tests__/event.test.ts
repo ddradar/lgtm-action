@@ -2,44 +2,14 @@ import { readFileSync } from 'fs'
 import { mocked } from 'ts-jest/utils'
 
 import { getEventWebhook, isSupportedEvent } from '../src/event'
+import EnvProvider from './env-provider'
 
 jest.mock('fs')
-const mockedFs = mocked(readFileSync)
 
 describe('event.ts', () => {
-  const oldEnv = process.env
-  const mockJsonData = {
-    comment: {
-      body: 'comment.body'
-    },
-    issue: {
-      number: 9
-    },
-    review: {
-      body: 'review.body'
-    },
-    // eslint-disable-next-line @typescript-eslint/camelcase
-    pull_request: {
-      number: 10
-    }
-  }
-
-  beforeEach(() => {
-    // clear cache
-    jest.resetModules()
-
-    // load process.env except used for testing
-    process.env = { ...oldEnv }
-    const keys = ['GITHUB_EVENT_PATH']
-    keys.forEach((key) => delete process.env[key])
-
-    mockedFs.mockReset()
-    mockedFs.mockImplementation(() => JSON.stringify(mockJsonData))
-  })
-
   describe('isSupportedEvent()', () => {
     test.each(['issue_comment', 'pull_request_review'])(
-      'returns true if supported event',
+      'returns true if eventName is "%s"',
       (eventName) => {
         // Act
         const result = isSupportedEvent(eventName)
@@ -49,7 +19,7 @@ describe('event.ts', () => {
       }
     )
     test.each([undefined, null, '', 'foo'])(
-      'returns false if not supported event',
+      'returns false if eventName is "%s"',
       (eventName) => {
         // Act
         const result = isSupportedEvent(eventName)
@@ -60,6 +30,34 @@ describe('event.ts', () => {
     )
   })
   describe('getEventWebhookAsync()', () => {
+    const mockedFs = mocked(readFileSync)
+    const envProvider = new EnvProvider('GITHUB_EVENT_PATH')
+    const mockJsonData = {
+      comment: {
+        body: 'comment.body'
+      },
+      issue: {
+        number: 9
+      },
+      review: {
+        body: 'review.body'
+      },
+      // eslint-disable-next-line @typescript-eslint/camelcase
+      pull_request: {
+        number: 10
+      }
+    }
+
+    beforeEach(() => {
+      jest.resetModules()
+
+      envProvider.load()
+
+      mockedFs.mockReset()
+      mockedFs.mockImplementation(() => JSON.stringify(mockJsonData))
+    })
+    afterEach(() => envProvider.reset())
+
     test('throws Error if GITHUB_EVENT_PATH not set', async () => {
       // Act & Assert
       expect(() => getEventWebhook('issue_comment')).toThrow(
