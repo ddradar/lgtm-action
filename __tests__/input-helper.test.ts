@@ -71,7 +71,7 @@ describe('input-helper.ts', () => {
           ? imageUrl
           : name === 'search-pattern'
           ? searchPattern
-          : generateRandomString(10)
+          : ''
       )
 
       // Act
@@ -81,6 +81,22 @@ describe('input-helper.ts', () => {
       expect(params.token).toBe(token)
       expect(params.imageUrl).toBe(imageUrl)
       expect(params.searchPattern).toStrictEqual([/^LGTM$/m, /^lgtm$/m])
+    })
+    test('returns default if searchPattern is not set', () => {
+      // Arrange
+      const token = generateRandomString(10)
+      const imageUrl = generateRandomString(30)
+      mocked(getInput).mockImplementation((name) =>
+        name === 'token' ? token : name === 'image-url' ? imageUrl : ''
+      )
+
+      // Act
+      const params = getInputParams()
+
+      // Arrange
+      expect(params.token).toBe(token)
+      expect(params.imageUrl).toBe(imageUrl)
+      expect(params.searchPattern).toStrictEqual([/^(lgtm|LGTM)$/m])
     })
     test('uses all input parameters', async () => {
       // Arrange
