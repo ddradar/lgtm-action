@@ -40,6 +40,9 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           image-url: "{ Your LGTM image URL }"
+          search-pattern: |
+            ^(lgtm|LGTM)$
+            ^:\+1:$
 ```
 
 ## Options
@@ -55,6 +58,15 @@ Set token provided by GitHub Actions. (`${{ secrets.GITHUB_TOKEN }}`)
 *Required.*
 
 Set your image URL.
+
+### search-pattern
+
+*Optional.*
+
+Set regexp pattern this action reacts.
+This action uses Multi-line(`RegExp.prototype.multiline`) search.
+
+default: `(lgtm|LGTM)$`
 
 ## Screenshots
 
