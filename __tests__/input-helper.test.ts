@@ -34,7 +34,7 @@ describe('input-helper.ts', () => {
       // Arrange
       expect(params.token).toBe(token)
       expect(params.imageUrl).toBe(imageUrl)
-      expect(params.searchPattern).toStrictEqual([/^LGTM$/, /^lgtm$/])
+      expect(params.searchPattern).toStrictEqual([/^LGTM$/m, /^lgtm$/m])
     })
     test('uses all input parameters', async () => {
       // Arrange

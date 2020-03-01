@@ -12,5 +12,5 @@ export const getInputParams = (): InputParameter => ({
   searchPattern: getInput('search-pattern')
     .split('\n')
     .filter((x) => x !== '')
-    .map((x) => new RegExp(x))
+    .map((x) => new RegExp(x, 'm'))
 })
