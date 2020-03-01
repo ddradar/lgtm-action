@@ -1,15 +1,14 @@
 import * as core from '@actions/core'
-import { readFileSync } from 'fs'
-import * as yaml from 'js-yaml'
-import * as path from 'path'
 import { mocked } from 'ts-jest/utils'
 
 import { getEventWebhook, isSupportedEvent } from '../src/event'
+import { getInputParams } from '../src/input-helper'
 import { run } from '../src/main'
 import { sendCommentAsync } from '../src/send-comment'
 
 jest.mock('@actions/core')
 jest.mock('../src/event')
+jest.mock('../src/input-helper')
 jest.mock('../src/send-comment')
 
 describe('main.ts', () => {
@@ -25,7 +24,11 @@ describe('main.ts', () => {
     const keys = ['GITHUB_EVENT_PATH', 'GITHUB_REPOSITORY']
     keys.forEach((key) => delete process.env[key])
 
-    mocked(core.getInput).mockImplementation((name) => name)
+    mocked(getInputParams).mockReturnValue({
+      token: 'token',
+      imageUrl: 'imageUrl',
+      searchPattern: [/^(lgtm|LGTM)$/]
+    })
   })
 
   afterEach(() => {
@@ -41,7 +44,7 @@ describe('main.ts', () => {
       await run()
       // Assert
       expect(core.warning).toHaveBeenCalledTimes(1)
-      expect(core.getInput).not.toHaveBeenCalled()
+      expect(getInputParams).not.toHaveBeenCalled()
       expect(core.setFailed).not.toHaveBeenCalled()
       expect(sendCommentAsync).not.toHaveBeenCalled()
     })
@@ -52,7 +55,7 @@ describe('main.ts', () => {
       await run()
       // Assert
       expect(core.setFailed).toHaveBeenCalledTimes(1)
-      expect(core.getInput).not.toHaveBeenCalled()
+      expect(getInputParams).not.toHaveBeenCalled()
       expect(sendCommentAsync).not.toHaveBeenCalled()
     })
     test.each([null, '', 'not lgtm'])(
@@ -69,7 +72,7 @@ describe('main.ts', () => {
         // Act
         await run()
         // Assert
-        expect(core.getInput).toHaveBeenCalledTimes(2)
+        expect(getInputParams).toHaveBeenCalledTimes(1)
         expect(core.info).toHaveBeenCalledTimes(1)
         expect(core.info).toHaveBeenCalledWith('Comment is not LGTM.')
         expect(core.setFailed).not.toHaveBeenCalled()
@@ -89,7 +92,7 @@ describe('main.ts', () => {
         // Act
         await run()
         // Assert
-        expect(core.getInput).toHaveBeenCalledTimes(2)
+        expect(getInputParams).toHaveBeenCalledTimes(1)
         expect(core.info).not.toHaveBeenCalled()
         expect(core.setFailed).not.toHaveBeenCalled()
         expect(sendCommentAsync).toHaveBeenCalledTimes(1)
@@ -98,36 +101,9 @@ describe('main.ts', () => {
           'owner',
           'repo',
           1,
-          '![LGTM](image-url)'
+          '![LGTM](imageUrl)'
         )
       }
     )
-    test('uses all input parameters', async () => {
-      // Arrange
-      process.env.GITHUB_REPOSITORY = 'owner/repo'
-      mocked(isSupportedEvent).mockReturnValue(true)
-      mocked(getEventWebhook).mockReturnValue({
-        comment: 'foo',
-        issueNumber: 1
-      })
-      // Load action.yml settings
-      const yamlText = readFileSync(
-        path.join(__dirname, '..', 'action.yml'),
-        'utf8'
-      )
-      const actionSettings = yaml.safeLoad(yamlText)
-      const expectedInputs = Object.keys(actionSettings.inputs)
-      // Act
-      await run()
-      // Assert
-      expect(core.getInput).toHaveBeenCalledTimes(expectedInputs.length)
-      for (const key of expectedInputs) {
-        if (actionSettings.inputs[key].required) {
-          expect(core.getInput).toHaveBeenCalledWith(key, { required: true })
-        } else {
-          expect(core.getInput).toHaveBeenCalledWith(key)
-        }
-      }
-    })
   })
 })
