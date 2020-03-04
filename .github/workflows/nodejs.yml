@@ -46,7 +46,7 @@ jobs:
         uses: codecov/codecov-action@v1.0.5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-      - name: GitHub Actions Test
+      - name: GitHub Actions Build Test
         uses: ./
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
