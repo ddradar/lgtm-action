@@ -46,6 +46,11 @@ jobs:
         uses: codecov/codecov-action@v1.0.5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+      - name: GitHub Actions Test
+        uses: ./
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          image-url: 'https://user-images.githubusercontent.com/24802730/74030931-9a21ac00-49f3-11ea-872e-374d5bd3e586.jpg'
       - name: Drafts next Release notes
         uses: release-drafter/release-drafter@v5
         env:
