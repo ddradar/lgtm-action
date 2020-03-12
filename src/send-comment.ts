@@ -7,9 +7,8 @@ export const sendCommentAsync = async (
   issueNumber: number,
   comment: string
 ): Promise<void> => {
-  const octokit = new Octokit({
-    auth: `token ${token}`
-  })
+  const auth = `token ${token}`
+  const octokit = new Octokit({ auth })
   await octokit.issues.createComment({
     owner,
     repo,
