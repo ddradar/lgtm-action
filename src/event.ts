@@ -6,14 +6,22 @@ const supportedEvent: Set<string> = new Set<SupportedEvent>([
   'pull_request_review'
 ])
 
+/** Returns true if this action supports event.
+ * @param eventName event name.
+ */
 export const isSupportedEvent = (
   eventName: string
 ): eventName is SupportedEvent => supportedEvent.has(eventName)
 
+/** Gets event info from stored webfook JSON.
+ * @param eventName Fooked event name
+ */
 export const getEventWebhook = async (
   eventName: SupportedEvent
 ): Promise<{
+  /** comment body */
   comment: string | null
+  /** issue or pull request number */
   issueNumber: number
 }> => {
   const eventJsonPath = getEnvironmentVariable('GITHUB_EVENT_PATH')
