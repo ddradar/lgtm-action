@@ -1,15 +1,14 @@
 import { getEnvironmentVariable, readFileAsync } from './node-helper'
 
 type SupportedEvent = 'issue_comment' | 'pull_request_review'
-const supportedEvent: SupportedEvent[] = [
+const supportedEvent: Set<string> = new Set<SupportedEvent>([
   'issue_comment',
   'pull_request_review'
-]
+])
 
 export const isSupportedEvent = (
   eventName: string | null | undefined
-): eventName is SupportedEvent =>
-  !!eventName && (supportedEvent as string[]).includes(eventName)
+): eventName is SupportedEvent => !!eventName && supportedEvent.has(eventName)
 
 export const getEventWebhook = async (
   eventName: SupportedEvent
