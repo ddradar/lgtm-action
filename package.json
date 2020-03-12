@@ -35,12 +35,8 @@
     }
   },
   "lint-staged": {
-    "*.{js,ts}": [
-      "eslint --fix"
-    ],
-    "*.{json,yaml,yml}": [
-      "prettier --write"
-    ]
+    "*.{js,ts}": "eslint --fix",
+    "*.{json,yaml,yml}": "prettier --write"
   },
   "dependencies": {
     "@actions/core": "^1.2.3",
