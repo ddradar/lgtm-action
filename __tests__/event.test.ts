@@ -1,5 +1,7 @@
+import { mocked } from 'ts-jest/utils'
+
 import { getEventWebhook, isSupportedEvent } from '../src/event'
-import EnvProvider from './env-provider'
+import { readFileAsync } from '../src/node-helper'
 
 const mockJsonData = {
   comment: {
@@ -16,52 +18,24 @@ const mockJsonData = {
     number: 10
   }
 }
-jest.mock('fs', () => ({
-  readFile: jest.fn((_path, _opt, cb) => {
-    cb(null, JSON.stringify(mockJsonData))
-  })
-}))
+jest.mock('../src/node-helper')
+mocked(readFileAsync).mockResolvedValue(JSON.stringify(mockJsonData))
 
 describe('event.ts', () => {
   describe('isSupportedEvent()', () => {
-    test.each(['issue_comment', 'pull_request_review'])(
-      'returns true if eventName is "%s"',
-      (eventName) => {
-        // Act
-        const result = isSupportedEvent(eventName)
-
-        // Assert
-        expect(result).toBe(true)
-      }
+    test.each([
+      'issue_comment',
+      'pull_request_review'
+    ])('returns true if eventName is "%s"', (eventName) =>
+      expect(isSupportedEvent(eventName)).toBe(true)
     )
-    test.each([undefined, null, '', 'foo'])(
-      'returns false if eventName is "%s"',
-      (eventName) => {
-        // Act
-        const result = isSupportedEvent(eventName)
-
-        // Assert
-        expect(result).toBe(false)
-      }
+    test.each(['', 'foo'])('returns false if eventName is "%s"', (eventName) =>
+      expect(isSupportedEvent(eventName)).toBe(false)
     )
   })
   describe('getEventWebhookAsync()', () => {
-    const envProvider = new EnvProvider('GITHUB_EVENT_PATH')
-    beforeEach(() => {
-      jest.resetModules()
-      envProvider.load()
-    })
-    afterEach(() => envProvider.reset())
-
-    test('throws Error if GITHUB_EVENT_PATH not set', async () => {
-      // Act & Assert
-      await expect(getEventWebhook('issue_comment')).rejects.toThrow(
-        /GITHUB_EVENT_PATH/
-      )
-    })
     test('returns issue number & comment if "issue_comment" event', async () => {
       // Arrange
-      process.env.GITHUB_EVENT_PATH = 'foo'
       // Act
       const webhook = await getEventWebhook('issue_comment')
       // Assert
@@ -72,7 +46,6 @@ describe('event.ts', () => {
     })
     test('returns pull request number & review comment if "pull_request_review" event', async () => {
       // Arrange
-      process.env.GITHUB_EVENT_PATH = 'foo'
       // Act
       const webhook = await getEventWebhook('pull_request_review')
       // Assert

@@ -1,31 +1,31 @@
-import { readFile } from 'fs'
-import { promisify } from 'util'
-
-const readFileAsync = promisify(readFile)
+import { getEnvironmentVariable, readFileAsync } from './node-helper'
 
 type SupportedEvent = 'issue_comment' | 'pull_request_review'
-const supportedEvent: SupportedEvent[] = [
+const supportedEvent: Set<string> = new Set<SupportedEvent>([
   'issue_comment',
   'pull_request_review'
-]
+])
 
+/** Returns true if this action supports event.
+ * @param eventName event name.
+ */
 export const isSupportedEvent = (
-  eventName: string | null | undefined
-): eventName is SupportedEvent =>
-  !!eventName && (supportedEvent as string[]).includes(eventName)
+  eventName: string
+): eventName is SupportedEvent => supportedEvent.has(eventName)
 
+/** Gets event info from stored webfook JSON.
+ * @param eventName Fooked event name
+ */
 export const getEventWebhook = async (
   eventName: SupportedEvent
 ): Promise<{
+  /** comment body */
   comment: string | null
+  /** issue or pull request number */
   issueNumber: number
 }> => {
-  if (!process.env.GITHUB_EVENT_PATH) {
-    throw new Error(
-      'GITHUB_EVENT_PATH is not set in an environment variable. This package only works with GitHub Actions.'
-    )
-  }
-  const jsonString = await readFileAsync(process.env.GITHUB_EVENT_PATH, 'utf-8')
+  const eventJsonPath = getEnvironmentVariable('GITHUB_EVENT_PATH')
+  const jsonString = await readFileAsync(eventJsonPath, 'utf-8')
   const webhookObject = JSON.parse(jsonString)
   switch (eventName) {
     case 'issue_comment': // https://developer.github.com/v3/activity/events/types/#issuecommentevent
