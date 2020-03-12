@@ -23,25 +23,14 @@ mocked(readFileAsync).mockResolvedValue(JSON.stringify(mockJsonData))
 
 describe('event.ts', () => {
   describe('isSupportedEvent()', () => {
-    test.each(['issue_comment', 'pull_request_review'])(
-      'returns true if eventName is "%s"',
-      (eventName) => {
-        // Act
-        const result = isSupportedEvent(eventName)
-
-        // Assert
-        expect(result).toBe(true)
-      }
+    test.each([
+      'issue_comment',
+      'pull_request_review'
+    ])('returns true if eventName is "%s"', (eventName) =>
+      expect(isSupportedEvent(eventName)).toBe(true)
     )
-    test.each([undefined, null, '', 'foo'])(
-      'returns false if eventName is "%s"',
-      (eventName) => {
-        // Act
-        const result = isSupportedEvent(eventName)
-
-        // Assert
-        expect(result).toBe(false)
-      }
+    test.each(['', 'foo'])('returns false if eventName is "%s"', (eventName) =>
+      expect(isSupportedEvent(eventName)).toBe(false)
     )
   })
   describe('getEventWebhookAsync()', () => {
