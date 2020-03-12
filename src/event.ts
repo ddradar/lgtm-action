@@ -7,8 +7,8 @@ const supportedEvent: Set<string> = new Set<SupportedEvent>([
 ])
 
 export const isSupportedEvent = (
-  eventName: string | null | undefined
-): eventName is SupportedEvent => !!eventName && supportedEvent.has(eventName)
+  eventName: string
+): eventName is SupportedEvent => supportedEvent.has(eventName)
 
 export const getEventWebhook = async (
   eventName: SupportedEvent
