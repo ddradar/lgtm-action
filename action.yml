@@ -4,9 +4,9 @@ author: 'ddradar'
 inputs:
   token:
     description: >
-    GitHub Access Token to create issue comment.
-    In many cases, you do not need to prepare yourself. (provided by GitHub Actions)
-    Token must have issues:write permission.
+      GitHub Access Token to create issue comment.
+      In many cases, you do not need to prepare yourself. (provided by GitHub Actions)
+      Token must have issues:write permission.
     default: ${{ github.token }}
   image-url:
     description: 'Image URL path'
