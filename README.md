@@ -16,8 +16,9 @@ Post image if you comment "LGTM"
 
 - [Usage](#usage)
 - [Options](#options)
-  - [token](#token)
   - [image-url](#image-url)
+  - [search-pattern](#search-pattern)
+  - [token](#token)
 - [Screenshots](#screnshots)
 - [License](#license)
 - [Contributing](#contributing)
@@ -39,7 +40,6 @@ jobs:
     steps:
       - uses: ddradar/lgtm-action@v1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
           image-url: "{ Your LGTM image URL }"
           search-pattern: |
             ^(lgtm|LGTM)$
@@ -47,12 +47,6 @@ jobs:
 ```
 
 ## Options
-
-### token
-
-*Required.*
-
-Set token provided by GitHub Actions. (`${{ secrets.GITHUB_TOKEN }}`)
 
 ### image-url
 
@@ -68,6 +62,17 @@ Set regexp pattern this action reacts.
 This action uses Multi-line(`RegExp.prototype.multiline`) search.
 
 default: `(lgtm|LGTM)$`
+
+### token
+
+*Optional.*
+
+GitHub Access Token to create issue comment.
+In many cases, you do not need to prepare yourself. (provided by GitHub Actions)
+
+Token must have `issues:write` permission.
+
+default: `${{ github.token }}`
 
 ## Screenshots
 

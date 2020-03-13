@@ -16,8 +16,9 @@ English guide is [here](./README.md).
 
 - [使い方](#usage)
 - [オプション](#options)
-  - [token](#token)
   - [image-url](#image-url)
+  - [search-pattern](#search-pattern)
+  - [token](#token)
 - [スクリーンショット](#screnshots)
 - [ライセンス](#license)
 - [プロジェクトへの貢献](#contributing)
@@ -39,7 +40,6 @@ jobs:
     steps:
       - uses: ddradar/lgtm-action@v1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
           image-url: "{ Your LGTM image URL }"
           search-pattern: |
             ^(lgtm|LGTM)$
@@ -48,12 +48,6 @@ jobs:
 ```
 
 ## Options
-
-### token
-
-*必須です。*
-
-GitHub Actionsが提供するトークンをセットします。 (`${{ secrets.GITHUB_TOKEN }}`)
 
 ### image-url
 
@@ -69,6 +63,17 @@ GitHub Actionsが提供するトークンをセットします。 (`${{ secrets.
 複数行検索(`RegExp.prototype.multiline`)を行います。
 
 未指定の場合は、`^(lgtm|LGTM)$`がセットされます。
+
+### token
+
+*オプション。*
+
+issue にコメントするために使用する、GitHub のアクセストークン。
+通常、指定する必要はありません。(GitHub Actions から提供されます。)
+
+トークンには `issues:write` 権限が必要です。
+
+未指定の場合は、`${{ github.token }}`がセットされます。
 
 ## Screenshots
 
