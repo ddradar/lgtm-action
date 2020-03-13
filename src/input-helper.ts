@@ -33,7 +33,7 @@ type InputParameter = {
 
 /** Gets the value of inputs. */
 export const getInputParams = (): InputParameter => ({
-  token: getInput('token', { required: true }),
+  token: getInput('token'),
   imageUrl: getInput('image-url', { required: true }),
   searchPattern: (getInput('search-pattern') || '^(lgtm|LGTM)$')
     .split('\n')
