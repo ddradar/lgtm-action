@@ -7,6 +7,7 @@ import { sendCommentAsync } from './send-comment'
 /** main entry */
 export async function run(): Promise<void> {
   const { eventName, repository } = getGithubStatus()
+  core.debug(`status: { eventName: ${eventName}, repository: ${repository} }`)
   if (!isSupportedEvent(eventName)) {
     core.warning(`Not supported Event: ${eventName}`)
     return
@@ -16,6 +17,7 @@ export async function run(): Promise<void> {
   const repoName = repository.split('/')[1]
 
   const { comment, issueNumber } = await getEventWebhook(eventName)
+  core.debug(`webhook: { comment: ${comment}, issueNumber: ${issueNumber} }`)
   if (!comment) {
     core.info('Comment is null or empty.')
     return
