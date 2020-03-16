@@ -5,8 +5,9 @@ on:
   pull_request_review:
     types: [submitted]
 jobs:
-  build:
+  post:
     runs-on: ubuntu-latest
+    if: (!contains(github.actor, '[bot]'))
     steps:
       - uses: ddradar/lgtm-action@v1
         with:
