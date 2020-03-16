@@ -16,21 +16,26 @@ export async function run(): Promise<void> {
   const repoName = repository.split('/')[1]
 
   const { comment, issueNumber } = await getEventWebhook(eventName)
-  if (
-    comment === null ||
-    !searchPattern.some((regexp) => regexp.test(comment))
-  ) {
-    core.info('Comment does not match pattern.')
+  if (!comment) {
+    core.info('Comment is null or empty.')
     return
   }
 
-  await sendCommentAsync(
-    token,
-    repoOwner,
-    repoName,
-    issueNumber,
-    `![LGTM](${imageUrl})`
-  )
+  for (const regexp of searchPattern) {
+    if (regexp.test(comment)) {
+      core.info(`Comment matches pattern: ${regexp}`)
+      await sendCommentAsync(
+        token,
+        repoOwner,
+        repoName,
+        issueNumber,
+        `![LGTM](${imageUrl})`
+      )
+      return
+    }
+  }
+
+  core.info('Comment does not match pattern.')
 }
 
 run().catch((e) => core.setFailed(e.message))
