@@ -43,13 +43,10 @@ jobs:
       - name: Test with Jest
         run: npm test
       - name: Report Code Coverage to codecov
-        uses: codecov/codecov-action@v1.0.5
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+        uses: codecov/codecov-action@v1
       - name: GitHub Actions Build Test
         uses: ./
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
           image-url: 'https://user-images.githubusercontent.com/24802730/74030931-9a21ac00-49f3-11ea-872e-374d5bd3e586.jpg'
       - name: Drafts next Release notes
         uses: release-drafter/release-drafter@v5
@@ -63,8 +60,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Release GitHub Actions
-        uses: technote-space/release-github-actions@v2
+        uses: technote-space/release-github-actions@v4
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CLEAN_TARGETS: .[!.]*,__tests__,coverage,lib,node_modules,src,*.js,*.ts,*.json,*.lock,_config.yml
           COMMIT_MESSAGE: 'build: release for GitHub Actions via ${{ github.sha }}'
