@@ -36,8 +36,27 @@ describe('main.ts', () => {
       expect(core.setFailed).not.toHaveBeenCalled()
       expect(sendCommentAsync).not.toHaveBeenCalled()
     })
-    test.each([null, '', 'not lgtm'])(
+    test.each([null, ''])(
       'never calls sendCommentAsync if comment is "%s"',
+      async (comment) => {
+        // Arrange
+        mocked(isSupportedEvent).mockReturnValue(true)
+        mocked(getEventWebhook).mockResolvedValue({
+          comment,
+          issueNumber: 1
+        })
+        // Act
+        await run()
+        // Assert
+        expect(getInputParams).toHaveBeenCalledTimes(1)
+        expect(core.info).toHaveBeenCalledTimes(1)
+        expect(core.info).toHaveBeenCalledWith('Comment is null or empty.')
+        expect(core.setFailed).not.toHaveBeenCalled()
+        expect(sendCommentAsync).not.toHaveBeenCalled()
+      }
+    )
+    test.each(['foo', 'not lgtm'])(
+      'never calls sendCommentAsync if comment does not match pattern.',
       async (comment) => {
         // Arrange
         mocked(isSupportedEvent).mockReturnValue(true)
@@ -70,7 +89,9 @@ describe('main.ts', () => {
         await run()
         // Assert
         expect(getInputParams).toHaveBeenCalledTimes(1)
-        expect(core.info).not.toHaveBeenCalled()
+        expect(core.info).toHaveBeenCalledWith(
+          'Comment matches pattern: /^(lgtm|LGTM)$/m'
+        )
         expect(core.setFailed).not.toHaveBeenCalled()
         expect(sendCommentAsync).toHaveBeenCalledTimes(1)
         expect(sendCommentAsync).toHaveBeenCalledWith(

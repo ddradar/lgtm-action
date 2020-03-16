@@ -9,7 +9,7 @@ type GithubStatus = {
   repository: string
 }
 
-/** Gets runner environments from environment valriables.
+/** Gets runner environments from environment variables.
  * @throws {Error} env['GITHUB_REPOSITORY'] is not match pattern owner/name.
  */
 export const getGithubStatus = (): GithubStatus => {
