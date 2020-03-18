@@ -1,6 +1,16 @@
 # Config for https://github.com/apps/release-drafter
-name-template: 'Post LGTM Image v$NEXT_PATCH_VERSION'
+name-template: 'v$NEXT_PATCH_VERSION'
 tag-template: 'v$NEXT_PATCH_VERSION'
+sort-direction: ascending
 template: |
-  ## What’s Changed
   $CHANGES
+  ## New Features
+  ## Bug Fix
+  ## Code Refactoring
+  ## Deployment
+  ## Documentation
+  ## Bump dependencies version
+  powered by @dependabot-preview
+  |package|old|new|PR(s)|
+  |-------|---|---|-----|
+  |||||
