@@ -19,7 +19,7 @@ English guide is [here](./README.md).
   - [image-url](#image-url)
   - [search-pattern](#search-pattern)
   - [token](#token)
-- [スクリーンショット](#screnshots)
+- [スクリーンショット](#screenshots)
 - [ライセンス](#license)
 - [プロジェクトへの貢献](#contributing)
 
@@ -35,7 +35,7 @@ on:
   pull_request_review:
     types: [submitted]
 jobs:
-  build:
+  post:
     runs-on: ubuntu-latest
     steps:
       - uses: ddradar/lgtm-action@v1
