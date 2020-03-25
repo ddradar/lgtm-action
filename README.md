@@ -19,7 +19,7 @@ Post image if you comment "LGTM"
   - [image-url](#image-url)
   - [search-pattern](#search-pattern)
   - [token](#token)
-- [Screenshots](#screnshots)
+- [Screenshots](#screenshots)
 - [License](#license)
 - [Contributing](#contributing)
 
@@ -35,7 +35,7 @@ on:
   pull_request_review:
     types: [submitted]
 jobs:
-  build:
+  post:
     runs-on: ubuntu-latest
     steps:
       - uses: ddradar/lgtm-action@v1
@@ -61,7 +61,7 @@ Set your image URL.
 Set regexp pattern this action reacts.
 This action uses Multi-line(`RegExp.prototype.multiline`) search.
 
-default: `(lgtm|LGTM)$`
+default: `^(lgtm|LGTM)$`
 
 ### token
 
