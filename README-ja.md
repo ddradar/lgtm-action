@@ -15,6 +15,8 @@ English guide is [here](./README.md).
 ## TOC
 
 - [使い方](#usage)
+  - [基本](#basic)
+  - [Choose Random Actionと使う](#use-with-choose-random-action)
 - [オプション](#options)
   - [image-url](#image-url)
   - [search-pattern](#search-pattern)
@@ -26,6 +28,8 @@ English guide is [here](./README.md).
 ## Usage
 
 [action.yml](./action.yml)をご覧ください。
+
+### Basic
 
 ```yaml
 name: Send LGTM Image
@@ -45,6 +49,32 @@ jobs:
             ^(lgtm|LGTM)$
             ^:\+1:$
             ^(ヨシ|ﾖｼ)(!|！)?$
+```
+
+### Use with [Choose Random Action](https://github.com/ddradar/choose-random-action)
+
+```yaml
+name: Send Random LGTM Image
+on:
+  issue_comment:
+    types: [created]
+  pull_request_review:
+    types: [submitted]
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    if: (!contains(github.actor, '[bot]'))  # botのコメントを除く
+    steps:
+      - uses: ddradar/choose-random-action@v1
+        id: act
+        with:
+          contents: |
+            https://example.com/your-lgtm-image-1.jpg
+            https://example.com/your-lgtm-image-2.jpg
+            https://example.com/your-lgtm-image-3.jpg
+      - uses: ddradar/lgtm-action@v1
+        with:
+          image-url: ${{ steps.act.outputs.selected }}
 ```
 
 ## Options
