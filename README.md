@@ -15,6 +15,8 @@ Post image if you comment "LGTM"
 ## TOC
 
 - [Usage](#usage)
+  - [Basic](#basic)
+  - [Use with Choose Random Action](#use-with-choose-random-action)
 - [Options](#options)
   - [image-url](#image-url)
   - [search-pattern](#search-pattern)
@@ -26,6 +28,8 @@ Post image if you comment "LGTM"
 ## Usage
 
 See [action.yml](./action.yml)
+
+### Basic
 
 ```yaml
 name: Send LGTM Image
@@ -44,6 +48,32 @@ jobs:
           search-pattern: |
             ^(lgtm|LGTM)$
             ^:\+1:$
+```
+
+### Use with [Choose Random Action](https://github.com/ddradar/choose-random-action)
+
+```yaml
+name: Send Random LGTM Image
+on:
+  issue_comment:
+    types: [created]
+  pull_request_review:
+    types: [submitted]
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    if: (!contains(github.actor, '[bot]')) # Exclude bot comment
+    steps:
+      - uses: ddradar/choose-random-action@v1
+        id: act
+        with:
+          contents: |
+            https://example.com/your-lgtm-image-1.jpg
+            https://example.com/your-lgtm-image-2.jpg
+            https://example.com/your-lgtm-image-3.jpg
+      - uses: ddradar/lgtm-action@v1
+        with:
+          image-url: ${{ steps.act.outputs.selected }}
 ```
 
 ## Options
