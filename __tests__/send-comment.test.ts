@@ -1,4 +1,3 @@
-import { RestEndpointMethods } from '@octokit/plugin-rest-endpoint-methods/dist-types/generated/types'
 import { Octokit } from '@octokit/rest'
 import { mocked } from 'ts-jest/utils'
 
@@ -29,8 +28,7 @@ describe('send-comment.ts', () => {
       await sendCommentAsync(token, owner, repo, issueNumber, comment)
 
       // Assert
-      const mockedInstance = mockedOctokit.mock.results[0]
-        .value as RestEndpointMethods
+      const mockedInstance = mockedOctokit.mock.results[0].value as Octokit
       expect(mockedOctokit).toHaveBeenCalledTimes(1)
       expect(mockedOctokit).toHaveBeenCalledWith({ auth: `token ${token}` })
       expect(mockedInstance.issues.createComment).toHaveBeenCalledTimes(1)
