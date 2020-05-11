@@ -6,8 +6,14 @@
     "jest/globals": true
   },
   "plugins": ["jest", "simple-import-sort"],
+  "settings": {
+    "node": {
+      "tryExtensions": [".ts", ".js", ".json", ".node"]
+    }
+  },
   "extends": [
     "eslint:recommended",
+    "plugin:node/recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:import/recommended",
@@ -18,9 +24,23 @@
   ],
   "rules": {
     "import/order": "off",
-    "no-process-env": "error",
+    "node/no-process-env": "error",
+    "node/no-unsupported-features/es-syntax": [
+      "error",
+      {
+        "ignores": ["modules"]
+      }
+    ],
     "no-console": "error",
     "simple-import-sort/sort": "error",
     "sort-imports": "off"
-  }
+  },
+  "overrides": [
+    {
+      "files": ["**/*.test.ts"],
+      "rules": {
+        "node/no-unpublished-import": "off"
+      }
+    }
+  ]
 }

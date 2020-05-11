@@ -9,7 +9,7 @@ export const readFileAsync = promisify(readFile)
  * @throws {RangeError} Not found process.env[key] or process.env[key] is falsy value.
  */
 export const getEnvironmentVariable = (key: string): string => {
-  // eslint-disable-next-line no-process-env
+  // eslint-disable-next-line node/no-process-env -- Use internal
   const value = process.env[key]
   if (!value)
     throw new RangeError(`${key} is not set in an environment variable.`)

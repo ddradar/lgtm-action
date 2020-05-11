@@ -11,7 +11,7 @@ describe('send-comment.ts', () => {
   beforeEach(() => {
     mockedOctokit.mockReset()
     mockedOctokit.mockImplementation(
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Mock
       () => ({ issues: { createComment: jest.fn() } } as any)
     )
   })
@@ -35,7 +35,7 @@ describe('send-comment.ts', () => {
       expect(mockedInstance.issues.createComment).toHaveBeenCalledWith({
         owner,
         repo,
-        // eslint-disable-next-line @typescript-eslint/camelcase
+        // eslint-disable-next-line @typescript-eslint/camelcase -- Octokit API
         issue_number: issueNumber,
         body: comment
       })

@@ -13,7 +13,7 @@ const mockJsonData = {
   review: {
     body: 'review.body'
   },
-  // eslint-disable-next-line @typescript-eslint/camelcase
+  // eslint-disable-next-line @typescript-eslint/camelcase -- Octokit API
   pull_request: {
     number: 10
   }
