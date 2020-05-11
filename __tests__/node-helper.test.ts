@@ -1,4 +1,4 @@
-/* eslint-disable no-process-env */
+/* eslint-disable node/no-process-env */
 import { getEnvironmentVariable, readFileAsync } from '../src/node-helper'
 import { generateRandomString } from './util'
 
