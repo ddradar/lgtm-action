@@ -67,7 +67,7 @@ describe('input-helper.ts', () => {
       // Act
       const params = getInputParams()
 
-      // Arrange
+      // Assert
       expect(params.token).toBe(token)
       expect(params.imageUrl).toBe(imageUrl)
       expect(params.searchPattern).toStrictEqual([/^LGTM$/m, /^lgtm$/m])
@@ -81,7 +81,7 @@ describe('input-helper.ts', () => {
       // Act
       const params = getInputParams()
 
-      // Arrange
+      // Assert
       expect(params.token).toBe(token)
       expect(params.imageUrl).toBe(imageUrl)
       expect(params.searchPattern).toStrictEqual([/^(lgtm|LGTM)$/m])
