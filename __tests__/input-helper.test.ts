@@ -9,7 +9,9 @@ import { generateRandomString as random } from './util'
 
 jest.mock('@actions/core')
 jest.mock('../src/node-helper', () => ({
-  ...jest.requireActual('../src/node-helper'),
+  ...jest.requireActual<{ readFileAsync: typeof readFileAsync }>(
+    '../src/node-helper'
+  ),
   getEnvironmentVariable: jest.fn()
 }))
 
