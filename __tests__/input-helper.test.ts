@@ -89,11 +89,9 @@ describe('input-helper.ts', () => {
     test('uses all input parameters defined action.yml', async () => {
       // Arrange
       // Load action.yml settings
-      const yamlText = await readFileAsync(
-        pathJoin(__dirname, '..', 'action.yml'),
-        'utf8'
-      )
-      const actionSettings = yamlLoad(yamlText)
+      const filename = pathJoin(__dirname, '..', 'action.yml')
+      const yamlText = await readFileAsync(filename, 'utf8')
+      const actionSettings = yamlLoad(yamlText, { filename })
       const expectedInputs = Object.keys(actionSettings.inputs)
 
       // Act
