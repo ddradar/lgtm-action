@@ -42,19 +42,26 @@ describe('input-helper.ts', () => {
     })
   })
   describe('getInputParams()', () => {
+    const createMockedGetInput = (
+      token: string,
+      imageUrl: string,
+      searchPattern?: string | undefined
+    ) => (name: string): string =>
+      name === 'token'
+        ? token
+        : name === 'image-url'
+        ? imageUrl
+        : name === 'search-pattern'
+        ? searchPattern ?? ''
+        : ''
+
     test('returns getInput() values', () => {
       // Arrange
       const token = random(10)
       const imageUrl = random(30)
       const searchPattern = '^LGTM$\n^lgtm$'
-      mocked(getInput).mockImplementation((name) =>
-        name === 'token'
-          ? token
-          : name === 'image-url'
-          ? imageUrl
-          : name === 'search-pattern'
-          ? searchPattern
-          : ''
+      mocked(getInput).mockImplementation(
+        createMockedGetInput(token, imageUrl, searchPattern)
       )
 
       // Act
@@ -69,9 +76,7 @@ describe('input-helper.ts', () => {
       // Arrange
       const token = random(10)
       const imageUrl = random(30)
-      mocked(getInput).mockImplementation((name) =>
-        name === 'token' ? token : name === 'image-url' ? imageUrl : ''
-      )
+      mocked(getInput).mockImplementation(createMockedGetInput(token, imageUrl))
 
       // Act
       const params = getInputParams()
