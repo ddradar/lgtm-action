@@ -42,25 +42,32 @@ describe('input-helper.ts', () => {
     })
   })
   describe('getInputParams()', () => {
+    const createMockedGetInput = (
+      token: string,
+      imageUrl: string,
+      searchPattern?: string | undefined
+    ) => (name: string): string =>
+      name === 'token'
+        ? token
+        : name === 'image-url'
+        ? imageUrl
+        : name === 'search-pattern'
+        ? searchPattern ?? ''
+        : ''
+
     test('returns getInput() values', () => {
       // Arrange
       const token = random(10)
       const imageUrl = random(30)
       const searchPattern = '^LGTM$\n^lgtm$'
-      mocked(getInput).mockImplementation((name) =>
-        name === 'token'
-          ? token
-          : name === 'image-url'
-          ? imageUrl
-          : name === 'search-pattern'
-          ? searchPattern
-          : ''
+      mocked(getInput).mockImplementation(
+        createMockedGetInput(token, imageUrl, searchPattern)
       )
 
       // Act
       const params = getInputParams()
 
-      // Arrange
+      // Assert
       expect(params.token).toBe(token)
       expect(params.imageUrl).toBe(imageUrl)
       expect(params.searchPattern).toStrictEqual([/^LGTM$/m, /^lgtm$/m])
@@ -69,14 +76,12 @@ describe('input-helper.ts', () => {
       // Arrange
       const token = random(10)
       const imageUrl = random(30)
-      mocked(getInput).mockImplementation((name) =>
-        name === 'token' ? token : name === 'image-url' ? imageUrl : ''
-      )
+      mocked(getInput).mockImplementation(createMockedGetInput(token, imageUrl))
 
       // Act
       const params = getInputParams()
 
-      // Arrange
+      // Assert
       expect(params.token).toBe(token)
       expect(params.imageUrl).toBe(imageUrl)
       expect(params.searchPattern).toStrictEqual([/^(lgtm|LGTM)$/m])
@@ -84,11 +89,9 @@ describe('input-helper.ts', () => {
     test('uses all input parameters defined action.yml', async () => {
       // Arrange
       // Load action.yml settings
-      const yamlText = await readFileAsync(
-        pathJoin(__dirname, '..', 'action.yml'),
-        'utf8'
-      )
-      const actionSettings = yamlLoad(yamlText)
+      const filename = pathJoin(__dirname, '..', 'action.yml')
+      const yamlText = await readFileAsync(filename, 'utf8')
+      const actionSettings = yamlLoad(yamlText, { filename })
       const expectedInputs = Object.keys(actionSettings.inputs)
 
       // Act
