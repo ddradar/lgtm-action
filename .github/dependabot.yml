@@ -1,0 +1,15 @@
+# see: https://help.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
+version: 2
+updates:
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
+      interval: 'daily'
+      time: '08:00'
+      timezone: 'Asia/Tokyo'
+    labels:
+      - 'dependabot:robot:'
+    commit-message:
+      prefix: 'fix'
+      prefix-development: 'chore'
+      include: 'scope'
