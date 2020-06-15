@@ -5,7 +5,6 @@
 [![CI/CD](https://github.com/ddradar/lgtm-action/workflows/CI/CD/badge.svg)](https://github.com/ddradar/lgtm-action/actions?query=workflow%3ACI%2FCD)
 [![codecov](https://codecov.io/gh/ddradar/lgtm-action/branch/master/graph/badge.svg)](https://codecov.io/gh/ddradar/lgtm-action)
 [![CodeFactor](https://www.codefactor.io/repository/github/ddradar/lgtm-action/badge)](https://www.codefactor.io/repository/github/ddradar/lgtm-action)
-[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=ddradar/lgtm-action)](https://dependabot.com)
 [![License](https://img.shields.io/github/license/ddradar/lgtm-action)](LICENSE)
 
 日本語版のガイドは[こちら](./README-ja.md)です。
