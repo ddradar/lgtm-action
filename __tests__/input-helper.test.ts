@@ -91,7 +91,9 @@ describe('input-helper.ts', () => {
       // Load action.yml settings
       const filename = pathJoin(__dirname, '..', 'action.yml')
       const yamlText = await readFileAsync(filename, 'utf8')
-      const actionSettings = yamlLoad(yamlText, { filename })
+      const actionSettings = yamlLoad(yamlText, { filename }) as {
+        inputs: Record<string, { required?: boolean }>
+      }
       const expectedInputs = Object.keys(actionSettings.inputs)
 
       // Act
