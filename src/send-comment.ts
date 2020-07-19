@@ -20,7 +20,6 @@ export const sendCommentAsync = async (
   await octokit.issues.createComment({
     owner,
     repo,
-    // eslint-disable-next-line @typescript-eslint/camelcase -- Octokit API
     issue_number: issueNumber,
     body: comment
   })

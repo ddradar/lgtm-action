@@ -35,7 +35,6 @@ describe('send-comment.ts', () => {
       expect(mockedInstance.issues.createComment).toHaveBeenCalledWith({
         owner,
         repo,
-        // eslint-disable-next-line @typescript-eslint/camelcase -- Octokit API
         issue_number: issueNumber,
         body: comment
       })
