@@ -41,7 +41,7 @@
   },
   "dependencies": {
     "@actions/core": "^1.2.5",
-    "@octokit/rest": "^18.0.3"
+    "@octokit/rest": "^18.0.4"
   },
   "devDependencies": {
     "@types/jest": "^26.0.9",
