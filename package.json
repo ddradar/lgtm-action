@@ -6,10 +6,9 @@
   "main": "lib/main.js",
   "scripts": {
     "build": "tsc && ncc build -m",
-    "bump": "npm version -m \"build: increment version to %s\"",
     "fix": "run-p fix:*",
-    "fix:eslint": "npm run lint:eslint -- --fix",
-    "fix:prettier": "npm run lint:prettier -- --write",
+    "fix:eslint": "yarn lint:eslint --fix",
+    "fix:prettier": "yarn lint:prettier --write",
     "lint": "run-p lint:*",
     "lint:eslint": "eslint --ext .ts,.js --ignore-path .gitignore .",
     "lint:prettier": "prettier --ignore-path .gitignore -l \"**/*.{json,yaml,yml}\"",
@@ -44,11 +43,11 @@
     "@octokit/rest": "^18.0.4"
   },
   "devDependencies": {
-    "@types/jest": "^26.0.9",
+    "@types/jest": "^26.0.10",
     "@types/js-yaml": "^3.12.5",
     "@typescript-eslint/eslint-plugin": "^3.10.1",
     "@typescript-eslint/parser": "^3.10.1",
-    "@zeit/ncc": "^0.22.3",
+    "@vercel/ncc": "^0.24.0",
     "eslint": "^7.7.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-import": "^2.22.0",
