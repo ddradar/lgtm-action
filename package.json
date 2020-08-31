@@ -6,10 +6,9 @@
   "main": "lib/main.js",
   "scripts": {
     "build": "tsc && ncc build -m",
-    "bump": "npm version -m \"build: increment version to %s\"",
     "fix": "run-p fix:*",
-    "fix:eslint": "npm run lint:eslint -- --fix",
-    "fix:prettier": "npm run lint:prettier -- --write",
+    "fix:eslint": "yarn lint:eslint --fix",
+    "fix:prettier": "yarn lint:prettier --write",
     "lint": "run-p lint:*",
     "lint:eslint": "eslint --ext .ts,.js --ignore-path .gitignore .",
     "lint:prettier": "prettier --ignore-path .gitignore -l \"**/*.{json,yaml,yml}\"",
