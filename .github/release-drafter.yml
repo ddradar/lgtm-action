@@ -5,12 +5,12 @@ sort-direction: ascending
 template: |
   $CHANGES
   ## New Features
-  ## Bug Fix
-  ## Code Refactoring
+  ## Bug Fixes
+  ## Refactoring
   ## Deployment
   ## Documentation
   ## Bump dependencies version
-  powered by @dependabot-preview
+  powered by @dependabot
   |package|old|new|PR(s)|
   |-------|---|---|-----|
   |||||
