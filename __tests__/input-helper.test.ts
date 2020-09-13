@@ -89,24 +89,25 @@ describe('input-helper.ts', () => {
     test('uses all input parameters defined action.yml', async () => {
       // Arrange
       // Load action.yml settings
-      const filename = pathJoin(__dirname, '..', 'action.yml')
-      const yamlText = await readFileAsync(filename, 'utf8')
-      const actionSettings = yamlLoad(yamlText, { filename }) as {
+      const yamlText = await readFileAsync(
+        pathJoin(__dirname, '..', 'action.yml'),
+        'utf8'
+      )
+      const actionSettings = yamlLoad(yamlText) as {
         inputs: Record<string, { required?: boolean }>
       }
-      const expectedInputs = Object.keys(actionSettings.inputs)
+      const expectedInputs = Object.entries(
+        actionSettings.inputs
+      ).map(([key, { required }]) => [key, required ? { required } : undefined])
+      mocked(getInput).mockReturnValue('1\n2\n3')
 
       // Act
       getInputParams()
 
       // Assert
       expect(getInput).toHaveBeenCalledTimes(expectedInputs.length)
-      for (const key of expectedInputs) {
-        if (actionSettings.inputs[key].required) {
-          expect(getInput).toHaveBeenCalledWith(key, { required: true })
-        } else {
-          expect(getInput).toHaveBeenCalledWith(key)
-        }
+      for (const [key, value] of expectedInputs) {
+        expect(getInput).toHaveBeenCalledWith(key, value)
       }
     })
   })
