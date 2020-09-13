@@ -33,9 +33,9 @@ type InputParameter = {
 
 /** Gets the value of inputs. */
 export const getInputParams = (): InputParameter => ({
-  token: getInput('token'),
+  token: getInput('token', undefined),
   imageUrl: getInput('image-url', { required: true }),
-  searchPattern: (getInput('search-pattern') || '^(lgtm|LGTM)$')
+  searchPattern: (getInput('search-pattern', undefined) || '^(lgtm|LGTM)$')
     .split('\n')
     .filter((x) => x !== '')
     .map((x) => new RegExp(x, 'm'))
