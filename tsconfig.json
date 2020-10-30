@@ -8,6 +8,6 @@
     "noImplicitAny": true,
     "esModuleInterop": true
   },
-  "exclude": ["node_modules", "__tests__"],
+  "exclude": ["node_modules", "__tests__", "jest.config.ts"],
   "types": ["jest", "js-yaml", "node"]
 }
