@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "module": "commonjs",
-    "outDir": "./lib",
+    "target": "es2018",
+    "lib": ["es2018"],
+    "moduleResolution": "node",
     "rootDir": "./src",
     "strict": true,
     "noImplicitAny": true,

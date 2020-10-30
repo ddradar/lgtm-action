@@ -3,14 +3,14 @@
   "version": "1.2.5",
   "private": true,
   "description": "Post image if you comment \"LGTM\"",
-  "main": "lib/main.js",
+  "main": "dist/index.js",
   "scripts": {
-    "build": "tsc && ncc build -m",
+    "build": "ncc build src/main.ts -m --license licenses.txt",
     "fix": "run-p fix:*",
     "fix:eslint": "yarn lint:eslint --fix",
     "fix:prettier": "yarn lint:prettier --write",
     "lint": "run-p lint:*",
-    "lint:eslint": "eslint --ext .ts,.js --ignore-path .gitignore .",
+    "lint:eslint": "eslint --ext .ts --ignore-path .gitignore .",
     "lint:prettier": "prettier --ignore-path .gitignore -l \"**/*.{json,yaml,yml}\"",
     "test": "jest"
   },

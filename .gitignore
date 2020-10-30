@@ -68,5 +68,4 @@ typings/
 Thumbs.db
 
 # Ignore built files
-lib/
 dist/
