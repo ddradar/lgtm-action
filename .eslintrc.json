@@ -8,6 +8,7 @@
   "plugins": ["jest", "simple-import-sort"],
   "settings": {
     "node": {
+      "allowModules": ["@jest/types"],
       "tryExtensions": [".ts", ".js", ".json", ".node"]
     }
   },
