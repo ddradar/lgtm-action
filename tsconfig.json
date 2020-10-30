@@ -3,7 +3,6 @@
     "target": "es2018",
     "lib": ["es2018"],
     "moduleResolution": "node",
-    "outDir": "./lib",
     "rootDir": "./src",
     "strict": true,
     "noImplicitAny": true,
