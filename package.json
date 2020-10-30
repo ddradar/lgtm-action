@@ -5,7 +5,7 @@
   "description": "Post image if you comment \"LGTM\"",
   "main": "lib/main.js",
   "scripts": {
-    "build": "tsc && ncc build -m",
+    "build": "tsc && ncc build -m --license licenses.txt",
     "fix": "run-p fix:*",
     "fix:eslint": "yarn lint:eslint --fix",
     "fix:prettier": "yarn lint:prettier --write",
