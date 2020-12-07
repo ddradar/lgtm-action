@@ -11,7 +11,7 @@
     "fix:prettier": "yarn lint:prettier --write",
     "lint": "run-p lint:*",
     "lint:eslint": "eslint --ext .ts --ignore-path .gitignore .",
-    "lint:prettier": "prettier --ignore-path .gitignore -l \"**/*.{json,yaml,yml}\"",
+    "lint:prettier": "prettier --ignore-path .gitignore -l \"**/*.{ts,json,yaml,yml}\"",
     "test": "jest"
   },
   "repository": {
@@ -35,8 +35,8 @@
     }
   },
   "lint-staged": {
-    "*.{js,ts}": "eslint --fix",
-    "*.{json,yaml,yml}": "prettier --write"
+    "*.{ts}": "eslint --fix",
+    "*.{ts,json,yaml,yml}": "prettier --write"
   },
   "dependencies": {
     "@actions/core": "^1.2.6",
