@@ -43,7 +43,7 @@
     "@octokit/rest": "^18.0.12"
   },
   "devDependencies": {
-    "@types/jest": "^26.0.18",
+    "@types/jest": "^26.0.19",
     "@types/js-yaml": "^3.12.5",
     "@typescript-eslint/eslint-plugin": "^4.10.0",
     "@typescript-eslint/parser": "^4.9.1",
