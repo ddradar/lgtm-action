@@ -5,6 +5,7 @@
   "description": "Post image if you comment \"LGTM\"",
   "main": "dist/index.js",
   "scripts": {
+    "postinstall": "husky install",
     "build": "ncc build src/main.ts -m --license licenses.txt",
     "fix": "run-p fix:*",
     "fix:eslint": "yarn lint:eslint --fix",
@@ -29,14 +30,12 @@
     "node": ">=12",
     "yarn": "^1.22.4"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
-    "*.{ts}": "eslint --fix",
-    "*.{ts,json,yml}": "prettier --write"
+    "*.{js,ts}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,yml}": "prettier --write"
   },
   "dependencies": {
     "@actions/core": "^1.2.6",
@@ -54,7 +53,7 @@
     "eslint-plugin-jest": "^24.1.3",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
-    "husky": "^4.3.6",
+    "husky": "^5.0.6",
     "jest": "^26.6.3",
     "js-yaml": "^3.14.1",
     "lint-staged": "^10.5.3",
