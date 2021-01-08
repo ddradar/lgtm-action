@@ -1,5 +1,5 @@
 import { getInput } from '@actions/core'
-import { safeLoad as yamlLoad } from 'js-yaml'
+import { load as yamlLoad } from 'js-yaml'
 import { join as pathJoin } from 'path'
 import { mocked } from 'ts-jest/utils'
 
