@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "@actions/core": "^1.2.6",
-    "@octokit/rest": "^18.0.12"
+    "@octokit/rest": "^18.0.15"
   },
   "devDependencies": {
     "@types/js-yaml": "^4.0.0",
