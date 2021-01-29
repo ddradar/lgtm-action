@@ -3,7 +3,19 @@
   "version": "1.2.6",
   "private": true,
   "description": "Post image if you comment \"LGTM\"",
+  "author": "Nogic <24802730+nogic1008@users.noreply.github.com>",
+  "license": "MIT",
+  "repository": "https://github.com/ddradar/lgtm-action.git",
+  "keywords": [
+    "actions",
+    "github-actions",
+    "lgtm"
+  ],
   "main": "dist/index.js",
+  "engines": {
+    "node": ">=12",
+    "yarn": "^1.22.4"
+  },
   "scripts": {
     "postinstall": "husky install",
     "build": "ncc build src/main.ts -m --license licenses.txt",
@@ -15,23 +27,8 @@
     "lint:prettier": "prettier --ignore-path .gitignore -l \"**/*.{ts,json,yml}\"",
     "test": "jest"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ddradar/lgtm-action.git"
-  },
-  "keywords": [
-    "actions",
-    "github-actions",
-    "lgtm"
-  ],
-  "author": "ddradar",
-  "license": "MIT",
-  "engines": {
-    "node": ">=12",
-    "yarn": "^1.22.4"
-  },
   "lint-staged": {
-    "*.{js,ts}": [
+    "*.ts": [
       "eslint --fix",
       "prettier --write"
     ],
