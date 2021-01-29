@@ -8,13 +8,13 @@ import { Octokit } from '@octokit/rest'
  * @param issueNumber issue or pull request number that you want to send comment.
  * @param comment Comment body to send (Markdown text)
  */
-export const sendCommentAsync = async (
+export async function sendCommentAsync(
   token: string,
   owner: string,
   repo: string,
   issueNumber: number,
   comment: string
-): Promise<void> => {
+): Promise<void> {
   const auth = `token ${token}`
   const octokit = new Octokit({ auth })
   await octokit.issues.createComment({
