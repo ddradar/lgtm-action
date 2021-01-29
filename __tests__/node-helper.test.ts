@@ -20,13 +20,13 @@ describe('node-helper.ts', () => {
     })
     afterEach(() => (process.env = { ...storedEnv }))
 
-    test.each(['', undefined])('throws RangeError if env is %s', (v) => {
+    test.each(['', undefined])('throws RangeError if env["FOO"] is %s', (v) => {
       // Arrange
       process.env[envKey] = v
       // Act & Assert
       expect(() => getEnvironmentVariable(envKey)).toThrowError()
     })
-    test('returns the same value as process.env', () => {
+    test('returns the same value as process.env["FOO"]', () => {
       // Arrange
       const envValue = generateRandomString(10)
       process.env[envKey] = envValue

@@ -5,16 +5,16 @@ import { sendCommentAsync } from '../src/send-comment'
 import { generateRandomString } from './util'
 
 jest.mock('@octokit/rest')
-const mockedOctokit = mocked(Octokit)
 
 describe('send-comment.ts', () => {
-  beforeEach(() => {
-    mockedOctokit.mockReset()
-    mockedOctokit.mockImplementation(
+  beforeAll(() =>
+    mocked(Octokit).mockImplementation(
       // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Mock
       () => ({ issues: { createComment: jest.fn() } } as any)
     )
-  })
+  )
+  beforeEach(() => mocked(Octokit).mockClear())
+
   describe('sendCommentAsync', () => {
     test('calls Octokit.issues.createComment', async () => {
       // Arrange
@@ -28,9 +28,9 @@ describe('send-comment.ts', () => {
       await sendCommentAsync(token, owner, repo, issueNumber, comment)
 
       // Assert
-      const mockedInstance = mockedOctokit.mock.results[0].value as Octokit
-      expect(mockedOctokit).toHaveBeenCalledTimes(1)
-      expect(mockedOctokit).toHaveBeenCalledWith({ auth: `token ${token}` })
+      const mockedInstance = mocked(Octokit).mock.results[0].value as Octokit
+      expect(mocked(Octokit)).toHaveBeenCalledTimes(1)
+      expect(mocked(Octokit)).toHaveBeenCalledWith({ auth: `token ${token}` })
       expect(mockedInstance.issues.createComment).toHaveBeenCalledTimes(1)
       expect(mockedInstance.issues.createComment).toHaveBeenCalledWith({
         owner,

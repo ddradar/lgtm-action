@@ -20,7 +20,7 @@ describe('input-helper.ts', () => {
     test('throws error if "GITHUB_REPOSITORY" is not owner/name', () => {
       // Arrange
       mocked(getEnvironmentVariable).mockImplementation((key) => key)
-      // Assert & Act
+      // Act - Assert
       expect(() => getGithubStatus()).toThrowError(/GITHUB_REPOSITORY/)
     })
     test('returns same value as environment variable', () => {
@@ -41,6 +41,7 @@ describe('input-helper.ts', () => {
       expect(githubStatus.repository).toBe(repository)
     })
   })
+
   describe('getInputParams()', () => {
     const createMockedGetInput = (
       token: string,
@@ -54,6 +55,7 @@ describe('input-helper.ts', () => {
         : name === 'search-pattern'
         ? searchPattern ?? ''
         : ''
+    beforeEach(() => mocked(getInput).mockReset())
 
     test('returns getInput() values', () => {
       // Arrange
@@ -86,13 +88,11 @@ describe('input-helper.ts', () => {
       expect(params.imageUrl).toBe(imageUrl)
       expect(params.searchPattern).toStrictEqual([/^(lgtm|LGTM)$/m])
     })
-    test('uses all input parameters defined action.yml', async () => {
+    test('uses all input parameters defined by action.yml', async () => {
       // Arrange
       // Load action.yml settings
-      const yamlText = await readFileAsync(
-        pathJoin(__dirname, '..', 'action.yml'),
-        'utf8'
-      )
+      const path = pathJoin(__dirname, '..', 'action.yml')
+      const yamlText = await readFileAsync(path, 'utf8')
       const actionSettings = yamlLoad(yamlText) as {
         inputs: Record<string, { required?: boolean }>
       }
