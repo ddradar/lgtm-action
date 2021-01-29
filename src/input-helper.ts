@@ -12,7 +12,7 @@ type GithubStatus = {
 /** Gets runner environments from environment variables.
  * @throws {Error} env['GITHUB_REPOSITORY'] is not match pattern owner/name.
  */
-export const getGithubStatus = (): GithubStatus => {
+export function getGithubStatus(): GithubStatus {
   const eventName = getEnvironmentVariable('GITHUB_EVENT_NAME')
   const repository = getEnvironmentVariable('GITHUB_REPOSITORY')
   if (!/^.+\/.*$/.test(repository))
@@ -32,11 +32,13 @@ type InputParameter = {
 }
 
 /** Gets the value of inputs. */
-export const getInputParams = (): InputParameter => ({
-  token: getInput('token', undefined),
-  imageUrl: getInput('image-url', { required: true }),
-  searchPattern: (getInput('search-pattern', undefined) || '^(lgtm|LGTM)$')
-    .split('\n')
-    .filter((x) => x !== '')
-    .map((x) => new RegExp(x, 'm'))
-})
+export function getInputParams(): InputParameter {
+  return {
+    token: getInput('token', undefined),
+    imageUrl: getInput('image-url', { required: true }),
+    searchPattern: (getInput('search-pattern', undefined) || '^(lgtm|LGTM)$')
+      .split('\n')
+      .filter((x) => x !== '')
+      .map((x) => new RegExp(x, 'm'))
+  }
+}
