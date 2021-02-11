@@ -73,7 +73,7 @@ jobs:
         env:
           TAG_REF_NAME: ${{ github.ref }}
       - name: Release GitHub Actions
-        uses: technote-space/release-github-actions@v6
+        uses: technote-space/release-github-actions@v7.0.1
         with:
           BRANCH_NAME: releases/${MAJOR}
           CLEAN_TARGETS: .[!.]*,__tests__,coverage,images,node_modules,src,*.ts,*.json,*.lock,_config.yml
