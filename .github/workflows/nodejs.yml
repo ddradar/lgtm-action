@@ -69,5 +69,6 @@ jobs:
         uses: technote-space/release-github-actions@v7.0.1
         with:
           BRANCH_NAME: releases/${MAJOR}
+          BUILD_COMMAND: yarn install --frozen-lockfile --ignore-scripts && yarn build && yarn install --production --ignore-scripts
           CLEAN_TARGETS: .[!.]*,__tests__,coverage,images,node_modules,src,*.ts,*.json,*.lock,_config.yml
           COMMIT_MESSAGE: 'build: release ${{ steps.get_tag.outputs.version }} via ${{ github.sha }}'
