@@ -4,20 +4,18 @@ on:
   push:
     branches:
       - master
-    paths:
-      - '**'
-      - '!**.md'
+    paths-ignore:
+      - '**.md'
     tags:
       - 'v*'
   pull_request:
-    paths:
-      - '**'
-      - '!**.md'
+    paths-ignore:
+      - '**.md'
 
 jobs:
   build:
     name: Build & Test
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     env:
       CI: true
     steps:
@@ -55,17 +53,12 @@ jobs:
         uses: ./
         with:
           image-url: 'https://user-images.githubusercontent.com/24802730/74030931-9a21ac00-49f3-11ea-872e-374d5bd3e586.jpg'
-      - name: Drafts next Release notes
-        if: (!contains(github.ref, 'tags/v'))
-        uses: release-drafter/release-drafter@v5
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   release:
     name: Release
     needs: [build]
     if: contains(github.ref, 'tags/v')
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - name: Get Version
         id: get_tag
