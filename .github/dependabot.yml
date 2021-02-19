@@ -1,4 +1,4 @@
-# see: https://help.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
+# see: https://docs.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
 version: 2
 updates:
   # GitHub Actions (/.github/workflows/*.yml)
@@ -14,8 +14,7 @@ updates:
     labels:
       - 'dependabot:robot:'
     commit-message:
-      prefix: 'fix'
-      prefix-development: 'chore'
+      prefix: 'ci'
       include: 'scope'
 
   # npm/yarn (/**/package.json)
@@ -31,7 +30,7 @@ updates:
     labels:
       - 'dependabot:robot:'
     commit-message:
-      prefix: 'fix'
+      prefix: 'chore'
       prefix-development: 'chore'
       include: 'scope'
     open-pull-requests-limit: 10
