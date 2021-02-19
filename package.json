@@ -1,6 +1,6 @@
 {
   "name": "lgtm-action",
-  "version": "1.2.7",
+  "version": "1.2.8",
   "private": true,
   "description": "Post image if you comment \"LGTM\"",
   "author": "Nogic <24802730+nogic1008@users.noreply.github.com>",
@@ -19,9 +19,7 @@
   "scripts": {
     "postinstall": "husky install",
     "build": "ncc build src/main.ts -m --license licenses.txt",
-    "fix": "run-p fix:*",
-    "fix:eslint": "yarn lint:eslint --fix",
-    "fix:prettier": "yarn lint:prettier --write",
+    "fix": "run-p \"lint:eslint --fix\" \"lint:prettier --write\"",
     "lint": "run-p lint:*",
     "lint:eslint": "eslint --ext .ts --ignore-path .gitignore .",
     "lint:prettier": "prettier --ignore-path .gitignore -l \"**/*.{ts,json,yml}\"",
@@ -36,7 +34,7 @@
   },
   "dependencies": {
     "@actions/core": "^1.2.6",
-    "@octokit/rest": "^18.1.1"
+    "@octokit/rest": "^18.2.0"
   },
   "devDependencies": {
     "@types/js-yaml": "^4.0.0",
@@ -50,7 +48,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "husky": "^5.0.9",
-    "jest": "^27.0.0-0",
+    "jest": "^27.0.0-next.3",
     "js-yaml": "^4.0.0",
     "lint-staged": "^10.5.4",
     "npm-run-all": "^4.1.5",
