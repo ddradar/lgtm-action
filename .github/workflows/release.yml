@@ -1,0 +1,18 @@
+name: Release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Release for GitHub Actions
+        uses: technote-space/release-github-actions@v7.0.1
+        with:
+          BRANCH_NAME: releases/${MAJOR}
+          BUILD_COMMAND: yarn install --frozen-lockfile --ignore-scripts && yarn build
+          CLEAN_TARGETS: .[!.]*,__tests__,coverage,lib,node_modules,src,*.js,*.ts,*.json,*.lock,_config.yml
+          COMMIT_MESSAGE: 'build: release ${{ github.event.release.tag_name }} via ${{ github.sha }}'

@@ -1,4 +1,4 @@
-name: CI/CD
+name: Node.js CI
 
 on:
   push:
@@ -6,8 +6,6 @@ on:
       - master
     paths-ignore:
       - '**.md'
-    tags:
-      - 'v*'
   pull_request:
     paths-ignore:
       - '**.md'
@@ -16,8 +14,6 @@ jobs:
   build:
     name: Build & Test
     runs-on: ubuntu-20.04
-    env:
-      CI: true
     steps:
       # Setup Environment
       - name: Checkout
@@ -46,29 +42,10 @@ jobs:
       - name: Build
         run: yarn build
       - name: Test
-        run: yarn test
+        run: yarn test --ci
       - name: Report Code Coverage to codecov
         uses: codecov/codecov-action@v1
       - name: GitHub Actions Build Test
         uses: ./
         with:
           image-url: 'https://user-images.githubusercontent.com/24802730/74030931-9a21ac00-49f3-11ea-872e-374d5bd3e586.jpg'
-
-  release:
-    name: Release
-    needs: [build]
-    if: contains(github.ref, 'tags/v')
-    runs-on: ubuntu-20.04
-    steps:
-      - name: Get Version
-        id: get_tag
-        run: echo ::set-output name=version::${TAG_REF_NAME##*/}
-        env:
-          TAG_REF_NAME: ${{ github.ref }}
-      - name: Release GitHub Actions
-        uses: technote-space/release-github-actions@v7.0.1
-        with:
-          BRANCH_NAME: releases/${MAJOR}
-          BUILD_COMMAND: yarn install --frozen-lockfile --ignore-scripts && yarn build && yarn install --production --ignore-scripts
-          CLEAN_TARGETS: .[!.]*,__tests__,coverage,images,node_modules,src,*.ts,*.json,*.lock,_config.yml
-          COMMIT_MESSAGE: 'build: release ${{ steps.get_tag.outputs.version }} via ${{ github.sha }}'

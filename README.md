@@ -2,7 +2,7 @@
 
 [![last commit](https://img.shields.io/github/last-commit/ddradar/lgtm-action "last commit")](https://github.com/ddradar/lgtm-action/commits/master)
 [![release version](https://img.shields.io/github/v/release/ddradar/lgtm-action?sort=semver "release version")](https://github.com/ddradar/lgtm-action/releases)
-[![CI/CD](https://github.com/ddradar/lgtm-action/workflows/CI/CD/badge.svg)](https://github.com/ddradar/lgtm-action/actions?query=workflow%3ACI%2FCD)
+[![Node.js CI](https://github.com/ddradar/lgtm-action/actions/workflows/nodejs.yml/badge.svg)](https://github.com/ddradar/lgtm-action/actions/workflows/nodejs.yml)
 [![codecov](https://codecov.io/gh/ddradar/lgtm-action/branch/master/graph/badge.svg)](https://codecov.io/gh/ddradar/lgtm-action)
 [![CodeFactor](https://www.codefactor.io/repository/github/ddradar/lgtm-action/badge)](https://www.codefactor.io/repository/github/ddradar/lgtm-action)
 [![License](https://img.shields.io/github/license/ddradar/lgtm-action)](LICENSE)
