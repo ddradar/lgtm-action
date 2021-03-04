@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Release for GitHub Actions
-        uses: technote-space/release-github-actions@v7.0.1
+        uses: technote-space/release-github-actions@v7.0.3
         with:
           BRANCH_NAME: releases/${MAJOR}
           BUILD_COMMAND: yarn install --frozen-lockfile --ignore-scripts && yarn build
