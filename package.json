@@ -17,7 +17,7 @@
     "yarn": "^1.22.4"
   },
   "scripts": {
-    "postinstall": "husky install",
+    "prepare": "husky install",
     "build": "ncc build src/main.ts -m --license licenses.txt",
     "fix": "run-p \"lint:eslint --fix\" \"lint:prettier --write\"",
     "lint": "run-p lint:*",
