@@ -42,4 +42,5 @@ export async function run(): Promise<void> {
   core.info('Comment does not match pattern.')
 }
 
+/* istanbul ignore next */
 run().catch((e) => core.setFailed(e.message))
