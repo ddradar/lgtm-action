@@ -1,4 +1,8 @@
-import { getEnvironmentVariable, readFileAsync } from './node-helper'
+import { context } from '@actions/github'
+import type {
+  IssueCommentEvent,
+  PullRequestReviewEvent
+} from '@octokit/webhooks-definitions/schema'
 
 const supportedEvent = new Set([
   'issue_comment',
@@ -27,22 +31,21 @@ type EventWebhook = {
 /** Gets event info from stored webfook JSON.
  * @param eventName Fooked event name
  */
-export async function getEventWebhook(
-  eventName: SupportedEvent
-): Promise<EventWebhook> {
-  const eventJsonPath = getEnvironmentVariable('GITHUB_EVENT_PATH')
-  const jsonString = await readFileAsync(eventJsonPath, 'utf-8')
-  const webhookObject = JSON.parse(jsonString)
+export function getEventWebhook(eventName: SupportedEvent): EventWebhook {
   switch (eventName) {
-    case 'issue_comment': // https://developer.github.com/v3/activity/events/types/#issuecommentevent
+    case 'issue_comment': {
+      const payload = context.payload as IssueCommentEvent
       return {
-        comment: webhookObject.comment.body,
-        issueNumber: webhookObject.issue.number
+        comment: payload.comment.body,
+        issueNumber: payload.issue.number
       }
-    case 'pull_request_review': // https://developer.github.com/v3/activity/events/types/#pullrequestreviewevent
+    }
+    case 'pull_request_review': {
+      const payload = context.payload as PullRequestReviewEvent
       return {
-        comment: webhookObject.review.body,
-        issueNumber: webhookObject.pull_request.number
+        comment: payload.review.body,
+        issueNumber: payload.pull_request.number
       }
+    }
   }
 }

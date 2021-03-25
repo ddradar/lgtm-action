@@ -18,7 +18,7 @@ export async function run(): Promise<void> {
   }
   const { token, imageUrl, searchPattern } = getInputParams()
 
-  const { comment, issueNumber } = await getEventWebhook(eventName)
+  const { comment, issueNumber } = getEventWebhook(eventName)
   core.debug(`webhook: { comment: ${comment}, issueNumber: ${issueNumber} }`)
   if (!comment) {
     core.info('Comment is null or empty.')

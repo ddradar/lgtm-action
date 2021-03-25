@@ -43,10 +43,7 @@ describe('main.ts', () => {
       async (comment) => {
         // Arrange
         mocked(isSupportedEvent).mockReturnValue(true)
-        mocked(getEventWebhook).mockResolvedValue({
-          comment,
-          issueNumber: 1
-        })
+        mocked(getEventWebhook).mockReturnValue({ comment, issueNumber: 1 })
         // Act
         await run()
         // Assert
@@ -62,10 +59,7 @@ describe('main.ts', () => {
       async (comment) => {
         // Arrange
         mocked(isSupportedEvent).mockReturnValue(true)
-        mocked(getEventWebhook).mockResolvedValue({
-          comment,
-          issueNumber: 1
-        })
+        mocked(getEventWebhook).mockReturnValue({ comment, issueNumber: 1 })
         // Act
         await run()
         // Assert
@@ -83,10 +77,7 @@ describe('main.ts', () => {
       async (comment) => {
         // Arrange
         mocked(isSupportedEvent).mockReturnValue(true)
-        mocked(getEventWebhook).mockResolvedValue({
-          comment,
-          issueNumber: 1
-        })
+        mocked(getEventWebhook).mockReturnValue({ comment, issueNumber: 1 })
         // Act
         await run()
         // Assert
