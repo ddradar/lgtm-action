@@ -1,4 +1,4 @@
-import { Octokit } from '@octokit/rest'
+import { getOctokit } from '@actions/github'
 
 /**
  * Send comment to https://github.com/{owner}/{repo}/(issues|pull)/{issueNumber} asynchronously.
@@ -15,8 +15,7 @@ export async function sendCommentAsync(
   issueNumber: number,
   comment: string
 ): Promise<void> {
-  const auth = `token ${token}`
-  const octokit = new Octokit({ auth })
+  const octokit = getOctokit(token)
   await octokit.issues.createComment({
     owner,
     repo,

@@ -2,11 +2,17 @@ import * as core from '@actions/core'
 import { mocked } from 'ts-jest/utils'
 
 import { getEventWebhook, isSupportedEvent } from '../src/event'
-import { getGithubStatus, getInputParams } from '../src/input-helper'
+import { getInputParams } from '../src/input-helper'
 import { run } from '../src/main'
 import { sendCommentAsync } from '../src/send-comment'
 
 jest.mock('@actions/core')
+jest.mock('@actions/github', () => ({
+  context: {
+    eventName: 'event_name',
+    repo: { owner: 'owner', repo: 'repo' }
+  }
+}))
 jest.mock('../src/event')
 jest.mock('../src/input-helper')
 jest.mock('../src/send-comment')
@@ -18,10 +24,6 @@ describe('main.ts', () => {
         token: 'token',
         imageUrl: 'imageUrl',
         searchPattern: [/^(lgtm|LGTM)$/m]
-      })
-      mocked(getGithubStatus).mockReturnValue({
-        eventName: 'event_name',
-        repository: 'owner/repo'
       })
     })
 
@@ -41,10 +43,7 @@ describe('main.ts', () => {
       async (comment) => {
         // Arrange
         mocked(isSupportedEvent).mockReturnValue(true)
-        mocked(getEventWebhook).mockResolvedValue({
-          comment,
-          issueNumber: 1
-        })
+        mocked(getEventWebhook).mockReturnValue({ comment, issueNumber: 1 })
         // Act
         await run()
         // Assert
@@ -60,10 +59,7 @@ describe('main.ts', () => {
       async (comment) => {
         // Arrange
         mocked(isSupportedEvent).mockReturnValue(true)
-        mocked(getEventWebhook).mockResolvedValue({
-          comment,
-          issueNumber: 1
-        })
+        mocked(getEventWebhook).mockReturnValue({ comment, issueNumber: 1 })
         // Act
         await run()
         // Assert
@@ -81,10 +77,7 @@ describe('main.ts', () => {
       async (comment) => {
         // Arrange
         mocked(isSupportedEvent).mockReturnValue(true)
-        mocked(getEventWebhook).mockResolvedValue({
-          comment,
-          issueNumber: 1
-        })
+        mocked(getEventWebhook).mockReturnValue({ comment, issueNumber: 1 })
         // Act
         await run()
         // Assert
