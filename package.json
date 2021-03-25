@@ -34,8 +34,7 @@
   },
   "dependencies": {
     "@actions/core": "^1.2.6",
-    "@actions/github": "^4.0.0",
-    "@octokit/rest": "^18.3.5"
+    "@actions/github": "^4.0.0"
   },
   "devDependencies": {
     "@octokit/webhooks-definitions": "^3.65.2",
