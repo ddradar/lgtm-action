@@ -2,7 +2,7 @@ import { context } from '@actions/github'
 import type {
   IssueCommentEvent,
   PullRequestReviewEvent
-} from '@octokit/webhooks-definitions/schema'
+} from '@octokit/webhooks-types'
 
 const supportedEvent = new Set([
   'issue_comment',
