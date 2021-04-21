@@ -8,7 +8,7 @@
   "plugins": ["jest", "simple-import-sort"],
   "settings": {
     "node": {
-      "allowModules": ["@jest/types", "@octokit/webhooks-definitions"],
+      "allowModules": ["@jest/types", "@octokit/webhooks-types"],
       "tryExtensions": [".ts", ".js", ".json", ".node"]
     }
   },
