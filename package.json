@@ -37,7 +37,6 @@
     "@actions/github": "^4.0.0"
   },
   "devDependencies": {
-    "@octokit/webhooks-definitions": "^3.67.3",
     "@octokit/webhooks-types": "^3.69.0",
     "@types/jest": "^26.0.22",
     "@types/js-yaml": "^4.0.0",
