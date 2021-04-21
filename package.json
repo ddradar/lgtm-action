@@ -49,19 +49,20 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "husky": "^6.0.0",
-    "jest": "^27.0.0-next.6",
+    "jest": "^27.0.0-next.8",
     "js-yaml": "^4.1.0",
     "lint-staged": "^10.5.4",
     "npm-run-all2": "^5.0.2",
     "prettier": "^2.2.1",
-    "ts-jest": "^27.0.0-next.10",
+    "ts-jest": "^27.0.0-next.11",
     "ts-node": "^9.1.1",
     "typescript": "^4.2.4"
   },
   "resolutions": {
-    "jest-diff": "^27.0.0-next.6",
+    "get-stream": "^6.0.1",
+    "jest-diff": "^27.0.0-next.8",
     "optionator": "^0.9.1",
-    "pretty-format": "^27.0.0-next.6",
-    "type-fest": "^1.0.1"
+    "pretty-format": "^27.0.0-next.8",
+    "type-fest": "^1.0.2"
   }
 }
