@@ -39,7 +39,7 @@
   "devDependencies": {
     "@octokit/webhooks-types": "^3.70.2",
     "@types/jest": "^26.0.22",
-    "@types/js-yaml": "^4.0.0",
+    "@types/js-yaml": "^4.0.1",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
     "@vercel/ncc": "^0.28.4",
