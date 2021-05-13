@@ -11,18 +11,16 @@ jest.mock('@actions/core')
 
 describe('input-helper.ts', () => {
   describe('getInputParams()', () => {
-    const createMockedGetInput = (
-      token: string,
-      imageUrl: string,
-      searchPattern?: string | undefined
-    ) => (name: string): string =>
-      name === 'token'
-        ? token
-        : name === 'image-url'
-        ? imageUrl
-        : name === 'search-pattern'
-        ? searchPattern ?? ''
-        : ''
+    const createMockedGetInput =
+      (token: string, imageUrl: string, searchPattern?: string | undefined) =>
+      (name: string): string =>
+        name === 'token'
+          ? token
+          : name === 'image-url'
+          ? imageUrl
+          : name === 'search-pattern'
+          ? searchPattern ?? ''
+          : ''
     beforeEach(() => mocked(getInput).mockReset())
 
     test('returns getInput() values', () => {
@@ -64,9 +62,9 @@ describe('input-helper.ts', () => {
       const actionSettings = yamlLoad(yamlText) as {
         inputs: Record<string, { required?: boolean }>
       }
-      const expectedInputs = Object.entries(
-        actionSettings.inputs
-      ).map(([key, { required }]) => [key, required ? { required } : undefined])
+      const expectedInputs = Object.entries(actionSettings.inputs).map(
+        ([key, { required }]) => [key, required ? { required } : undefined]
+      )
       mocked(getInput).mockReturnValue('1\n2\n3')
 
       // Act
