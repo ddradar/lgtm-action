@@ -37,7 +37,7 @@
     "@actions/github": "^4.0.0"
   },
   "devDependencies": {
-    "@octokit/webhooks-types": "^3.74.0",
+    "@octokit/webhooks-types": "^3.75.0",
     "@types/jest": "^26.0.23",
     "@types/js-yaml": "^4.0.1",
     "@typescript-eslint/eslint-plugin": "^4.23.0",
