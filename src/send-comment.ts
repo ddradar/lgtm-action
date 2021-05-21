@@ -16,7 +16,7 @@ export async function sendCommentAsync(
   comment: string
 ): Promise<void> {
   const octokit = getOctokit(token)
-  await octokit.issues.createComment({
+  await octokit.rest.issues.createComment({
     owner,
     repo,
     issue_number: issueNumber,
