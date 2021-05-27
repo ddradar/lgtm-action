@@ -1,9 +1,9 @@
 # Post LGTM Image
 
-[![last commit](https://img.shields.io/github/last-commit/ddradar/lgtm-action "last commit")](https://github.com/ddradar/lgtm-action/commits/main)
+[![last commit](https://img.shields.io/github/last-commit/ddradar/lgtm-action "last commit")](https://github.com/ddradar/lgtm-action/commits)
 [![release version](https://img.shields.io/github/v/release/ddradar/lgtm-action?sort=semver "release version")](https://github.com/ddradar/lgtm-action/releases)
 [![Node.js CI](https://github.com/ddradar/lgtm-action/actions/workflows/nodejs.yml/badge.svg)](https://github.com/ddradar/lgtm-action/actions/workflows/nodejs.yml)
-[![codecov](https://codecov.io/gh/ddradar/lgtm-action/branch/main/graph/badge.svg)](https://codecov.io/gh/ddradar/lgtm-action)
+[![codecov](https://codecov.io/gh/ddradar/lgtm-action/branch/main/graph/badge.svg?token=9NHUlO6fhV)](https://codecov.io/gh/ddradar/lgtm-action)
 [![CodeFactor](https://www.codefactor.io/repository/github/ddradar/lgtm-action/badge)](https://www.codefactor.io/repository/github/ddradar/lgtm-action)
 [![License](https://img.shields.io/github/license/ddradar/lgtm-action)](LICENSE)
 
