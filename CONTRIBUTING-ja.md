@@ -31,7 +31,7 @@ English guideline is [here](CONTRIBUTING.md).
 
 ## Making Changes
 
-- コードやドキュメントを DDRadar に貢献するには、ベースとなるブランチ(多くの場合 `master` です)から、トピック・ブランチを作ってください。(`issue_999`, `hotfix/song-page`など)
+- コードやドキュメントを DDRadar に貢献するには、ベースとなるブランチ(多くの場合 `main` です)から、トピック・ブランチを作ってください。(`issue_999`, `hotfix/song-page`など)
 - 変更の為にテストが必要ならば、そのテストも追加または変更してください。
 - commit は合理的(ロジック単位)に分けてください。また目的と関係のないコードの変更は含めないでください(コードフォーマットの変更、不要コードの削除など)。
 - commit メッセージが正しいフォーマットであることを確認してください。commit メッセージはできるだけ英語でお願いします。
@@ -68,9 +68,9 @@ English guideline is [here](CONTRIBUTING.md).
 - タイトルは変更の要約を分かりやすく書いてください。
 - 本文には、関連する issue の番号を本文に含めてください。( ref #199 など)
 - まだ作業中である場合、タイトルの先頭に `[WIP]` を付け、Draft Pull Request で送信してください。マージ可能になったら、`[WIP]` を除去し、Draft を外してください。
-  - 作業中に master ブランチが変更された場合は、競合を解消してから `[WIP]` を除去してください。
+  - 作業中に main ブランチが変更された場合は、競合を解消してから `[WIP]` を除去してください。
   - その作業を予約する意味で、まず `[WIP]` の付いた Pull Request を投稿しても構いません。ただし、長い間活動が見られない場合は、クローズされる場合があります。
 
 ## Thanks
 
-このガイドは、[MMP/CONTRIBUTING.md · sn0w75/MMP](https://github.com/sn0w75/MMP/blob/master/CONTRIBUTING.md)を参考にして作成しました。
+このガイドは、[MMP/CONTRIBUTING.md · sn0w75/MMP](https://github.com/sn0w75/MMP/blob/master/CONTRIBUTING.md)(現在リンク切れ)を参考にして作成しました。
