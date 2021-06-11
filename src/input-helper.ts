@@ -1,4 +1,4 @@
-import { getInput } from '@actions/core'
+import { getInput, getMultilineInput } from '@actions/core'
 
 type InputParameter = {
   /** Your GitHub Token */
@@ -13,12 +13,14 @@ type InputParameter = {
 
 /** Gets the value of inputs. */
 export function getInputParams(): InputParameter {
+  const token = getInput('token')
+  const imageUrl = getInput('image-url', { required: true })
+  const pattern = getMultilineInput('search-pattern')
   return {
-    token: getInput('token', undefined),
-    imageUrl: getInput('image-url', { required: true }),
-    searchPattern: (getInput('search-pattern', undefined) || '^(lgtm|LGTM)$')
-      .split('\n')
-      .filter((x) => x !== '')
-      .map((x) => new RegExp(x, 'm'))
+    token,
+    imageUrl,
+    searchPattern: pattern.length
+      ? pattern.map((x) => new RegExp(x, 'm'))
+      : [/^(lgtm|LGTM)$/m]
   }
 }

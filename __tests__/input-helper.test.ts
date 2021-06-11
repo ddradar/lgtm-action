@@ -1,7 +1,4 @@
-import { getInput } from '@actions/core'
-import { readFileSync } from 'fs'
-import { load as yamlLoad } from 'js-yaml'
-import { join as pathJoin } from 'path'
+import { getInput, getMultilineInput } from '@actions/core'
 import { mocked } from 'ts-jest/utils'
 
 import { getInputParams } from '../src/input-helper'
@@ -12,25 +9,20 @@ jest.mock('@actions/core')
 describe('input-helper.ts', () => {
   describe('getInputParams()', () => {
     const createMockedGetInput =
-      (token: string, imageUrl: string, searchPattern?: string | undefined) =>
+      (token: string, imageUrl: string) =>
       (name: string): string =>
-        name === 'token'
-          ? token
-          : name === 'image-url'
-          ? imageUrl
-          : name === 'search-pattern'
-          ? searchPattern ?? ''
-          : ''
-    beforeEach(() => mocked(getInput).mockReset())
+        name === 'token' ? token : name === 'image-url' ? imageUrl : ''
+    beforeEach(() => {
+      mocked(getInput).mockReset()
+      mocked(getMultilineInput).mockReset()
+    })
 
     test('returns getInput() values', () => {
       // Arrange
       const token = random(10)
       const imageUrl = random(30)
-      const searchPattern = '^LGTM$\n^lgtm$'
-      mocked(getInput).mockImplementation(
-        createMockedGetInput(token, imageUrl, searchPattern)
-      )
+      mocked(getInput).mockImplementation(createMockedGetInput(token, imageUrl))
+      mocked(getMultilineInput).mockReturnValue(['^LGTM$', '^lgtm$'])
 
       // Act
       const params = getInputParams()
@@ -45,6 +37,7 @@ describe('input-helper.ts', () => {
       const token = random(10)
       const imageUrl = random(30)
       mocked(getInput).mockImplementation(createMockedGetInput(token, imageUrl))
+      mocked(getMultilineInput).mockReturnValue([])
 
       // Act
       const params = getInputParams()
@@ -53,28 +46,6 @@ describe('input-helper.ts', () => {
       expect(params.token).toBe(token)
       expect(params.imageUrl).toBe(imageUrl)
       expect(params.searchPattern).toStrictEqual([/^(lgtm|LGTM)$/m])
-    })
-    test('uses all input parameters defined by action.yml', () => {
-      // Arrange
-      // Load action.yml settings
-      const path = pathJoin(__dirname, '..', 'action.yml')
-      const yamlText = readFileSync(path, 'utf8')
-      const actionSettings = yamlLoad(yamlText) as {
-        inputs: Record<string, { required?: boolean }>
-      }
-      const expectedInputs = Object.entries(actionSettings.inputs).map(
-        ([key, { required }]) => [key, required ? { required } : undefined]
-      )
-      mocked(getInput).mockReturnValue('1\n2\n3')
-
-      // Act
-      getInputParams()
-
-      // Assert
-      expect(getInput).toHaveBeenCalledTimes(expectedInputs.length)
-      for (const [key, value] of expectedInputs) {
-        expect(getInput).toHaveBeenCalledWith(key, value)
-      }
     })
   })
 })
