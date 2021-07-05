@@ -1,9 +1,9 @@
 # Post LGTM Image
 
-[![last commit](https://img.shields.io/github/last-commit/ddradar/lgtm-action "last commit")](https://github.com/ddradar/lgtm-action/commits/master)
+[![last commit](https://img.shields.io/github/last-commit/ddradar/lgtm-action "last commit")](https://github.com/ddradar/lgtm-action/commits)
 [![release version](https://img.shields.io/github/v/release/ddradar/lgtm-action "release version")](https://github.com/ddradar/lgtm-action/releases)
 [![Node.js CI](https://github.com/ddradar/lgtm-action/actions/workflows/nodejs.yml/badge.svg)](https://github.com/ddradar/lgtm-action/actions/workflows/nodejs.yml)
-[![codecov](https://codecov.io/gh/ddradar/lgtm-action/branch/master/graph/badge.svg)](https://codecov.io/gh/ddradar/lgtm-action)
+[![codecov](https://codecov.io/gh/ddradar/lgtm-action/branch/main/graph/badge.svg?token=9NHUlO6fhV)](https://codecov.io/gh/ddradar/lgtm-action)
 [![CodeFactor](https://www.codefactor.io/repository/github/ddradar/lgtm-action/badge)](https://www.codefactor.io/repository/github/ddradar/lgtm-action)
 [![License](https://img.shields.io/github/license/ddradar/lgtm-action)](LICENSE)
 
@@ -107,11 +107,11 @@ issue にコメントするために使用する、GitHub のアクセストー�
 ## Screenshots
 
 1. issue に "LGTM" または "lgtm" とコメントします。
-  ![Send issue comment](https://raw.githubusercontent.com/ddradar/lgtm-action/master/images/screenshot_comment.png)
+  ![Send issue comment](https://raw.githubusercontent.com/ddradar/lgtm-action/main/images/screenshot_comment.png)
 1. またはレビューにコメントします。
-  ![Send review comment](https://raw.githubusercontent.com/ddradar/lgtm-action/master/images/screenshot_pull_request_review.png)
+  ![Send review comment](https://raw.githubusercontent.com/ddradar/lgtm-action/main/images/screenshot_pull_request_review.png)
 1. LGTM画像が自動的に投稿されます。
-  ![LGTM image post](https://raw.githubusercontent.com/ddradar/lgtm-action/master/images/screenshot_action_works.png)
+  ![LGTM image post](https://raw.githubusercontent.com/ddradar/lgtm-action/main/images/screenshot_action_works.png)
 
 ## License
 
