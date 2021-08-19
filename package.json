@@ -58,6 +58,6 @@
   },
   "resolutions": {
     "optionator": "^0.9.1",
-    "type-fest": "^1.2.0"
+    "type-fest": "^1.4.0"
   }
 }
