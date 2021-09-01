@@ -43,4 +43,4 @@ export async function run(): Promise<void> {
 }
 
 /* istanbul ignore next */
-run().catch((e) => core.setFailed(e.message))
+run().catch((e) => core.setFailed(e instanceof Error ? e : `${e}`))
