@@ -5,35 +5,42 @@ import { getEventWebhook, isSupportedEvent } from './event'
 import { getInputParams } from './input-helper'
 import { sendCommentAsync } from './send-comment'
 
-/** main entry */
+/** Main entry */
 export async function run(): Promise<void> {
-  const event = context.eventName
-  const { owner, repo } = context.repo
-  debug(`context: { eventName: "${event}", repository: "${owner}/${repo}" }`)
-  if (!isSupportedEvent(event)) {
-    warning(`Not supported Event: ${event}`)
-    return
-  }
-  const { token, imageUrl, searchPattern } = getInputParams()
-
-  const { comment, issueNumber } = getEventWebhook(event)
-  debug(`webhook: { comment: "${comment}", issueNumber: ${issueNumber} }`)
-  if (!comment) {
-    info('Comment is null or empty.')
-    return
-  }
-
-  for (const regexp of searchPattern) {
-    if (regexp.test(comment)) {
-      info(`Comment matches pattern: ${regexp}`)
-      const body = `![LGTM](${imageUrl})`
-      await sendCommentAsync(token, owner, repo, issueNumber, body)
+  try {
+    // Get action context & input params
+    const event = context.eventName
+    const { owner, repo } = context.repo
+    debug(`context: { eventName: "${event}", repository: "${owner}/${repo}" }`)
+    if (!isSupportedEvent(event)) {
+      warning(`Not supported Event: ${event}`)
       return
     }
-  }
+    const { token, imageUrl, searchPattern } = getInputParams()
 
-  info('Comment does not match pattern.')
+    // Get event webhook
+    const { comment, issueNumber } = getEventWebhook(event)
+    debug(`webhook: { comment: "${comment}", issueNumber: ${issueNumber} }`)
+    if (!comment) {
+      info('Comment is null or empty.')
+      return
+    }
+
+    for (const regexp of searchPattern) {
+      if (regexp.test(comment)) {
+        info(`Comment matches pattern: ${regexp}`)
+        const body = `![LGTM](${imageUrl})`
+        await sendCommentAsync(token, owner, repo, issueNumber, body)
+        return
+      }
+    }
+
+    info('Comment does not match pattern.')
+  } catch (error) {
+    setFailed(
+      error instanceof Error ? error : /* istanbul ignore next */ `${error}`
+    )
+  }
 }
 
-/* istanbul ignore next */
-run().catch((e) => setFailed(e instanceof Error ? e : `${e}`))
+run()
