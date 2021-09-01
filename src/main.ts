@@ -7,17 +7,17 @@ import { sendCommentAsync } from './send-comment'
 
 /** main entry */
 export async function run(): Promise<void> {
-  const eventName = context.eventName
+  const event = context.eventName
   const { owner, repo } = context.repo
-  debug(`status: { eventName: ${eventName}, repository: ${owner}/${repo} }`)
-  if (!isSupportedEvent(eventName)) {
-    warning(`Not supported Event: ${eventName}`)
+  debug(`context: { eventName: "${event}", repository: "${owner}/${repo}" }`)
+  if (!isSupportedEvent(event)) {
+    warning(`Not supported Event: ${event}`)
     return
   }
   const { token, imageUrl, searchPattern } = getInputParams()
 
-  const { comment, issueNumber } = getEventWebhook(eventName)
-  debug(`webhook: { comment: ${comment}, issueNumber: ${issueNumber} }`)
+  const { comment, issueNumber } = getEventWebhook(event)
+  debug(`webhook: { comment: "${comment}", issueNumber: ${issueNumber} }`)
   if (!comment) {
     info('Comment is null or empty.')
     return
@@ -26,13 +26,8 @@ export async function run(): Promise<void> {
   for (const regexp of searchPattern) {
     if (regexp.test(comment)) {
       info(`Comment matches pattern: ${regexp}`)
-      await sendCommentAsync(
-        token,
-        owner,
-        repo,
-        issueNumber,
-        `![LGTM](${imageUrl})`
-      )
+      const body = `![LGTM](${imageUrl})`
+      await sendCommentAsync(token, owner, repo, issueNumber, body)
       return
     }
   }
