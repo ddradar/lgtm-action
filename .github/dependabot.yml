@@ -1,12 +1,11 @@
-# see: https://docs.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
+# see: https://docs.github.com/code-security/supply-chain-security/keeping-your-dependencies-updated-automatically/configuration-options-for-dependency-updates
 version: 2
 updates:
   # GitHub Actions (/.github/workflows/*.yml)
   - package-ecosystem: 'github-actions'
     directory: '/'
     schedule:
-      interval: 'weekly'
-      day: 'thursday'
+      interval: 'monthly'
       time: '18:00'
       timezone: 'Asia/Tokyo'
     reviewers:
@@ -21,8 +20,7 @@ updates:
   - package-ecosystem: 'npm'
     directory: '/'
     schedule:
-      interval: 'weekly'
-      day: 'thursday'
+      interval: 'monthly'
       time: '18:00'
       timezone: 'Asia/Tokyo'
     assignees:
