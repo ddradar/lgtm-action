@@ -2,7 +2,7 @@ name: Compare
 
 on:
   pull_request_target:
-    types: [opened, ready_for_review, reopened]
+    types: [opened, ready_for_review, reopened, synchronize]
 
 jobs:
   compare-build-assets:
@@ -25,15 +25,22 @@ jobs:
         run: yarn build -o current
 
       # Compare
-      - name: Checkout release branch
+      - name: Checkout main branch
         uses: actions/checkout@v2
         with:
-          ref: releases/v1
+          ref: main
           clean: false
+      - name: Build on main branch
+        run: npm run build
+      - name: Setup js-beautify to compare minified js files
+        run: |
+          npm install --global js-beautify
+          git config --local diff.minjs.textconv js-beautify
+          echo "index.js diff=minjs" > .gitattributes
       - name: Compare
         id: compare
         continue-on-error: true
-        run: git diff --compact-summary --no-index ./dist/ ./current/ > git-diff.log
+        run: git diff --no-index ./dist/ ./current/ > git-diff.log
 
       - name: Comment to PR
         if: steps.compare.outcome == 'failure'
@@ -49,7 +56,8 @@ jobs:
                 <pre>${result}</pre>
               </details>`
 
-            await github.issues.createComment({
+            core.warning('There is a difference in the build results.')
+            await github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
