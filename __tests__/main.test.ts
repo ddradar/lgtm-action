@@ -1,5 +1,4 @@
 import { info, setFailed, warning } from '@actions/core'
-import { mocked } from 'ts-jest/utils'
 
 import { getEventWebhook, isSupportedEvent } from '../src/event'
 import { getInputParams } from '../src/input-helper'
@@ -20,7 +19,7 @@ jest.mock('../src/send-comment')
 describe('main.ts', () => {
   describe('run()', () => {
     beforeEach(() => {
-      mocked(getInputParams).mockReturnValue({
+      jest.mocked(getInputParams).mockReturnValue({
         token: 'token',
         imageUrl: 'imageUrl',
         searchPattern: [/^(lgtm|LGTM)$/m]
@@ -29,7 +28,7 @@ describe('main.ts', () => {
 
     test('ends with warning if isSupportedEvent() is false', async () => {
       // Arrange
-      mocked(isSupportedEvent).mockReturnValue(false)
+      jest.mocked(isSupportedEvent).mockReturnValue(false)
 
       // Act
       await run()
@@ -44,8 +43,8 @@ describe('main.ts', () => {
     test('ends with Failed if error', async () => {
       // Arrange
       const error = new Error()
-      mocked(isSupportedEvent).mockReturnValue(true)
-      mocked(getInputParams).mockImplementation(() => {
+      jest.mocked(isSupportedEvent).mockReturnValue(true)
+      jest.mocked(getInputParams).mockImplementation(() => {
         throw error
       })
 
@@ -63,8 +62,10 @@ describe('main.ts', () => {
       'never calls sendCommentAsync if comment is "%s"',
       async (comment) => {
         // Arrange
-        mocked(isSupportedEvent).mockReturnValue(true)
-        mocked(getEventWebhook).mockReturnValue({ comment, issueNumber: 1 })
+        jest.mocked(isSupportedEvent).mockReturnValue(true)
+        jest
+          .mocked(getEventWebhook)
+          .mockReturnValue({ comment, issueNumber: 1 })
         // Act
         await run()
         // Assert
@@ -79,8 +80,10 @@ describe('main.ts', () => {
       'never calls sendCommentAsync if comment does not match pattern.',
       async (comment) => {
         // Arrange
-        mocked(isSupportedEvent).mockReturnValue(true)
-        mocked(getEventWebhook).mockReturnValue({ comment, issueNumber: 1 })
+        jest.mocked(isSupportedEvent).mockReturnValue(true)
+        jest
+          .mocked(getEventWebhook)
+          .mockReturnValue({ comment, issueNumber: 1 })
         // Act
         await run()
         // Assert
@@ -95,8 +98,10 @@ describe('main.ts', () => {
       'calls sendCommentAsync if comment is "%s"',
       async (comment) => {
         // Arrange
-        mocked(isSupportedEvent).mockReturnValue(true)
-        mocked(getEventWebhook).mockReturnValue({ comment, issueNumber: 1 })
+        jest.mocked(isSupportedEvent).mockReturnValue(true)
+        jest
+          .mocked(getEventWebhook)
+          .mockReturnValue({ comment, issueNumber: 1 })
         // Act
         await run()
         // Assert
