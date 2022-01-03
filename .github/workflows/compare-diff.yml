@@ -1,0 +1,57 @@
+name: Compare
+
+on:
+  pull_request_target:
+    types: [opened, ready_for_review, reopened]
+
+jobs:
+  compare-build-assets:
+    name: Compare Build Assets
+    runs-on: ubuntu-20.04
+    steps:
+      # Build on PR branch
+      - name: Checkout PR branch
+        uses: actions/checkout@v2.4.0
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Use Node.js 12
+        uses: actions/setup-node@v2.5.1
+        with:
+          node-version: 12
+          cache: yarn
+      - name: Install dependencies
+        run: yarn
+      - name: Build on PR branch
+        run: yarn build -o current
+
+      # Compare
+      - name: Checkout release branch
+        uses: actions/checkout@v2
+        with:
+          ref: releases/v1
+          clean: false
+      - name: Compare
+        id: compare
+        continue-on-error: true
+        run: git diff --compact-summary --no-index ./dist/ ./current/ > git-diff.log
+
+      - name: Comment to PR
+        if: steps.compare.outcome == 'failure'
+        uses: actions/github-script@v5.0.0
+        with:
+          script: |
+            const fs = require('fs')
+            const result = fs.readFileSync('./git-diff.log', 'utf8')
+            const commentBody =
+              `There is a difference in the build results.
+              <details>
+                <summary>Diff</summary>
+                <pre>${result}</pre>
+              </details>`
+
+            await github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: commentBody
+            })
