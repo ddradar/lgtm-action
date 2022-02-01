@@ -44,7 +44,7 @@ jobs:
 
       - name: Comment to PR
         if: steps.compare.outcome == 'failure'
-        uses: actions/github-script@v5.0.0
+        uses: actions/github-script@v5.1.0
         with:
           script: |
             const fs = require('fs')
