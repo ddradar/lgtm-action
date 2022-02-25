@@ -1,5 +1,4 @@
 import { getOctokit } from '@actions/github'
-import { mocked } from 'ts-jest/utils'
 
 import { sendCommentAsync } from '../src/send-comment'
 import { generateRandomString } from './util'
@@ -28,11 +27,12 @@ describe('send-comment.ts', () => {
       await sendCommentAsync(token, owner, repo, issueNumber, comment)
 
       // Assert
-      const mockedInstance = jest.mocked(getOctokit).mock.results[0].value
-      expect(mocked(getOctokit)).toHaveBeenCalledTimes(1)
-      expect(mocked(getOctokit)).toHaveBeenCalledWith(token)
-      expect(mockedInstance.rest.issues.createComment).toHaveBeenCalledTimes(1)
-      expect(mockedInstance.rest.issues.createComment).toHaveBeenCalledWith({
+      expect(jest.mocked(getOctokit)).toHaveBeenCalledTimes(1)
+      expect(jest.mocked(getOctokit)).toHaveBeenCalledWith(token)
+      const octokit: ReturnType<typeof getOctokit> =
+        jest.mocked(getOctokit).mock.results[0]?.value
+      expect(octokit.rest.issues.createComment).toHaveBeenCalledTimes(1)
+      expect(octokit.rest.issues.createComment).toHaveBeenCalledWith({
         owner,
         repo,
         issue_number: issueNumber,
