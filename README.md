@@ -17,9 +17,6 @@ Post image if you comment "LGTM"
   - [Basic](#basic)
   - [Use with Choose Random Action](#use-with-choose-random-action)
 - [Options](#options)
-  - [image-url](#image-url)
-  - [search-pattern](#search-pattern)
-  - [token](#token)
 - [Screenshots](#screenshots)
 - [License](#license)
 - [Contributing](#contributing)
@@ -77,31 +74,11 @@ jobs:
 
 ## Options
 
-### image-url
-
-*Required.*
-
-Set your image URL.
-
-### search-pattern
-
-*Optional.*
-
-Set regexp pattern this action reacts.
-This action uses Multi-line(`RegExp.prototype.multiline`) search.
-
-default: `^(lgtm|LGTM)$`
-
-### token
-
-*Optional.*
-
-GitHub Access Token to create issue comment.
-In many cases, you do not need to prepare yourself. (provided by GitHub Actions)
-
-Token must have `issues:write` permission.
-
-default: `${{ github.token }}`
+|Name|Required?|Description|Default|
+|----|:-------:|:----------|-------|
+|image-url|Yes|Set your image URL|-|
+|search-pattern|No|Set regexp pattern this action reacts.<br />This action uses Multi-line(`RegExp.prototype.multiline`) search.|`^(lgtm\|LGTM)$`|
+|token|No|GitHub Access Token to post issue comment. (requires `issues:write` permission)|`${{ github.token }}`|
 
 ## Screenshots
 
