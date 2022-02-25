@@ -39,6 +39,7 @@
   "devDependencies": {
     "@octokit/webhooks-types": "^5.4.0",
     "@tsconfig/node12": "^1.0.9",
+    "@tsconfig/node16-strictest": "^1.0.0",
     "@types/jest": "^27.4.1",
     "@typescript-eslint/eslint-plugin": "^5.12.1",
     "@typescript-eslint/parser": "^5.12.1",

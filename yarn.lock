@@ -707,6 +707,11 @@
   resolved "https://registry.yarnpkg.com/@tsconfig/node14/-/node14-1.0.1.tgz#95f2d167ffb9b8d2068b0b235302fafd4df711f2"
   integrity sha512-509r2+yARFfHHE7T6Puu2jjkoycftovhXRqW328PDXTVGKihlb1P8Z9mMZH04ebyajfRY7dedfGynlrFHJUQCg==
 
+"@tsconfig/node16-strictest@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@tsconfig/node16-strictest/-/node16-strictest-1.0.0.tgz#ce2ac0bc61b206acd7dbba28c7fe78cd0dac2f5f"
+  integrity sha512-MTrFOCoWfjjhFpAoeHmWXFnYeRPxMBMgaNVszBYXJgPFi7XHYdRrDatgyk+Nb0ht7jWP3j/J3xXfvSXIjzRVKA==
+
 "@tsconfig/node16@^1.0.2":
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@tsconfig/node16/-/node16-1.0.2.tgz#423c77877d0569db20e1fc80885ac4118314010e"
