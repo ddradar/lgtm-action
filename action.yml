@@ -1,0 +1,24 @@
+name: 'Post LGTM Image'
+description: 'Post image if you comment "LGTM"'
+author: 'ddradar'
+inputs:
+  token:
+    description: >
+      GitHub Access Token to create issue comment.
+      In many cases, you do not need to prepare yourself. (provided by GitHub Actions)
+      Token must have issues:write permission.
+    required: false
+    default: ${{ github.token }}
+  image-url:
+    description: 'Image URL path'
+    required: true
+  search-pattern:
+    description: 'Regexp pattern this action reacts'
+    required: false
+    default: ^(lgtm|LGTM)$
+branding:
+  icon: 'thumbs-up'
+  color: 'purple'
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
