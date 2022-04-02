@@ -17,9 +17,6 @@ English guide is [here](./README.md).
   - [基本](#basic)
   - [Choose Random Actionと使う](#use-with-choose-random-action)
 - [オプション](#options)
-  - [image-url](#image-url)
-  - [search-pattern](#search-pattern)
-  - [token](#token)
 - [スクリーンショット](#screenshots)
 - [ライセンス](#license)
 - [プロジェクトへの貢献](#contributing)
@@ -41,7 +38,7 @@ jobs:
   post:
     runs-on: ubuntu-latest
     steps:
-      - uses: ddradar/lgtm-action@v1
+      - uses: ddradar/lgtm-action@v2.0.0
         with:
           image-url: "{ Your LGTM image URL }"
           search-pattern: |
@@ -71,38 +68,18 @@ jobs:
             https://example.com/your-lgtm-image-1.jpg
             https://example.com/your-lgtm-image-2.jpg
             https://example.com/your-lgtm-image-3.jpg
-      - uses: ddradar/lgtm-action@v1
+      - uses: ddradar/lgtm-action@v2.0.0
         with:
           image-url: ${{ steps.act.outputs.selected }}
 ```
 
 ## Options
 
-### image-url
-
-*必須です。*
-
-画像URLをセットします。
-
-### search-pattern
-
-*オプション。*
-
-このアクションが反応する正規表現パターンをセットします。
-複数行検索(`RegExp.prototype.multiline`)を行います。
-
-未指定の場合は、`^(lgtm|LGTM)$`がセットされます。
-
-### token
-
-*オプション。*
-
-issue にコメントするために使用する、GitHub のアクセストークン。
-通常、指定する必要はありません。(GitHub Actions から提供されます。)
-
-トークンには `issues:write` 権限が必要です。
-
-未指定の場合は、`${{ github.token }}`がセットされます。
+|名称|必須|説明|デフォルト|
+|----|:--:|:--|---------|
+|image-url|はい|画像URL|-|
+|search-pattern|いいえ|このアクションが反応する正規表現パターンをセットします。<br />複数行検索(`RegExp.prototype.multiline`)を行います。|`^(lgtm\|LGTM)$`|
+|token|いいえ|issue にコメントするために使用する、GitHub のアクセストークン。(`issues:write`権限が必要です)|`${{ github.token }}`|
 
 ## Screenshots
 
