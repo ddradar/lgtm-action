@@ -2,13 +2,16 @@
   "root": true,
   "env": {
     "node": true,
-    "es6": true,
-    "jest/globals": true
+    "es6": true
   },
   "plugins": ["jest", "simple-import-sort"],
   "settings": {
     "node": {
-      "allowModules": ["@jest/types", "@octokit/webhooks-types"],
+      "allowModules": [
+        "@jest/globals",
+        "@jest/types",
+        "@octokit/webhooks-types"
+      ],
       "tryExtensions": [".ts", ".js", ".json", ".node"]
     }
   },

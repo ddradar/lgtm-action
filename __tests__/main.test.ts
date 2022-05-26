@@ -1,4 +1,5 @@
 import { info, setFailed, warning } from '@actions/core'
+import { beforeEach, describe, expect, jest, test } from '@jest/globals'
 
 import { getEventWebhook, isSupportedEvent } from '../src/event'
 import { getInputParams } from '../src/input-helper'

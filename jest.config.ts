@@ -1,6 +1,7 @@
 import type { Config } from '@jest/types'
 
 const config: Config.InitialOptions = {
+  injectGlobals: false,
   clearMocks: true,
   moduleFileExtensions: ['js', 'ts'],
   testEnvironment: 'node',

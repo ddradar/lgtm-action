@@ -1,8 +1,8 @@
 {
   "extends": "@tsconfig/node16-strictest/tsconfig.json",
   "compilerOptions": {
-    "rootDir": "./src"
+    "rootDir": "./src",
+    "checkJs": false
   },
-  "exclude": ["node_modules", "__tests__", "jest.config.ts"],
-  "types": ["jest"]
+  "exclude": ["node_modules", "__tests__", "jest.config.ts"]
 }
