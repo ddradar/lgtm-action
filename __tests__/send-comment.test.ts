@@ -1,4 +1,12 @@
 import { getOctokit } from '@actions/github'
+import {
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  jest,
+  test
+} from '@jest/globals'
 
 import { sendCommentAsync } from '../src/send-comment'
 import { generateRandomString } from './util'
@@ -6,13 +14,15 @@ import { generateRandomString } from './util'
 jest.mock('@actions/github')
 
 describe('send-comment.ts', () => {
-  beforeAll(() =>
+  beforeAll(() => {
     jest.mocked(getOctokit).mockReturnValue(
       // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Mock
       { rest: { issues: { createComment: jest.fn() } } } as any
     )
-  )
-  beforeEach(() => jest.mocked(getOctokit).mockClear())
+  })
+  beforeEach(() => {
+    jest.mocked(getOctokit).mockClear()
+  })
 
   describe('sendCommentAsync', () => {
     test('calls Octokit.issues.createComment', async () => {
@@ -29,8 +39,8 @@ describe('send-comment.ts', () => {
       // Assert
       expect(jest.mocked(getOctokit)).toHaveBeenCalledTimes(1)
       expect(jest.mocked(getOctokit)).toHaveBeenCalledWith(token)
-      const octokit: ReturnType<typeof getOctokit> =
-        jest.mocked(getOctokit).mock.results[0]?.value
+      const octokit = jest.mocked(getOctokit).mock.results[0]
+        ?.value as ReturnType<typeof getOctokit>
       expect(octokit.rest.issues.createComment).toHaveBeenCalledTimes(1)
       expect(octokit.rest.issues.createComment).toHaveBeenCalledWith({
         owner,

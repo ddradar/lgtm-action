@@ -1,3 +1,5 @@
+import { describe, expect, jest, test } from '@jest/globals'
+
 import { getEventWebhook, isSupportedEvent } from '../src/event'
 
 jest.mock('@actions/github', () => ({

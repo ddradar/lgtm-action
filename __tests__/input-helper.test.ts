@@ -1,4 +1,5 @@
 import { getInput, getMultilineInput } from '@actions/core'
+import { beforeEach, describe, expect, jest, test } from '@jest/globals'
 
 import { getInputParams } from '../src/input-helper'
 import { generateRandomString as random } from './util'
