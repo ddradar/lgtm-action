@@ -1,26 +1,31 @@
 import { info, setFailed, warning } from '@actions/core'
-import { beforeEach, describe, expect, jest, test } from '@jest/globals'
+import { beforeEach, describe, expect, test, vi } from 'vitest'
 
 import { getEventWebhook, isSupportedEvent } from '../src/event'
 import { getInputParams } from '../src/input-helper'
 import { run } from '../src/main'
 import { sendCommentAsync } from '../src/send-comment'
 
-jest.mock('@actions/core')
-jest.mock('@actions/github', () => ({
+vi.mock('@actions/core')
+vi.mock('@actions/github', () => ({
   context: {
     eventName: 'event_name',
     repo: { owner: 'owner', repo: 'repo' }
   }
 }))
-jest.mock('../src/event')
-jest.mock('../src/input-helper')
-jest.mock('../src/send-comment')
+vi.mock('../src/event')
+vi.mock('../src/input-helper')
+vi.mock('../src/send-comment')
 
 describe('main.ts', () => {
   describe('run()', () => {
     beforeEach(() => {
-      jest.mocked(getInputParams).mockReturnValue({
+      vi.mocked(info).mockClear()
+      vi.mocked(warning).mockClear()
+      vi.mocked(setFailed).mockClear()
+
+      vi.mocked(getInputParams).mockClear()
+      vi.mocked(getInputParams).mockReturnValue({
         token: 'token',
         imageUrl: 'imageUrl',
         searchPattern: [/^(lgtm|LGTM)$/m]
@@ -29,7 +34,7 @@ describe('main.ts', () => {
 
     test('ends with warning if isSupportedEvent() is false', async () => {
       // Arrange
-      jest.mocked(isSupportedEvent).mockReturnValue(false)
+      vi.mocked(isSupportedEvent).mockReturnValue(false)
 
       // Act
       await run()
@@ -44,8 +49,8 @@ describe('main.ts', () => {
     test('ends with Failed if error', async () => {
       // Arrange
       const error = new Error()
-      jest.mocked(isSupportedEvent).mockReturnValue(true)
-      jest.mocked(getInputParams).mockImplementation(() => {
+      vi.mocked(isSupportedEvent).mockReturnValue(true)
+      vi.mocked(getInputParams).mockImplementation(() => {
         throw error
       })
 
@@ -63,12 +68,12 @@ describe('main.ts', () => {
       'never calls sendCommentAsync if comment is "%s"',
       async (comment) => {
         // Arrange
-        jest.mocked(isSupportedEvent).mockReturnValue(true)
-        jest
-          .mocked(getEventWebhook)
-          .mockReturnValue({ comment, issueNumber: 1 })
+        vi.mocked(isSupportedEvent).mockReturnValue(true)
+        vi.mocked(getEventWebhook).mockReturnValue({ comment, issueNumber: 1 })
+
         // Act
         await run()
+
         // Assert
         expect(getInputParams).toHaveBeenCalledTimes(1)
         expect(info).toHaveBeenCalledTimes(1)
@@ -81,10 +86,8 @@ describe('main.ts', () => {
       'never calls sendCommentAsync if comment does not match pattern.',
       async (comment) => {
         // Arrange
-        jest.mocked(isSupportedEvent).mockReturnValue(true)
-        jest
-          .mocked(getEventWebhook)
-          .mockReturnValue({ comment, issueNumber: 1 })
+        vi.mocked(isSupportedEvent).mockReturnValue(true)
+        vi.mocked(getEventWebhook).mockReturnValue({ comment, issueNumber: 1 })
         // Act
         await run()
         // Assert
@@ -99,12 +102,13 @@ describe('main.ts', () => {
       'calls sendCommentAsync if comment is "%s"',
       async (comment) => {
         // Arrange
-        jest.mocked(isSupportedEvent).mockReturnValue(true)
-        jest
-          .mocked(getEventWebhook)
-          .mockReturnValue({ comment, issueNumber: 1 })
+        vi.mocked(sendCommentAsync).mockClear()
+        vi.mocked(isSupportedEvent).mockReturnValue(true)
+        vi.mocked(getEventWebhook).mockReturnValue({ comment, issueNumber: 1 })
+
         // Act
         await run()
+
         // Assert
         expect(getInputParams).toHaveBeenCalledTimes(1)
         expect(info).toHaveBeenCalledWith(

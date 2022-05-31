@@ -1,22 +1,22 @@
 import { getInput, getMultilineInput } from '@actions/core'
-import { beforeEach, describe, expect, jest, test } from '@jest/globals'
+import { beforeEach, describe, expect, test, vi } from 'vitest'
 
 import { getInputParams } from '../src/input-helper'
 import { generateRandomString as random } from './util'
 
-jest.mock('@actions/core')
+vi.mock('@actions/core')
 
 describe('input-helper.ts', () => {
   describe('getInputParams()', () => {
     const mockGetInput = (token: string, imageUrl: string) =>
-      jest
+      vi
         .mocked(getInput)
         .mockImplementation((name) =>
           name === 'token' ? token : name === 'image-url' ? imageUrl : ''
         )
     beforeEach(() => {
-      jest.mocked(getInput).mockReset()
-      jest.mocked(getMultilineInput).mockReset()
+      vi.mocked(getInput).mockReset()
+      vi.mocked(getMultilineInput).mockReset()
     })
 
     test('returns getInput() values', () => {
@@ -24,7 +24,7 @@ describe('input-helper.ts', () => {
       const token = random(10)
       const imageUrl = random(30)
       mockGetInput(token, imageUrl)
-      jest.mocked(getMultilineInput).mockReturnValue(['^LGTM$', '^lgtm$'])
+      vi.mocked(getMultilineInput).mockReturnValue(['^LGTM$', '^lgtm$'])
 
       // Act
       const params = getInputParams()
@@ -39,7 +39,7 @@ describe('input-helper.ts', () => {
       const token = random(10)
       const imageUrl = random(30)
       mockGetInput(token, imageUrl)
-      jest.mocked(getMultilineInput).mockReturnValue([])
+      vi.mocked(getMultilineInput).mockReturnValue([])
 
       // Act
       const params = getInputParams()

@@ -23,7 +23,7 @@
     "lint": "run-p lint:*",
     "lint:eslint": "eslint --ext .ts --ignore-path .gitignore .",
     "lint:prettier": "prettier --ignore-path .gitignore -l \"**/*.{ts,json,yml}\"",
-    "test": "jest"
+    "test": "vitest run"
   },
   "lint-staged": {
     "*.ts": [

@@ -1,27 +1,20 @@
 import { getOctokit } from '@actions/github'
-import {
-  beforeAll,
-  beforeEach,
-  describe,
-  expect,
-  jest,
-  test
-} from '@jest/globals'
+import { beforeAll, beforeEach, describe, expect, test,vi } from 'vitest'
 
 import { sendCommentAsync } from '../src/send-comment'
 import { generateRandomString } from './util'
 
-jest.mock('@actions/github')
+vi.mock('@actions/github')
 
 describe('send-comment.ts', () => {
   beforeAll(() => {
-    jest.mocked(getOctokit).mockReturnValue(
+    vi.mocked(getOctokit).mockReturnValue(
       // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Mock
-      { rest: { issues: { createComment: jest.fn() } } } as any
+      { rest: { issues: { createComment: vi.fn() } } } as any
     )
   })
   beforeEach(() => {
-    jest.mocked(getOctokit).mockClear()
+    vi.mocked(getOctokit).mockClear()
   })
 
   describe('sendCommentAsync', () => {
@@ -37,9 +30,9 @@ describe('send-comment.ts', () => {
       await sendCommentAsync(token, owner, repo, issueNumber, comment)
 
       // Assert
-      expect(jest.mocked(getOctokit)).toHaveBeenCalledTimes(1)
-      expect(jest.mocked(getOctokit)).toHaveBeenCalledWith(token)
-      const octokit = jest.mocked(getOctokit).mock.results[0]
+      expect(vi.mocked(getOctokit)).toHaveBeenCalledTimes(1)
+      expect(vi.mocked(getOctokit)).toHaveBeenCalledWith(token)
+      const octokit = vi.mocked(getOctokit).mock.results[0]
         ?.value as ReturnType<typeof getOctokit>
       expect(octokit.rest.issues.createComment).toHaveBeenCalledTimes(1)
       expect(octokit.rest.issues.createComment).toHaveBeenCalledWith({

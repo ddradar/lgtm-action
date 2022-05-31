@@ -1,8 +1,8 @@
-import { describe, expect, jest, test } from '@jest/globals'
+import { describe, expect, test, vi } from 'vitest'
 
 import { getEventWebhook, isSupportedEvent } from '../src/event'
 
-jest.mock('@actions/github', () => ({
+vi.mock('@actions/github', () => ({
   context: {
     payload: {
       comment: { body: 'comment.body' },
