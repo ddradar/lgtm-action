@@ -4,14 +4,10 @@
     "node": true,
     "es6": true
   },
-  "plugins": ["jest", "simple-import-sort"],
+  "plugins": ["simple-import-sort"],
   "settings": {
     "node": {
-      "allowModules": [
-        "@jest/globals",
-        "@jest/types",
-        "@octokit/webhooks-types"
-      ],
+      "allowModules": ["@octokit/webhooks-types", "vitest"],
       "tryExtensions": [".ts", ".js", ".json", ".node"]
     }
   },
@@ -20,7 +16,6 @@
     "plugin:node/recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:jest/recommended",
     "prettier"
   ],
   "rules": {

@@ -1,5 +1,5 @@
 import { getOctokit } from '@actions/github'
-import { beforeAll, beforeEach, describe, expect, test,vi } from 'vitest'
+import { beforeAll, beforeEach, describe, expect, test, vi } from 'vitest'
 
 import { sendCommentAsync } from '../src/send-comment'
 import { generateRandomString } from './util'
