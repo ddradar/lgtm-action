@@ -23,7 +23,7 @@
     "lint": "run-p lint:*",
     "lint:eslint": "eslint --ext .ts --ignore-path .gitignore .",
     "lint:prettier": "prettier --ignore-path .gitignore -l \"**/*.{ts,json,yml}\"",
-    "test": "jest"
+    "test": "vitest run"
   },
   "lint-staged": {
     "*.ts": [
@@ -39,25 +39,20 @@
   "devDependencies": {
     "@octokit/webhooks-types": "^5.6.0",
     "@tsconfig/node16-strictest": "^1.0.1",
+    "@types/node": "^16.11.36",
     "@typescript-eslint/eslint-plugin": "^5.26.0",
     "@typescript-eslint/parser": "^5.26.0",
     "@vercel/ncc": "^0.34.0",
+    "c8": "^7.11.3",
     "eslint": "^8.16.0",
     "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-jest": "^26.2.2",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "husky": "^8.0.1",
-    "jest": "^28.1.0",
     "lint-staged": "^12.4.2",
     "npm-run-all2": "^5.0.2",
     "prettier": "^2.6.2",
-    "ts-jest": "^28.0.3",
-    "ts-node": "^10.8.0",
-    "typescript": "~4.7.2"
-  },
-  "resolutions": {
-    "@types/node": "16.x",
-    "type-fest": "^1.4.0"
+    "typescript": "~4.7.2",
+    "vitest": "^0.13.0"
   }
 }

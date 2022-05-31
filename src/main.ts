@@ -37,9 +37,7 @@ export async function run(): Promise<void> {
 
     info('Comment does not match pattern.')
   } catch (error) {
-    setFailed(
-      error instanceof Error ? error : /* istanbul ignore next */ `${error}`
-    )
+    setFailed(error instanceof Error ? error : /* c8 ignore next */ `${error}`)
   }
 }
 
