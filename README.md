@@ -38,7 +38,7 @@ jobs:
   post:
     runs-on: ubuntu-latest
     steps:
-      - uses: ddradar/lgtm-action@v2.0.0
+      - uses: ddradar/lgtm-action@v2.0.1
         with:
           image-url: "{ Your LGTM image URL }"
           search-pattern: |
@@ -60,14 +60,14 @@ jobs:
     runs-on: ubuntu-latest
     if: (!contains(github.actor, '[bot]')) # Exclude bot comment
     steps:
-      - uses: ddradar/choose-random-action@v1
+      - uses: ddradar/choose-random-action@v2
         id: act
         with:
           contents: |
             https://example.com/your-lgtm-image-1.jpg
             https://example.com/your-lgtm-image-2.jpg
             https://example.com/your-lgtm-image-3.jpg
-      - uses: ddradar/lgtm-action@v2.0.0
+      - uses: ddradar/lgtm-action@v2.0.1
         with:
           image-url: ${{ steps.act.outputs.selected }}
 ```
