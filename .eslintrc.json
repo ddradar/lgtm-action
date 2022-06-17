@@ -34,7 +34,14 @@
     {
       "files": ["**/*.test.ts"],
       "rules": {
-        "node/no-unpublished-import": "off"
+        "node/no-unpublished-import": "off",
+        "node/no-missing-import": [
+          "error",
+          {
+            "allowModules": ["@octokit/webhooks-types", "vitest"],
+            "tryExtensions": [".ts", ".js", ".json", ".node"]
+          }
+        ]
       }
     }
   ]
