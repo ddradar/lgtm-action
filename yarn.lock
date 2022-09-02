@@ -1514,10 +1514,10 @@ normalize-path@^3.0.0:
   resolved "https://registry.yarnpkg.com/normalize-path/-/normalize-path-3.0.0.tgz#0dcd69ff23a1c9b11fd0978316644a0388216a65"
   integrity sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==
 
-npm-run-all2@^6.0.1:
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/npm-run-all2/-/npm-run-all2-6.0.1.tgz#296463bc36cc08c4f7a683c3cc8657c29afdb4d3"
-  integrity sha512-FbuTcpA2OOzMfubRaqII1hpHp0zxSl2BC6QPxVwdqsN38GyN1ohPqqm8KELK7vyvJByHVjuXvc7QpkluXM8EZA==
+npm-run-all2@^6.0.2:
+  version "6.0.2"
+  resolved "https://registry.yarnpkg.com/npm-run-all2/-/npm-run-all2-6.0.2.tgz#cc43217e7e9c5223c7a12c4d6403360cdc68ec8f"
+  integrity sha512-WqGO5qbXEhf3uF3vKZteue8cxa06E3yp5WixL+OBV0HWmkxFHJhK7NGZ2x/cDRklJ08w5iCVjoFCsIv5pEGxpw==
   dependencies:
     ansi-styles "^5.0.0"
     cross-spawn "^7.0.3"
@@ -1525,7 +1525,7 @@ npm-run-all2@^6.0.1:
     minimatch "^5.0.0"
     pidtree "^0.6.0"
     read-pkg "^5.2.0"
-    shell-quote "^1.6.1"
+    shell-quote "^1.7.3"
 
 npm-run-path@^5.1.0:
   version "5.1.0"
@@ -1803,7 +1803,7 @@ shebang-regex@^3.0.0:
   resolved "https://registry.yarnpkg.com/shebang-regex/-/shebang-regex-3.0.0.tgz#ae16f1644d873ecad843b0307b143362d4c42172"
   integrity sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==
 
-shell-quote@^1.6.1:
+shell-quote@^1.7.3:
   version "1.7.3"
   resolved "https://registry.yarnpkg.com/shell-quote/-/shell-quote-1.7.3.tgz#aa40edac170445b9a431e17bb62c0b881b9c4123"
   integrity sha512-Vpfqwm4EnqGdlsBFNmHhxhElJYrdfcxPThu+ryKS5J8L/fhAwLazFZtq+S+TWZ9ANj2piSQLGj6NQg+lKPmxrw==
