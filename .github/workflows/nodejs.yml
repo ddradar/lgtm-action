@@ -33,7 +33,7 @@ jobs:
       - name: Test
         run: yarn test --coverage
       - name: Report Code Coverage to codecov
-        uses: codecov/codecov-action@v3.1.0
+        uses: codecov/codecov-action@v3.1.1
       - name: GitHub Actions Build Test
         uses: ./
         with:
