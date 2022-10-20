@@ -38,7 +38,7 @@ jobs:
   post:
     runs-on: ubuntu-latest
     steps:
-      - uses: ddradar/lgtm-action@v2.0.1
+      - uses: ddradar/lgtm-action@v2.0.2
         with:
           image-url: "{ Your LGTM image URL }"
           search-pattern: |
@@ -67,7 +67,7 @@ jobs:
             https://example.com/your-lgtm-image-1.jpg
             https://example.com/your-lgtm-image-2.jpg
             https://example.com/your-lgtm-image-3.jpg
-      - uses: ddradar/lgtm-action@v2.0.1
+      - uses: ddradar/lgtm-action@v2.0.2
         with:
           image-url: ${{ steps.act.outputs.selected }}
 ```
