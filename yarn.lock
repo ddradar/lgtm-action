@@ -1584,10 +1584,10 @@ normalize-path@^3.0.0:
   resolved "https://registry.yarnpkg.com/normalize-path/-/normalize-path-3.0.0.tgz#0dcd69ff23a1c9b11fd0978316644a0388216a65"
   integrity sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==
 
-npm-run-all2@^6.0.2:
-  version "6.0.2"
-  resolved "https://registry.yarnpkg.com/npm-run-all2/-/npm-run-all2-6.0.2.tgz#cc43217e7e9c5223c7a12c4d6403360cdc68ec8f"
-  integrity sha512-WqGO5qbXEhf3uF3vKZteue8cxa06E3yp5WixL+OBV0HWmkxFHJhK7NGZ2x/cDRklJ08w5iCVjoFCsIv5pEGxpw==
+npm-run-all2@^6.0.4:
+  version "6.0.4"
+  resolved "https://registry.yarnpkg.com/npm-run-all2/-/npm-run-all2-6.0.4.tgz#2623097fcc8b43d051a364146f060978d3e36baa"
+  integrity sha512-/St+bDHysVO4CtXKpWDFP0oscvx3sp/Fmf5UddtF3QIfA4Rf6S5qoyOepLGyFXtky/i9PRj4n/TkA4OTUpwMFw==
   dependencies:
     ansi-styles "^5.0.0"
     cross-spawn "^7.0.3"
