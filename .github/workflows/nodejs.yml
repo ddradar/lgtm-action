@@ -11,11 +11,10 @@ on:
       - '**.md'
 
 jobs:
-  build:
-    name: Build & Test
-    runs-on: ubuntu-20.04
+  lint:
+    name: Check Format
+    runs-on: ubuntu-latest
     steps:
-      # Setup Environment
       - name: Checkout
         uses: actions/checkout@v3.5.0
       - name: Use Node.js ${{ vars.NODE_VERSION }}
@@ -23,18 +22,79 @@ jobs:
         with:
           node-version: ${{ vars.NODE_VERSION }}
           cache: npm
-
       - name: Install Dependencies
         run: npm ci --ignore-scripts
+
       - name: Lint
         run: npm run lint
+
+  build:
+    name: Build Action Assets
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.5.0
+      - name: Use Node.js ${{ vars.NODE_VERSION }}
+        uses: actions/setup-node@v3.6.0
+        with:
+          node-version: ${{ vars.NODE_VERSION }}
+          cache: npm
+      - name: Install Dependencies
+        run: npm ci --ignore-scripts
+
       - name: Build
         run: npm run build
+
+      - name: Upload Action Assets
+        uses: actions/upload-artifact@v3.1.2
+        with:
+          name: dist
+          path: dist
+
+  unit-test:
+    name: Unit Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.5.0
+      - name: Use Node.js ${{ vars.NODE_VERSION }}
+        uses: actions/setup-node@v3.6.0
+        with:
+          node-version: ${{ vars.NODE_VERSION }}
+          cache: npm
+      - name: Install Dependencies
+        run: npm ci --ignore-scripts
+
       - name: Test
         run: npm test -- --coverage
+
       - name: Report Code Coverage to codecov
         uses: codecov/codecov-action@v3.1.1
-      - name: GitHub Actions Build Test
+
+  integration-test:
+    name: Integration Test
+    needs: [build]
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-22.04
+          - ubuntu-20.04
+          - macos-12-xl
+          - macos-11
+          - windows-2022
+          - windows-2019
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.5.0
+      - name: Download Artifact
+        uses: actions/download-artifact@v3.0.2
+        with:
+          name: dist
+          path: dist
+
+      - name: Execute GitHub Action
         uses: ./
         with:
           image-url: ${{ vars.LGTM_IMAGE_URI }}
