@@ -11,30 +11,143 @@ on:
       - '**.md'
 
 jobs:
-  build:
-    name: Build & Test
-    runs-on: ubuntu-20.04
+  lint:
+    name: Check Format
+    runs-on: ubuntu-latest
     steps:
-      # Setup Environment
       - name: Checkout
         uses: actions/checkout@v3.5.0
-      - name: Use Node.js 16
+      - name: Use Node.js ${{ vars.NODE_VERSION }}
         uses: actions/setup-node@v3.6.0
         with:
-          node-version: 16
+          node-version: ${{ vars.NODE_VERSION }}
           cache: npm
-
       - name: Install Dependencies
         run: npm ci --ignore-scripts
+
       - name: Lint
         run: npm run lint
+
+  build:
+    name: Build Action Assets
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.5.0
+      - name: Use Node.js ${{ vars.NODE_VERSION }}
+        uses: actions/setup-node@v3.6.0
+        with:
+          node-version: ${{ vars.NODE_VERSION }}
+          cache: npm
+      - name: Install Dependencies
+        run: npm ci --ignore-scripts
+
       - name: Build
         run: npm run build
+
+      - name: Upload Action Assets
+        uses: actions/upload-artifact@v3.1.2
+        with:
+          name: dist
+          path: dist
+
+  unit-test:
+    name: Unit Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.5.0
+      - name: Use Node.js ${{ vars.NODE_VERSION }}
+        uses: actions/setup-node@v3.6.0
+        with:
+          node-version: ${{ vars.NODE_VERSION }}
+          cache: npm
+      - name: Install Dependencies
+        run: npm ci --ignore-scripts
+
       - name: Test
         run: npm test -- --coverage
+
       - name: Report Code Coverage to codecov
         uses: codecov/codecov-action@v3.1.1
-      - name: GitHub Actions Build Test
+
+  integration-test:
+    name: Integration Test
+    needs: [build]
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-22.04
+          - ubuntu-20.04
+          - macos-12-xl
+          - macos-11
+          - windows-2022
+          - windows-2019
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.5.0
+      - name: Download Action Assets
+        uses: actions/download-artifact@v3.0.2
+        with:
+          name: dist
+          path: dist
+
+      - name: Execute GitHub Action
         uses: ./
         with:
-          image-url: 'https://user-images.githubusercontent.com/24802730/74030931-9a21ac00-49f3-11ea-872e-374d5bd3e586.jpg'
+          image-url: ${{ vars.LGTM_IMAGE_URI }}
+
+  diff:
+    name: Compare Build Assets
+    if: github.event_name == 'pull_request'
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.5.0
+        with:
+          ref: main
+      - name: Use Node.js ${{ vars.NODE_VERSION }}
+        uses: actions/setup-node@v3.6.0
+        with:
+          node-version: ${{ vars.NODE_VERSION }}
+          cache: npm
+      - name: Install Dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Build Action Assets on main
+        run: npm run build
+      - name: Download Current Action Assets
+        uses: actions/download-artifact@v3.0.2
+        with:
+          name: dist
+          path: current
+
+      - name: Setup js-beautify to compare minified js files
+        run: |
+          npm install --global js-beautify
+          git config --local diff.minjs.textconv js-beautify
+          echo "index.js diff=minjs" > .gitattributes
+      - name: Compare
+        id: compare
+        continue-on-error: true
+        run: |
+          echo "# Compare ${{ github.sha }} to main" >> $GITHUB_STEP_SUMMARY
+          git diff --no-index --exit-code ./dist/ ./current/ >> $GITHUB_STEP_SUMMARY
+
+      - name: Report diff
+        if: steps.compare.outcome == 'failure'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const message = 'There is a difference in the build results.'
+
+            core.warning(message)
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `${message} [Show More](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})`
+            })
