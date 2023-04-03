@@ -19,7 +19,7 @@ jobs:
         with:
           node-version: 16
           cache: yarn
-      - name: Install dependencies
+      - name: Install PR branch dependencies
         run: yarn
       - name: Build on PR branch
         run: yarn build -o current
@@ -30,6 +30,8 @@ jobs:
         with:
           ref: main
           clean: false
+      - name: Install main branch dependencies
+        run: yarn
       - name: Build on main branch
         run: npm run build
       - name: Setup js-beautify to compare minified js files
