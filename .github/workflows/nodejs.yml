@@ -18,10 +18,10 @@ jobs:
       # Setup Environment
       - name: Checkout
         uses: actions/checkout@v3.5.0
-      - name: Use Node.js 16
+      - name: Use Node.js ${{ vars.NODE_VERSION }}
         uses: actions/setup-node@v3.6.0
         with:
-          node-version: 16
+          node-version: ${{ vars.NODE_VERSION }}
           cache: npm
 
       - name: Install Dependencies
@@ -37,4 +37,4 @@ jobs:
       - name: GitHub Actions Build Test
         uses: ./
         with:
-          image-url: 'https://user-images.githubusercontent.com/24802730/74030931-9a21ac00-49f3-11ea-872e-374d5bd3e586.jpg'
+          image-url: ${{ vars.LGTM_IMAGE_URI }}
