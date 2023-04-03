@@ -11,6 +11,6 @@
       ]
     }
   },
-  "postCreateCommand": "yarn install",
+  "postCreateCommand": "npm ci",
   "remoteUser": "node"
 }
