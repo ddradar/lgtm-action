@@ -80,7 +80,7 @@ jobs:
         os:
           - ubuntu-22.04
           - ubuntu-20.04
-          - macos-12-xl
+          - macos-12
           - macos-11
           - windows-2022
           - windows-2019
