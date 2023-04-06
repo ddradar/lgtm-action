@@ -14,5 +14,5 @@ jobs:
         with:
           BRANCH_NAME: releases/${MAJOR}
           BUILD_COMMAND: npm ci --ignore-scripts && npm run build
-          CLEAN_TARGETS: .[!.]*,__tests__,coverage,node_modules,src,*.js,*.ts,*.json,*.lock,_config.yml
+          CLEAN_TARGETS: .[!.]*,test,coverage,node_modules,src,*.js,*.ts,*.json,*.lock,_config.yml
           COMMIT_MESSAGE: 'build: release ${{ github.event.release.tag_name }} via ${{ github.sha }}'
