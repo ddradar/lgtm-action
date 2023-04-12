@@ -17,7 +17,7 @@
   },
   "scripts": {
     "prepare": "husky install",
-    "build": "ncc build src/main.ts -m --license licenses.txt --target es2019",
+    "build": "ncc build src/main.ts -m --license licenses.txt --target es2021",
     "fix": "run-p \"lint:eslint --fix\" \"lint:prettier --write\"",
     "lint": "run-p lint:*",
     "lint:eslint": "eslint --ext .ts --ignore-path .gitignore .",
@@ -37,7 +37,8 @@
   },
   "devDependencies": {
     "@octokit/webhooks-types": "^6.10.0",
-    "@tsconfig/node16-strictest": "^1.0.4",
+    "@tsconfig/node16": "^1.0.3",
+    "@tsconfig/strictest": "^2.0.0",
     "@types/node": "^16.18.23",
     "@typescript-eslint/eslint-plugin": "^5.58.0",
     "@typescript-eslint/parser": "^5.58.0",
@@ -52,7 +53,7 @@
     "lint-staged": "^13.2.0",
     "npm-run-all2": "^6.0.4",
     "prettier": "^2.8.7",
-    "typescript": "~4.9.5",
+    "typescript": "~5.0.4",
     "vitest": "^0.29.8"
   }
 }

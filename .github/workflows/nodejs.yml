@@ -134,8 +134,11 @@ jobs:
         id: compare
         continue-on-error: true
         run: |
-          echo "# Compare ${{ github.sha }} to main" >> $GITHUB_STEP_SUMMARY
-          git diff --no-index --exit-code ./dist/ ./current/ >> $GITHUB_STEP_SUMMARY
+          echo '# Compare ${{ github.sha }} to main' >> $GITHUB_STEP_SUMMARY
+          echo '```diff' >> $GITHUB_STEP_SUMMARY
+          git diff --no-index ./dist/ ./current/ >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          git diff --no-index --exit-code ./dist/ ./current/
 
       - name: Report diff
         if: steps.compare.outcome == 'failure'
@@ -149,5 +152,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `${message} [Show More](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})`
+              body: `${message} [Show More](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})`
             })
