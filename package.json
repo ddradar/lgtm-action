@@ -51,7 +51,7 @@
     "eslint-plugin-vitest": "^0.1.4",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.1",
-    "npm-run-all2": "^6.0.4",
+    "npm-run-all2": "^6.0.5",
     "prettier": "^2.8.7",
     "typescript": "~5.0.4",
     "vitest": "^0.30.1"
