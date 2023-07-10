@@ -1,7 +1,7 @@
 # Post LGTM Image
 
-[![last commit](https://img.shields.io/github/last-commit/ddradar/lgtm-action "last commit")](https://github.com/ddradar/lgtm-action/commits)
-[![release version](https://img.shields.io/github/v/release/ddradar/lgtm-action?sort=semver "release version")](https://github.com/ddradar/lgtm-action/releases)
+[![last commit](https://img.shields.io/github/last-commit/ddradar/lgtm-action 'last commit')](https://github.com/ddradar/lgtm-action/commits)
+[![release version](https://img.shields.io/github/v/release/ddradar/lgtm-action?sort=semver 'release version')](https://github.com/ddradar/lgtm-action/releases)
 [![Node.js CI](https://github.com/ddradar/lgtm-action/actions/workflows/nodejs.yml/badge.svg)](https://github.com/ddradar/lgtm-action/actions/workflows/nodejs.yml)
 [![codecov](https://codecov.io/gh/ddradar/lgtm-action/branch/main/graph/badge.svg?token=9NHUlO6fhV)](https://codecov.io/gh/ddradar/lgtm-action)
 [![CodeFactor](https://www.codefactor.io/repository/github/ddradar/lgtm-action/badge)](https://www.codefactor.io/repository/github/ddradar/lgtm-action)
@@ -40,7 +40,7 @@ jobs:
     steps:
       - uses: ddradar/lgtm-action@v2.0.2
         with:
-          image-url: "{ Your LGTM image URL }"
+          image-url: '{ Your LGTM image URL }'
           search-pattern: |
             ^(lgtm|LGTM)$
             ^:\+1:$
@@ -74,20 +74,20 @@ jobs:
 
 ## Options
 
-|Name|Required?|Description|Default|
-|----|:-------:|:----------|-------|
-|image-url|Yes|Set your image URL|-|
-|search-pattern|No|Set regexp pattern this action reacts.<br />This action uses Multi-line(`RegExp.prototype.multiline`) search.|`^(lgtm\|LGTM)$`|
-|token|No|GitHub Access Token to post issue comment. (requires `issues:write` permission)|`${{ github.token }}`|
+| Name           | Required? | Description                                                                                                   | Default               |
+| -------------- | :-------: | :------------------------------------------------------------------------------------------------------------ | --------------------- |
+| image-url      |    Yes    | Set your image URL                                                                                            | -                     |
+| search-pattern |    No     | Set regexp pattern this action reacts.<br />This action uses Multi-line(`RegExp.prototype.multiline`) search. | `^(lgtm\|LGTM)$`      |
+| token          |    No     | GitHub Access Token to post issue comment. (requires `issues:write` permission)                               | `${{ github.token }}` |
 
 ## Screenshots
 
 1. Post "LGTM" or "lgtm" issue comment.
-  ![Send issue comment](https://raw.githubusercontent.com/ddradar/lgtm-action/main/images/screenshot_comment.png)
+   ![Send issue comment](https://raw.githubusercontent.com/ddradar/lgtm-action/main/images/screenshot_comment.png)
 1. Or review comment.
-  ![Send review comment](https://raw.githubusercontent.com/ddradar/lgtm-action/main/images/screenshot_pull_request_review.png)
+   ![Send review comment](https://raw.githubusercontent.com/ddradar/lgtm-action/main/images/screenshot_pull_request_review.png)
 1. Post LGTM image automatically.
-  ![LGTM image post](https://raw.githubusercontent.com/ddradar/lgtm-action/main/images/screenshot_action_works.png)
+   ![LGTM image post](https://raw.githubusercontent.com/ddradar/lgtm-action/main/images/screenshot_action_works.png)
 
 ## License
 
