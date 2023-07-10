@@ -56,7 +56,7 @@ detail
 
 ## Documentation or Translation
 
-- *Welcome!!*
+- _Welcome!!_
 - Some document, including this one, use [AYBABTU](https://en.wikipedia.org/wiki/All_your_base_are_belong_to_us) English.
   Repo owner is not an English speaker, so we welcome any modifications to those.
 

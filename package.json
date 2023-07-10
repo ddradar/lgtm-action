@@ -18,10 +18,10 @@
   "scripts": {
     "prepare": "husky install",
     "build": "ncc build src/main.ts -m --license licenses.txt --target es2021",
-    "fix": "run-p \"lint:eslint --fix\" \"lint:prettier --write\"",
+    "fix": "run-p \"lint:eslint -- --fix\" \"lint:prettier -- --write\"",
     "lint": "run-p lint:*",
     "lint:eslint": "eslint --ext .ts --ignore-path .gitignore .",
-    "lint:prettier": "prettier --ignore-path .gitignore -l \"**/*.{ts,json,yml}\"",
+    "lint:prettier": "prettier --ignore-path .gitignore -l \"**/*.{ts,json,md,yml}\"",
     "test": "vitest run"
   },
   "lint-staged": {
@@ -29,7 +29,7 @@
       "eslint --fix",
       "prettier --write"
     ],
-    "*.{json,yml}": "prettier --write"
+    "*.{json,md,yml}": "prettier --write"
   },
   "dependencies": {
     "@actions/core": "^1.10.0",
