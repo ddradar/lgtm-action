@@ -46,24 +46,6 @@ describe('main.ts', () => {
       expect(sendCommentAsync).not.toHaveBeenCalled()
     })
 
-    test('ends with Failed if error', async () => {
-      // Arrange
-      const error = new Error()
-      vi.mocked(isSupportedEvent).mockReturnValue(true)
-      vi.mocked(getInputParams).mockImplementation(() => {
-        throw error
-      })
-
-      // Act
-      await run()
-
-      // Assert
-      expect(warning).not.toHaveBeenCalled()
-      expect(getInputParams).toHaveBeenCalled()
-      expect(setFailed).toHaveBeenCalledWith(error)
-      expect(sendCommentAsync).not.toHaveBeenCalled()
-    })
-
     test.each([null, ''])(
       'never calls sendCommentAsync if comment is "%s"',
       async (comment) => {

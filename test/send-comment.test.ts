@@ -9,7 +9,7 @@ vi.mock('@actions/github')
 describe('send-comment.ts', () => {
   beforeAll(() => {
     vi.mocked(getOctokit).mockReturnValue(
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Mock
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-argument -- Mock
       { rest: { issues: { createComment: vi.fn() } } } as any
     )
   })

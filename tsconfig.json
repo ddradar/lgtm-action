@@ -6,5 +6,5 @@
   "compilerOptions": {
     "rootDir": "src"
   },
-  "exclude": ["coverage", "node_modules", "test", "*.config.ts"]
+  "exclude": ["coverage", "dist", "node_modules", "test", "*.config.ts"]
 }

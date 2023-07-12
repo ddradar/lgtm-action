@@ -21,7 +21,7 @@ export function isSupportedEvent(
   return (supportedEvent as ReadonlySet<string>).has(eventName)
 }
 
-type EventWebhook = {
+interface EventWebhook {
   /** comment body */
   comment: string | null
   /** issue or pull request number */
