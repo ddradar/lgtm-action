@@ -1,6 +1,6 @@
 import { getInput, getMultilineInput } from '@actions/core'
 
-type InputParameter = {
+interface InputParameter {
   /** Your GitHub Token */
   token: string
   /** Image URL path */
