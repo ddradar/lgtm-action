@@ -1,11 +1,11 @@
-# see: https://docs.github.com/code-security/supply-chain-security/keeping-your-dependencies-updated-automatically/configuration-options-for-dependency-updates
+# see: https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
 version: 2
 updates:
   # GitHub Actions (/.github/workflows/*.yml)
-  - package-ecosystem: 'github-actions'
+  - package-ecosystem: github-actions
     directory: '/'
     schedule:
-      interval: 'monthly'
+      interval: monthly
       time: '18:00'
       timezone: 'Asia/Tokyo'
     reviewers:
@@ -13,22 +13,35 @@ updates:
     labels:
       - 'dependabot:robot:'
     commit-message:
-      prefix: 'ci'
-      include: 'scope'
+      prefix: ci
+      include: scope
 
   # npm/yarn (/**/package.json)
   - package-ecosystem: 'npm'
     directory: '/'
     schedule:
-      interval: 'monthly'
+      interval: monthly
       time: '18:00'
       timezone: 'Asia/Tokyo'
+    groups:
+      vitest:
+        dependency-type: development
+        patterns:
+          - '@vitest/*'
+          - 'vitest'
+      lint-tools:
+        dependency-type: development
+        exclude-patterns:
+          - '@octokit/*'
+          - '@tsconfig/*'
+          - '@vercel/*'
+          - typescript
     assignees:
       - 'ddradar/action-maintainer'
     labels:
       - 'dependabot:robot:'
     commit-message:
-      prefix: 'chore'
-      prefix-development: 'chore'
-      include: 'scope'
+      prefix: chore
+      prefix-development: chore
+      include: scope
     open-pull-requests-limit: 10
