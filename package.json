@@ -1,6 +1,6 @@
 {
   "name": "lgtm-action",
-  "version": "2.0.2",
+  "version": "3.0.0",
   "private": true,
   "description": "Post image if you comment \"LGTM\"",
   "author": "Nogic <24802730+nogic1008@users.noreply.github.com>",
@@ -13,7 +13,7 @@
   ],
   "main": "dist/index.js",
   "engines": {
-    "node": ">=16"
+    "node": ">=20"
   },
   "scripts": {
     "prepare": "husky install",
@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@actions/core": "^1.10.1",
-    "@actions/github": "^5.1.1"
+    "@actions/github": "^6.0.0"
   },
   "devDependencies": {
     "@octokit/webhooks-types": "^7.3.1",
