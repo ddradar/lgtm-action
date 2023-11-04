@@ -1,10 +1,10 @@
 import { info, setFailed, warning } from '@actions/core'
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 
-import { getEventWebhook, isSupportedEvent } from '../src/event'
-import { getInputParams } from '../src/input-helper'
-import { run } from '../src/main'
-import { sendCommentAsync } from '../src/send-comment'
+import { getEventWebhook, isSupportedEvent } from '../src/event.js'
+import { getInputParams } from '../src/input-helper.js'
+import { run } from '../src/main.js'
+import { sendCommentAsync } from '../src/send-comment.js'
 
 vi.mock('@actions/core')
 vi.mock('@actions/github', () => ({

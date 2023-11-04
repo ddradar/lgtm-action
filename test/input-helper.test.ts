@@ -1,8 +1,8 @@
 import { getInput, getMultilineInput } from '@actions/core'
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 
-import { getInputParams } from '../src/input-helper'
-import { generateRandomString as random } from './util'
+import { getInputParams } from '../src/input-helper.js'
+import { generateRandomString as random } from './util.js'
 
 vi.mock('@actions/core')
 

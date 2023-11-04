@@ -1,5 +1,6 @@
 {
   "name": "lgtm-action",
+  "type": "module",
   "version": "3.0.0",
   "private": true,
   "description": "Post image if you comment \"LGTM\"",
@@ -17,7 +18,7 @@
   },
   "scripts": {
     "prepare": "husky install",
-    "build": "ncc build src/main.ts -m --license licenses.txt --target es2021",
+    "build": "ncc build src/main.ts -m --license licenses.txt --target es2022",
     "fix": "run-p \"lint:eslint -- --fix\" \"lint:prettier -- --write\"",
     "lint": "run-p lint:*",
     "lint:eslint": "eslint --ext .ts --ignore-path .gitignore .",
