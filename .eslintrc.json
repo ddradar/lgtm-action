@@ -28,13 +28,7 @@
     ],
     "no-console": "error",
     "simple-import-sort/imports": "error",
-    "node/no-missing-import": [
-      "error",
-      {
-        "allowModules": ["@octokit/webhooks-types", "vitest"],
-        "tryExtensions": [".ts", ".js", ".json", ".node"]
-      }
-    ],
+    "node/no-missing-import": ["off"],
     "node/no-unpublished-import": [
       "error",
       {

@@ -1,9 +1,9 @@
 import { debug, info, setFailed, warning } from '@actions/core'
 import { context } from '@actions/github'
 
-import { getEventWebhook, isSupportedEvent } from './event'
-import { getInputParams } from './input-helper'
-import { sendCommentAsync } from './send-comment'
+import { getEventWebhook, isSupportedEvent } from './event.js'
+import { getInputParams } from './input-helper.js'
+import { sendCommentAsync } from './send-comment.js'
 
 /** Main entry */
 export async function run(): Promise<void> {

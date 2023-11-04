@@ -1,6 +1,6 @@
 import { describe, expect, test, vi } from 'vitest'
 
-import { getEventWebhook, isSupportedEvent } from '../src/event'
+import { getEventWebhook, isSupportedEvent } from '../src/event.js'
 
 vi.mock('@actions/github', () => ({
   context: {

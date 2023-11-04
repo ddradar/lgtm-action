@@ -1,8 +1,8 @@
 import { getOctokit } from '@actions/github'
 import { beforeAll, beforeEach, describe, expect, test, vi } from 'vitest'
 
-import { sendCommentAsync } from '../src/send-comment'
-import { generateRandomString } from './util'
+import { sendCommentAsync } from '../src/send-comment.js'
+import { generateRandomString } from './util.js'
 
 vi.mock('@actions/github')
 
