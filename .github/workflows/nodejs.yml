@@ -65,7 +65,9 @@ jobs:
         run: npm test -- --coverage
 
       - name: Report Code Coverage to codecov
-        uses: codecov/codecov-action@v4.0.0
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
 
   integration-test:
     name: Integration Test
