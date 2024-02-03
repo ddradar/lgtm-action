@@ -65,7 +65,7 @@ jobs:
         run: npm test -- --coverage
 
       - name: Report Code Coverage to codecov
-        uses: codecov/codecov-action@v3.1.4
+        uses: codecov/codecov-action@v4.0.0
 
   integration-test:
     name: Integration Test
