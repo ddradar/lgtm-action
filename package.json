@@ -17,7 +17,7 @@
     "node": ">=20"
   },
   "scripts": {
-    "prepare": "husky install",
+    "prepare": "husky",
     "build": "ncc build src/main.ts -m --license licenses.txt --target es2022",
     "fix": "run-p \"lint:eslint -- --fix\" \"lint:prettier -- --write\"",
     "lint": "run-p lint:*",
