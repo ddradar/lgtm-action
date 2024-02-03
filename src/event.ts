@@ -8,9 +8,8 @@ const supportedEvent = new Set([
   'issue_comment',
   'pull_request_review'
 ] as const)
-type SupportedEvent = typeof supportedEvent extends Iterable<infer U>
-  ? U
-  : never
+type SupportedEvent =
+  typeof supportedEvent extends Iterable<infer U> ? U : never
 
 /** Returns true if this action supports event.
  * @param eventName event name.
