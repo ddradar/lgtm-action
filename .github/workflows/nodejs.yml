@@ -87,7 +87,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4.1.4
       - name: Download Action Assets
-        uses: actions/download-artifact@v4.1.4
+        uses: actions/download-artifact@v4.1.7
         with:
           name: dist
           path: dist
@@ -121,7 +121,7 @@ jobs:
       - name: Build Action Assets on main
         run: npm run build
       - name: Download Current Action Assets
-        uses: actions/download-artifact@v4.1.4
+        uses: actions/download-artifact@v4.1.7
         with:
           name: dist
           path: current
