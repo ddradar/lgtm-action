@@ -1,6 +1,6 @@
 {
-  "name": "Node.js 16",
-  "image": "mcr.microsoft.com/devcontainers/javascript-node:16",
+  "name": "Node.js 20",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:20",
   "customizations": {
     "vscode": {
       "extensions": [
@@ -8,7 +8,7 @@
         "EditorConfig.EditorConfig",
         "esbenp.prettier-vscode",
         "github.vscode-github-actions",
-        "ZixuanChen.vitest-explorer"
+        "vitest.explorer"
       ]
     }
   },
