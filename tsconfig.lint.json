@@ -1,4 +1,4 @@
 {
   "extends": ["./tsconfig"],
-  "exclude": ["coverage", "node_modules"]
+  "exclude": ["coverage", "dist", "node_modules"]
 }
