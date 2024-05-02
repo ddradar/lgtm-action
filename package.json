@@ -21,7 +21,7 @@
     "build": "ncc build src/main.ts -m --license licenses.txt --target es2022",
     "fix": "run-p \"lint:eslint -- --fix\" \"lint:prettier -- --write\"",
     "lint": "run-p lint:*",
-    "lint:eslint": "eslint --ext .ts --ignore-path .gitignore .",
+    "lint:eslint": "eslint .",
     "lint:prettier": "prettier --ignore-path .gitignore -l \"**/*.{ts,json,md,yml}\"",
     "test": "vitest run"
   },
@@ -37,16 +37,16 @@
     "@actions/github": "^6.0.0"
   },
   "devDependencies": {
+    "@eslint/js": "^8.57.0",
     "@octokit/webhooks-types": "^7.5.1",
     "@tsconfig/node20": "^20.1.4",
     "@tsconfig/strictest": "^2.0.5",
-    "@typescript-eslint/eslint-plugin": "^7.8.0",
-    "@typescript-eslint/parser": "^7.8.0",
+    "@types/node": "20.x",
     "@vercel/ncc": "^0.38.1",
     "@vitest/coverage-v8": "^1.5.3",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-n": "^17.4.0",
     "eslint-plugin-simple-import-sort": "^12.1.0",
     "eslint-plugin-vitest": "^0.5.4",
     "husky": "^9.0.11",
@@ -54,6 +54,7 @@
     "npm-run-all2": "^6.1.2",
     "prettier": "^3.2.5",
     "typescript": "~5.4.5",
+    "typescript-eslint": "^7.8.0",
     "vitest": "^1.5.3"
   }
 }
