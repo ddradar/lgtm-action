@@ -7,12 +7,22 @@ on:
 jobs:
   release:
     name: Release
+    if: github.event.release.prerelease == false
     runs-on: ubuntu-latest
     steps:
-      - name: Release for GitHub Actions
-        uses: technote-space/release-github-actions@v8.0.3
-        with:
-          BRANCH_NAME: releases/${MAJOR}
-          BUILD_COMMAND: npm ci --ignore-scripts && npm run build && npm pkg delete scripts.prepare
-          CLEAN_TARGETS: .[!.]*,test,coverage,node_modules,src,*.js,*.ts,*.json,*.lock,_config.yml
-          COMMIT_MESSAGE: 'build: release ${{ github.event.release.tag_name }} via ${{ github.sha }}'
+      - name: Checkout
+        uses: actions/checkout@v4.1.4
+
+      - name: Get Major & Minor version
+        id: version
+        run: |
+          echo "major=$(echo ${{ github.event.release.tag_name }} | cut -d. -f1)" >> $GITHUB_OUTPUT
+          echo "minor=$(echo ${{ github.event.release.tag_name }} | cut -d. -f2)" >> $GITHUB_OUTPUT
+
+      - name: Push Git Tag (Major, Minor)
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git tag -a ${{ steps.version.outputs.major }}
+          git tag -a ${{ steps.version.outputs.major }}.${{ steps.version.outputs.minor }}
+          git push --tags --force
