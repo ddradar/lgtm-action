@@ -170,11 +170,7 @@ jobs:
       - name: Checkout Documents from main
         uses: actions/checkout@v4.1.4
         with:
-          sparse-checkout: |
-            *.md
-            LICENSE
-            images
-            action.yml
+          sparse-checkout: ${{ vars.RELEASE_ASSETS }}
           sparse-checkout-cone-mode: false
 
       - name: Download Build Assets
