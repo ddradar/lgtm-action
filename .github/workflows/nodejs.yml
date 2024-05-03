@@ -1,4 +1,4 @@
-name: Node.js CI
+name: Node.js CI/CD
 
 on:
   push:
@@ -155,3 +155,39 @@ jobs:
               repo: context.repo.repo,
               body: `${message} [Show More](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})`
             })
+
+  deploy:
+    name: Deploy to Release branch
+    if: github.event_name == 'push'
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Release Branch
+        uses: actions/checkout@v4.1.4
+        with:
+          ref: ${{ vars.RELEASE_BRANCH }}
+
+      - name: Checkout Documents from main
+        uses: actions/checkout@v4.1.4
+        with:
+          sparse-checkout: |
+            *.md
+            LICENSE
+            images
+            action.yml
+          sparse-checkout-cone-mode: false
+
+      - name: Download Build Assets
+        uses: actions/download-artifact@v4.1.7
+        with:
+          name: dist
+          path: dist
+
+      - name: Commit and Push
+        continue-on-error: true
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add .
+          git commit -m "build: deploy via ${{ github.sha }}"
+          git push
