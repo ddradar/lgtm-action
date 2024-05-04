@@ -11,7 +11,7 @@ updates:
     reviewers:
       - 'ddradar/action-maintainer'
     labels:
-      - 'dependabot:robot:'
+      - 'dependabot :robot:'
     commit-message:
       prefix: ci
       include: scope
@@ -39,7 +39,7 @@ updates:
     assignees:
       - 'ddradar/action-maintainer'
     labels:
-      - 'dependabot:robot:'
+      - 'dependabot :robot:'
     commit-message:
       prefix: chore
       prefix-development: chore
