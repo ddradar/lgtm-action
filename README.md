@@ -37,6 +37,9 @@ on:
 jobs:
   post:
     runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
     steps:
       - uses: ddradar/lgtm-action@v2.0.2
         with:
@@ -59,6 +62,9 @@ jobs:
   post:
     runs-on: ubuntu-latest
     if: (!contains(github.actor, '[bot]')) # Exclude bot comment
+    permissions:
+      issues: write
+      pull-requests: write
     steps:
       - uses: ddradar/choose-random-action@v2
         id: act
