@@ -11,10 +11,10 @@ updates:
     reviewers:
       - 'ddradar/action-maintainer'
     labels:
-      - 'dependabot:robot:'
+      - 'dependabot :robot:'
+    milestone: 15
     commit-message:
-      prefix: ci
-      include: scope
+      prefix: ci(gh-actions)
 
   # npm/yarn (/**/package.json)
   - package-ecosystem: 'npm'
@@ -28,20 +28,37 @@ updates:
         dependency-type: development
         patterns:
           - '@vitest/*'
-          - 'vitest'
+          - vitest
       lint-tools:
         dependency-type: development
         exclude-patterns:
           - '@octokit/*'
           - '@tsconfig/*'
+          - '@types/*'
           - '@vercel/*'
+          - '@vitest/*'
           - typescript
+          - vitest
     assignees:
       - 'ddradar/action-maintainer'
     labels:
-      - 'dependabot:robot:'
+      - 'dependabot :robot:'
+    milestone: 15
     commit-message:
-      prefix: chore
+      prefix: fix
       prefix-development: chore
       include: scope
     open-pull-requests-limit: 10
+
+  # Development Containers (/.devcontainer/devcontainer.json)
+  - package-ecosystem: devcontainers
+    directory: '/'
+    schedule:
+      interval: monthly
+      time: '18:00'
+      timezone: 'Asia/Tokyo'
+    labels:
+      - 'dependabot :robot:'
+    milestone: 15
+    commit-message:
+      prefix: ci(devcontainer)
