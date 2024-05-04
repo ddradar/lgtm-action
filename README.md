@@ -78,7 +78,7 @@ jobs:
 | -------------- | :-------: | :------------------------------------------------------------------------------------------------------------ | --------------------- |
 | image-url      |    Yes    | Set your image URL                                                                                            | -                     |
 | search-pattern |    No     | Set regexp pattern this action reacts.<br />This action uses Multi-line(`RegExp.prototype.multiline`) search. | `^(lgtm\|LGTM)$`      |
-| token          |    No     | GitHub Access Token to post issue comment. (requires `issues:write` permission)                               | `${{ github.token }}` |
+| token          |    No     | GitHub Access Token to post issue comment. (requires `issues:write` and `pull-requests:write` permission)     | `${{ github.token }}` |
 
 ## Screenshots
 
