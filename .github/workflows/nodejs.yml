@@ -169,6 +169,7 @@ jobs:
 
       - name: Restore Documents from main
         run: |
+          git fetch --no-tags --depth=1 origin +refs/heads/main:refs/remotes/origin/main
           git restore --source=origin/main -- *.md
           git restore --source=origin/main -- LICENSE
           git restore --source=origin/main -- action.yml
