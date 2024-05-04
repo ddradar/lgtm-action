@@ -29,14 +29,17 @@ updates:
         dependency-type: development
         patterns:
           - '@vitest/*'
-          - 'vitest'
+          - vitest
       lint-tools:
         dependency-type: development
         exclude-patterns:
           - '@octokit/*'
           - '@tsconfig/*'
+          - '@types/*'
           - '@vercel/*'
+          - '@vitest/*'
           - typescript
+          - vitest
     assignees:
       - 'ddradar/action-maintainer'
     labels:
