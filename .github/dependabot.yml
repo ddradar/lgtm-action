@@ -49,3 +49,16 @@ updates:
       prefix-development: chore
       include: scope
     open-pull-requests-limit: 10
+
+  # Development Containers (/.devcontainer/devcontainer.json)
+  - package-ecosystem: devcontainers
+    directory: '/'
+    schedule:
+      interval: monthly
+      time: '18:00'
+      timezone: 'Asia/Tokyo'
+    labels:
+      - 'dependabot :robot:'
+    milestone: 15
+    commit-message:
+      prefix: ci(devcontainer)
