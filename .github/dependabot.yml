@@ -14,8 +14,7 @@ updates:
       - 'dependabot :robot:'
     milestone: 15
     commit-message:
-      prefix: ci
-      include: scope
+      prefix: ci(gh-actions)
 
   # npm/yarn (/**/package.json)
   - package-ecosystem: 'npm'
@@ -46,7 +45,7 @@ updates:
       - 'dependabot :robot:'
     milestone: 15
     commit-message:
-      prefix: chore
+      prefix: fix
       prefix-development: chore
       include: scope
     open-pull-requests-limit: 10
