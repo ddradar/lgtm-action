@@ -12,6 +12,7 @@ updates:
       - 'ddradar/action-maintainer'
     labels:
       - 'dependabot :robot:'
+    milestone: 15
     commit-message:
       prefix: ci
       include: scope
@@ -40,6 +41,7 @@ updates:
       - 'ddradar/action-maintainer'
     labels:
       - 'dependabot :robot:'
+    milestone: 15
     commit-message:
       prefix: chore
       prefix-development: chore
