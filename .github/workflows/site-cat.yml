@@ -8,8 +8,11 @@ jobs:
   post:
     runs-on: ubuntu-latest
     if: (!contains(github.actor, '[bot]'))
+    permissions:
+      issues: write
+      pull-requests: write
     steps:
-      - uses: ddradar/lgtm-action@v1
+      - uses: ddradar/lgtm-action@v3.0.0
         with:
           image-url: ${{ vars.LGTM_IMAGE_URI }}
           search-pattern: ${{ vars.LGTM_SEARCH_PATTERN }}
