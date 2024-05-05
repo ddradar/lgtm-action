@@ -169,14 +169,14 @@ jobs:
         with:
           ref: ${{ vars.RELEASE_BRANCH }}
 
-      - name: Restore Documents from main
+      - name: Restore Documents from ${{ github.ref_name }}
         run: |
-          git fetch --no-tags --depth=1 origin +refs/heads/main:refs/remotes/origin/main
-          git restore --source=origin/main -- *.md
-          git restore --source=origin/main -- LICENSE
-          git restore --source=origin/main -- action.yml
-          git restore --source=origin/main -- images/*.png
-          git restore --source=origin/main -- .github/workflows/release.yml
+          git fetch --no-tags --depth=1 origin +${{ github.ref }}:refs/remotes/origin/${{ github.ref_name }}
+          git restore --source=origin/${{ github.ref_name }} -- *.md
+          git restore --source=origin/${{ github.ref_name }} -- LICENSE
+          git restore --source=origin/${{ github.ref_name }} -- action.yml
+          git restore --source=origin/${{ github.ref_name }} -- images/*.png
+          git restore --source=origin/${{ github.ref_name }} -- .github/workflows/release.yml
 
       - name: Download Build Assets
         uses: actions/download-artifact@v4.1.7
