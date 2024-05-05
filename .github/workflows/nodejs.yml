@@ -177,6 +177,7 @@ jobs:
           git restore --source=origin/main -- LICENSE
           git restore --source=origin/main -- action.yml
           git restore --source=origin/main -- images/*.png
+          git restore --source=origin/main -- .github/workflows/release.yml
 
       - name: Download Build Assets
         uses: actions/download-artifact@v4.1.7
