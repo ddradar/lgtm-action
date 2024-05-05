@@ -112,17 +112,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4.1.4
         with:
-          ref: main
+          ref: ${{ vars.RELEASE_BRANCH }}
+          sparse-checkout: |
+            dist
       - name: Use Node.js ${{ vars.NODE_VERSION }}
         uses: actions/setup-node@v4.0.2
         with:
           node-version: ${{ vars.NODE_VERSION }}
-          cache: npm
-      - name: Install Dependencies
-        run: npm ci --ignore-scripts
 
-      - name: Build Action Assets on main
-        run: npm run build
       - name: Download Current Action Assets
         uses: actions/download-artifact@v4.1.7
         with:
@@ -177,6 +174,7 @@ jobs:
           git restore --source=origin/main -- LICENSE
           git restore --source=origin/main -- action.yml
           git restore --source=origin/main -- images/*.png
+          git restore --source=origin/main -- .github/workflows/release.yml
 
       - name: Download Build Assets
         uses: actions/download-artifact@v4.1.7

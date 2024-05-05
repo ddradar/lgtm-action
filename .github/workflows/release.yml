@@ -6,7 +6,7 @@ on:
 
 jobs:
   release:
-    name: Release
+    name: Add Major & Minor Git Tag
     if: github.event.release.prerelease == false
     runs-on: ubuntu-latest
     steps:
@@ -23,6 +23,6 @@ jobs:
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git tag -a ${{ steps.version.outputs.major }}
-          git tag -a ${{ steps.version.outputs.major }}.${{ steps.version.outputs.minor }}
+          git tag ${{ steps.version.outputs.major }}
+          git tag ${{ steps.version.outputs.major }}.${{ steps.version.outputs.minor }}
           git push --tags --force
