@@ -13,8 +13,8 @@ export default tseslint.config(
   {
     ...node.configs['flat/recommended-script'],
     rules: {
-      'n/no-missing-import': ['off']
-    }
+      'n/no-missing-import': ['off'],
+    },
   },
   // typescript-eslint
   ...tseslint.configs.recommendedTypeChecked,
@@ -22,9 +22,9 @@ export default tseslint.config(
   {
     languageOptions: {
       parserOptions: {
-        project: './tsconfig.lint.json'
-      }
-    }
+        project: './tsconfig.lint.json',
+      },
+    },
   },
   // Prettier
   eslintConfigPrettier,
@@ -32,10 +32,10 @@ export default tseslint.config(
   {
     files: ['test/**'],
     plugins: {
-      vitest
+      vitest,
     },
     rules: {
-      ...vitest.configs.recommended.rules
-    }
+      ...vitest.configs.recommended.rules,
+    },
   }
 )

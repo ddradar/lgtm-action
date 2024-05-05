@@ -22,11 +22,11 @@
     "fix": "run-p \"lint:eslint -- --fix\" \"lint:prettier -- --write\"",
     "lint": "run-p lint:*",
     "lint:eslint": "eslint .",
-    "lint:prettier": "prettier --ignore-path .gitignore -l \"**/*.{ts,json,md,yml}\"",
+    "lint:prettier": "prettier --ignore-path .gitignore -l \"**/*.{ts,mjs,json,md,yml}\"",
     "test": "vitest run"
   },
   "lint-staged": {
-    "*.ts": [
+    "*.{ts,mjs}": [
       "eslint --fix",
       "prettier --write"
     ],

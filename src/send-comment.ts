@@ -20,6 +20,6 @@ export async function sendCommentAsync(
     owner,
     repo,
     issue_number: issueNumber,
-    body: comment
+    body: comment,
   })
 }

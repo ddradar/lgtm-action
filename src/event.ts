@@ -1,12 +1,12 @@
 import { context } from '@actions/github'
 import type {
   IssueCommentEvent,
-  PullRequestReviewEvent
+  PullRequestReviewEvent,
 } from '@octokit/webhooks-types'
 
 const supportedEvent = new Set([
   'issue_comment',
-  'pull_request_review'
+  'pull_request_review',
 ] as const)
 type SupportedEvent =
   typeof supportedEvent extends Iterable<infer U> ? U : never
@@ -36,14 +36,14 @@ export function getEventWebhook(eventName: SupportedEvent): EventWebhook {
       const payload = context.payload as IssueCommentEvent
       return {
         comment: payload.comment.body,
-        issueNumber: payload.issue.number
+        issueNumber: payload.issue.number,
       }
     }
     case 'pull_request_review': {
       const payload = context.payload as PullRequestReviewEvent
       return {
         comment: payload.review.body,
-        issueNumber: payload.pull_request.number
+        issueNumber: payload.pull_request.number,
       }
     }
   }
