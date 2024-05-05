@@ -41,7 +41,7 @@ jobs:
       issues: write
       pull-requests: write
     steps:
-      - uses: ddradar/lgtm-action@v2.0.2
+      - uses: ddradar/lgtm-action@v3.0.0
         with:
           image-url: '{ Your LGTM image URL }'
           search-pattern: |
@@ -67,14 +67,14 @@ jobs:
       issues: write
       pull-requests: write
     steps:
-      - uses: ddradar/choose-random-action@v1
+      - uses: ddradar/choose-random-action@v3
         id: act
         with:
           contents: |
             https://example.com/your-lgtm-image-1.jpg
             https://example.com/your-lgtm-image-2.jpg
             https://example.com/your-lgtm-image-3.jpg
-      - uses: ddradar/lgtm-action@v2.0.2
+      - uses: ddradar/lgtm-action@v3.0.0
         with:
           image-url: ${{ steps.act.outputs.selected }}
 ```
