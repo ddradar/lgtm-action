@@ -6,7 +6,7 @@ inputs:
     description: >
       GitHub Access Token to create issue comment.
       In many cases, you do not need to prepare yourself. (provided by GitHub Actions)
-      Token must have issues:write permission.
+      Token must have issues:write and pull-requests:write permission.
     required: false
     default: ${{ github.token }}
   image-url:
