@@ -37,6 +37,9 @@ on:
 jobs:
   post:
     runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
     steps:
       - uses: ddradar/lgtm-action@v2.0.2
         with:
@@ -60,6 +63,9 @@ jobs:
   post:
     runs-on: ubuntu-latest
     if: (!contains(github.actor, '[bot]')) # botのコメントを除く
+    permissions:
+      issues: write
+      pull-requests: write
     steps:
       - uses: ddradar/choose-random-action@v1
         id: act
@@ -75,11 +81,11 @@ jobs:
 
 ## Options
 
-| 名称           |  必須  | 説明                                                                                                               | デフォルト            |
-| -------------- | :----: | :----------------------------------------------------------------------------------------------------------------- | --------------------- |
-| image-url      |  はい  | 画像URL                                                                                                            | -                     |
-| search-pattern | いいえ | このアクションが反応する正規表現パターンをセットします。<br />複数行検索(`RegExp.prototype.multiline`)を行います。 | `^(lgtm\|LGTM)$`      |
-| token          | いいえ | issue にコメントするために使用する、GitHub のアクセストークン。(`issues:write`権限が必要です)                      | `${{ github.token }}` |
+| 名称           |  必須  | 説明                                                                                                                 | デフォルト            |
+| -------------- | :----: | :------------------------------------------------------------------------------------------------------------------- | --------------------- |
+| image-url      |  はい  | 画像URL                                                                                                              | -                     |
+| search-pattern | いいえ | このアクションが反応する正規表現パターンをセットします。<br />複数行検索(`RegExp.prototype.multiline`)を行います。   | `^(lgtm\|LGTM)$`      |
+| token          | いいえ | issue にコメントするために使用する、GitHub のアクセストークン。(`issues:write`と`pull-requests:write`権限が必要です) | `${{ github.token }}` |
 
 ## Screenshots
 

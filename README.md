@@ -37,6 +37,9 @@ on:
 jobs:
   post:
     runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
     steps:
       - uses: ddradar/lgtm-action@v2.0.2
         with:
@@ -59,6 +62,9 @@ jobs:
   post:
     runs-on: ubuntu-latest
     if: (!contains(github.actor, '[bot]')) # Exclude bot comment
+    permissions:
+      issues: write
+      pull-requests: write
     steps:
       - uses: ddradar/choose-random-action@v2
         id: act
@@ -78,7 +84,7 @@ jobs:
 | -------------- | :-------: | :------------------------------------------------------------------------------------------------------------ | --------------------- |
 | image-url      |    Yes    | Set your image URL                                                                                            | -                     |
 | search-pattern |    No     | Set regexp pattern this action reacts.<br />This action uses Multi-line(`RegExp.prototype.multiline`) search. | `^(lgtm\|LGTM)$`      |
-| token          |    No     | GitHub Access Token to post issue comment. (requires `issues:write` permission)                               | `${{ github.token }}` |
+| token          |    No     | GitHub Access Token to post issue comment. (requires `issues:write` and `pull-requests:write` permission)     | `${{ github.token }}` |
 
 ## Screenshots
 
