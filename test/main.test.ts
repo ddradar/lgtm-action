@@ -10,8 +10,8 @@ vi.mock('@actions/core')
 vi.mock('@actions/github', () => ({
   context: {
     eventName: 'event_name',
-    repo: { owner: 'owner', repo: 'repo' }
-  }
+    repo: { owner: 'owner', repo: 'repo' },
+  },
 }))
 vi.mock('../src/event')
 vi.mock('../src/input-helper')
@@ -28,7 +28,7 @@ describe('main.ts', () => {
       vi.mocked(getInputParams).mockReturnValue({
         token: 'token',
         imageUrl: 'imageUrl',
-        searchPattern: [/^(lgtm|LGTM)$/m]
+        searchPattern: [/^(lgtm|LGTM)$/m],
       })
     })
 

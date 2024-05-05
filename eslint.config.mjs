@@ -1,41 +1,35 @@
 // @ts-check
 /* eslint-disable @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access */
 import eslint from '@eslint/js'
-import eslintConfigPrettier from 'eslint-config-prettier'
+import prettier from 'eslint-config-prettier'
 import node from 'eslint-plugin-n'
+import simpleImportSort from 'eslint-plugin-simple-import-sort'
 import vitest from 'eslint-plugin-vitest'
 import tseslint from 'typescript-eslint'
 
 export default tseslint.config(
   { ignores: ['node_modules/**', 'dist/**'] },
   eslint.configs.recommended,
-  // eslint-plugin-n
+  // Node.js
   {
     ...node.configs['flat/recommended-script'],
-    rules: {
-      'n/no-missing-import': ['off']
-    }
+    rules: { 'n/no-missing-import': ['off'] },
   },
-  // typescript-eslint
+  // TypeScript
   ...tseslint.configs.recommendedTypeChecked,
   ...tseslint.configs.stylisticTypeChecked,
-  {
-    languageOptions: {
-      parserOptions: {
-        project: './tsconfig.lint.json'
-      }
-    }
-  },
+  { languageOptions: { parserOptions: { project: './tsconfig.lint.json' } } },
   // Prettier
-  eslintConfigPrettier,
-  // vitest
+  prettier,
+  // Vitest
+  { ...vitest.configs.recommended, files: ['test/**'] },
+  // simple-import-sort
   {
-    files: ['test/**'],
-    plugins: {
-      vitest
-    },
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    plugins: { 'simple-import-sort': simpleImportSort },
     rules: {
-      ...vitest.configs.recommended.rules
-    }
+      'simple-import-sort/imports': 'error',
+      'simple-import-sort/exports': 'error',
+    },
   }
 )

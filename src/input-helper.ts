@@ -21,6 +21,6 @@ export function getInputParams(): InputParameter {
     imageUrl,
     searchPattern: pattern.length
       ? pattern.map((x) => new RegExp(x, 'm'))
-      : [/^(lgtm|LGTM)$/m]
+      : [/^(lgtm|LGTM)$/m],
   }
 }

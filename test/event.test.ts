@@ -8,9 +8,9 @@ vi.mock('@actions/github', () => ({
       comment: { body: 'comment.body' },
       issue: { number: 9 },
       review: { body: 'review.body' },
-      pull_request: { number: 10 }
-    }
-  }
+      pull_request: { number: 10 },
+    },
+  },
 }))
 
 describe('event.ts', () => {
