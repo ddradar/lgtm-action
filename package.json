@@ -46,15 +46,15 @@
     "@vitest/coverage-v8": "^1.6.0",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-n": "^17.4.0",
+    "eslint-plugin-n": "^17.7.0",
     "eslint-plugin-simple-import-sort": "^12.1.0",
     "eslint-plugin-vitest": "^0.5.4",
     "husky": "^9.0.11",
-    "lint-staged": "^15.2.2",
-    "npm-run-all2": "^6.1.2",
+    "lint-staged": "^15.2.5",
+    "npm-run-all2": "^6.2.0",
     "prettier": "^3.2.5",
     "typescript": "~5.4.5",
-    "typescript-eslint": "^7.8.0",
+    "typescript-eslint": "^7.11.0",
     "vitest": "^1.6.0"
   }
 }
