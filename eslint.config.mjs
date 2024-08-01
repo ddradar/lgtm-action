@@ -11,6 +11,7 @@ export default tseslint.config(
   { ignores: ['node_modules/**', 'dist/**'] },
   eslint.configs.recommended,
   // Node.js
+  // @ts-expect-error - type
   {
     ...node.configs['flat/recommended-script'],
     rules: { 'n/no-missing-import': ['off'] },
