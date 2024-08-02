@@ -13,6 +13,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4.1.7
+      - name: Enable Corepack
+        run: corepack enable
       - name: Use Node.js ${{ vars.NODE_VERSION }}
         uses: actions/setup-node@v4.0.3
         with:
@@ -30,6 +32,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4.1.7
+      - name: Enable Corepack
+        run: corepack enable
       - name: Use Node.js ${{ vars.NODE_VERSION }}
         uses: actions/setup-node@v4.0.3
         with:
@@ -53,6 +57,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4.1.7
+      - name: Enable Corepack
+        run: corepack enable
       - name: Use Node.js ${{ vars.NODE_VERSION }}
         uses: actions/setup-node@v4.0.3
         with:
@@ -115,6 +121,8 @@ jobs:
         with:
           ref: ${{ vars.RELEASE_BRANCH }}
           sparse-checkout: dist
+      - name: Enable Corepack
+        run: corepack enable
       - name: Use Node.js ${{ vars.NODE_VERSION }}
         uses: actions/setup-node@v4.0.3
         with:

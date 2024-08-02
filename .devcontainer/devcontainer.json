@@ -12,6 +12,6 @@
       ]
     }
   },
-  "postCreateCommand": "npm ci",
+  "postCreateCommand": ["corepack enable", "npm ci"],
   "remoteUser": "node"
 }
