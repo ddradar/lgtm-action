@@ -83,11 +83,12 @@ jobs:
       fail-fast: false
       matrix:
         os:
+          - ubuntu-24.04
           - ubuntu-22.04
           - ubuntu-20.04
+          - macos-15
           - macos-14
           - macos-13
-          - macos-12
           - windows-2022
           - windows-2019
     runs-on: ${{ matrix.os }}
@@ -143,14 +144,15 @@ jobs:
       - name: Compare
         id: compare
         continue-on-error: true
-        run: git diff --no-index --exit-code ./dist/ ./current/
+        run: git diff --no-index --exit-code ./current/ ./dist/
 
       - name: Report Summary
         if: steps.compare.outcome == 'failure'
+        continue-on-error: true
         run: |
           echo '# Compare ${{ github.sha }} to ${{ github.base_ref }}' >> $GITHUB_STEP_SUMMARY
           echo '```diff' >> $GITHUB_STEP_SUMMARY
-          git diff --no-index ./dist/ ./current/ >> $GITHUB_STEP_SUMMARY
+          git diff --no-index ./current/ ./dist/ >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
       - name: Report diff
         if: steps.compare.outcome == 'failure'
