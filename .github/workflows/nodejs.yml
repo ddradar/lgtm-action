@@ -50,6 +50,7 @@ jobs:
         with:
           name: dist
           path: dist
+          include-hidden-files: true
 
   unit-test:
     name: Unit Test
