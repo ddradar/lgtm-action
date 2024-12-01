@@ -172,6 +172,8 @@ jobs:
   deploy:
     name: Deploy to Release branch
     if: github.event_name == 'push'
+    permissions:
+      contents: write
     needs: [build]
     runs-on: ubuntu-latest
     steps:
