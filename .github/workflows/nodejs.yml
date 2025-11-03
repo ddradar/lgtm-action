@@ -16,7 +16,7 @@ jobs:
       - name: Enable Corepack
         run: corepack enable
       - name: Use Node.js ${{ vars.NODE_VERSION }}
-        uses: actions/setup-node@v4.4.0
+        uses: actions/setup-node@v6.0.0
         with: &setup-node-with
           node-version: ${{ vars.NODE_VERSION }}
           cache: npm
@@ -35,7 +35,7 @@ jobs:
       - name: Enable Corepack
         run: corepack enable
       - name: Use Node.js ${{ vars.NODE_VERSION }}
-        uses: actions/setup-node@v4.4.0
+        uses: actions/setup-node@v6.0.0
         with: *setup-node-with
       - name: Install Dependencies
         run: npm ci --ignore-scripts
@@ -59,7 +59,7 @@ jobs:
       - name: Enable Corepack
         run: corepack enable
       - name: Use Node.js ${{ vars.NODE_VERSION }}
-        uses: actions/setup-node@v4.4.0
+        uses: actions/setup-node@v6.0.0
         with: *setup-node-with
       - name: Install Dependencies
         run: npm ci --ignore-scripts
@@ -124,7 +124,7 @@ jobs:
       - name: Enable Corepack
         run: corepack enable
       - name: Use Node.js ${{ vars.NODE_VERSION }}
-        uses: actions/setup-node@v4.4.0
+        uses: actions/setup-node@v6.0.0
         with:
           node-version: ${{ vars.NODE_VERSION }}
 
