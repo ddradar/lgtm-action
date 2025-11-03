@@ -39,6 +39,13 @@ updates:
           - '@vitest/*'
           - typescript
           - vitest
+    ignore:
+      - dependency-name: '@types/node'
+        update-types:
+          - 'version-update:semver-major'
+        versions:
+          - '>=21'
+          - '<25'
     assignees:
       - 'ddradar/action-maintainer'
     labels:
