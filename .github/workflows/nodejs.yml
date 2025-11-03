@@ -118,6 +118,7 @@ jobs:
       issues: write
       pull-requests: write
     steps:
+      # Custom checkout with ref and sparse-checkout, cannot use anchor
       - name: Checkout
         uses: actions/checkout@v4.2.2
         with:
@@ -173,6 +174,7 @@ jobs:
     needs: [build]
     runs-on: ubuntu-latest
     steps:
+      # Custom checkout with ref, cannot use anchor
       - name: Checkout Release Branch
         uses: actions/checkout@v4.2.2
         with:
