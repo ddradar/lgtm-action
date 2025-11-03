@@ -17,7 +17,7 @@ jobs:
         run: corepack enable
       - name: Use Node.js ${{ vars.NODE_VERSION }}
         uses: actions/setup-node@v4.4.0
-        with:
+        with: &setup-node-with
           node-version: ${{ vars.NODE_VERSION }}
           cache: npm
       - name: Install Dependencies
@@ -36,9 +36,7 @@ jobs:
         run: corepack enable
       - name: Use Node.js ${{ vars.NODE_VERSION }}
         uses: actions/setup-node@v4.4.0
-        with:
-          node-version: ${{ vars.NODE_VERSION }}
-          cache: npm
+        with: *setup-node-with
       - name: Install Dependencies
         run: npm ci --ignore-scripts
 
@@ -62,9 +60,7 @@ jobs:
         run: corepack enable
       - name: Use Node.js ${{ vars.NODE_VERSION }}
         uses: actions/setup-node@v4.4.0
-        with:
-          node-version: ${{ vars.NODE_VERSION }}
-          cache: npm
+        with: *setup-node-with
       - name: Install Dependencies
         run: npm ci --ignore-scripts
 
@@ -102,7 +98,7 @@ jobs:
         uses: actions/checkout@v4.2.2
       - name: Download Action Assets
         uses: actions/download-artifact@v4.3.0
-        with:
+        with: &download-dist-artifact
           name: dist
           path: dist
 
@@ -195,9 +191,7 @@ jobs:
 
       - name: Download Build Assets
         uses: actions/download-artifact@v4.3.0
-        with:
-          name: dist
-          path: dist
+        with: *download-dist-artifact
 
       - name: Commit and Push
         continue-on-error: true
