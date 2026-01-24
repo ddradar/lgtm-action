@@ -52,6 +52,10 @@ jobs:
   unit-test:
     name: Unit Test
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write # to use OIDC
+      contents: read
+
     steps:
       - name: Checkout
         uses: actions/checkout@v5.0.0
@@ -69,7 +73,7 @@ jobs:
       - name: Report Code Coverage to codecov
         uses: codecov/codecov-action@v5.5.1
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+          use-oidc: true
 
   integration-test:
     name: Integration Test
@@ -126,8 +130,7 @@ jobs:
         run: corepack enable
       - name: Use Node.js ${{ vars.NODE_VERSION }}
         uses: actions/setup-node@v6.0.0
-        with:
-          node-version: ${{ vars.NODE_VERSION }}
+        with: *setup-node-with
 
       - name: Download Current Action Assets
         uses: actions/download-artifact@v4.3.0
