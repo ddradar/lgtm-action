@@ -1,13 +1,13 @@
 // @ts-check
-/* eslint-disable @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access */
 import eslint from '@eslint/js'
 import vitest from '@vitest/eslint-plugin'
+import { defineConfig } from 'eslint/config'
 import prettier from 'eslint-config-prettier'
 import node from 'eslint-plugin-n'
 import simpleImportSort from 'eslint-plugin-simple-import-sort'
 import tseslint from 'typescript-eslint'
 
-export default tseslint.config(
+export default defineConfig(
   { ignores: ['node_modules/**', 'dist/**'] },
   eslint.configs.recommended,
   // Node.js
@@ -16,15 +16,21 @@ export default tseslint.config(
     settings: { n: { allowModules: ['@octokit/webhooks-types'] } },
   },
   // TypeScript
-  ...tseslint.configs.recommendedTypeChecked,
-  ...tseslint.configs.stylisticTypeChecked,
-  { languageOptions: { parserOptions: { project: './tsconfig.lint.json' } } },
+  {
+    files: ['**/*.ts'],
+    extends: [
+      ...tseslint.configs.recommendedTypeChecked,
+      ...tseslint.configs.stylisticTypeChecked,
+    ],
+    languageOptions: { parserOptions: { project: './tsconfig.lint.json' } },
+  },
+  { files: ['**/*.mjs'], languageOptions: { sourceType: 'module' } },
   // Prettier
   prettier,
   // Vitest
   {
     files: ['**/*.test.ts'],
-    plugins: { vitest },
+    plugins: vitest.configs.recommended.plugins,
     rules: {
       ...vitest.configs.recommended.rules,
       'vitest/consistent-test-filename': 'error',
@@ -49,7 +55,6 @@ export default tseslint.config(
   },
   // simple-import-sort
   {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     plugins: { 'simple-import-sort': simpleImportSort },
     rules: {
       'simple-import-sort/imports': 'error',
