@@ -102,7 +102,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6.0.2
       - name: Download Action Assets
-        uses: actions/download-artifact@v4.3.0
+        uses: actions/download-artifact@v7.0.0
         with: &download-dist-artifact
           name: dist
           path: dist
@@ -133,7 +133,7 @@ jobs:
         with: *setup-node-with
 
       - name: Download Current Action Assets
-        uses: actions/download-artifact@v4.3.0
+        uses: actions/download-artifact@v7.0.0
         with:
           name: dist
           path: current
@@ -194,7 +194,7 @@ jobs:
           git restore --source=origin/${{ github.ref_name }} -- .github/workflows/release.yml
 
       - name: Download Build Assets
-        uses: actions/download-artifact@v4.3.0
+        uses: actions/download-artifact@v7.0.0
         with: *download-dist-artifact
 
       - name: Commit and Push
