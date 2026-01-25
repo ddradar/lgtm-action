@@ -19,7 +19,7 @@
   },
   "scripts": {
     "prepare": "husky",
-    "build": "ncc build src/main.ts -m --license licenses.txt --target es2022",
+    "build": "ncc build src/main.ts -m --license licenses.txt --target es2024",
     "fix": "run-p \"lint:eslint -- --fix\" \"lint:prettier -- --write\"",
     "lint": "run-p lint:*",
     "lint:eslint": "eslint .",
