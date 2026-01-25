@@ -1,7 +1,7 @@
 {
   "name": "lgtm-action",
   "type": "module",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "private": true,
   "description": "Post image if you comment \"LGTM\"",
   "author": "Nogic <24802730+nogic1008@users.noreply.github.com>",
