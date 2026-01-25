@@ -13,13 +13,13 @@
     "lgtm"
   ],
   "main": "dist/index.js",
-  "packageManager": "npm@10.8.2+sha512.c7f0088c520a46596b85c6f8f1da943400199748a0f7ea8cb8df75469668dc26f6fb3ba26df87e2884a5ebe91557292d0f3db7d0929cdb4f14910c3032ac81fb",
+  "packageManager": "npm@11.8.0+sha512.9f5f6c25e5be44629d907a3c482739c614b090a8505057d9685cd273e12c6172e34aa215d2d97bd9a0d8415bb356f7eb6f2b06c1d690b0d2cdcb9f09d7410149",
   "engines": {
-    "node": ">=20"
+    "node": ">=24"
   },
   "scripts": {
     "prepare": "husky",
-    "build": "ncc build src/main.ts -m --license licenses.txt --target es2022",
+    "build": "ncc build src/main.ts -m --license licenses.txt --target es2024",
     "fix": "run-p \"lint:eslint -- --fix\" \"lint:prettier -- --write\"",
     "lint": "run-p lint:*",
     "lint:eslint": "eslint .",
@@ -40,9 +40,9 @@
   "devDependencies": {
     "@eslint/js": "^9.39.2",
     "@octokit/webhooks-types": "^7.6.1",
-    "@tsconfig/node20": "^20.1.8",
+    "@tsconfig/node24": "^24.0.4",
     "@tsconfig/strictest": "^2.0.8",
-    "@types/node": "20.x",
+    "@types/node": "24.x",
     "@vercel/ncc": "^0.38.4",
     "@vitest/coverage-v8": "^4.0.18",
     "@vitest/eslint-plugin": "^1.6.6",
