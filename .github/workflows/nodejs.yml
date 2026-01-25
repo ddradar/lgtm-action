@@ -116,7 +116,7 @@ jobs:
     name: Compare Build Assets
     if: github.event_name == 'pull_request'
     needs: [build]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     permissions:
       issues: write
       pull-requests: write
@@ -174,7 +174,7 @@ jobs:
     permissions:
       contents: write
     needs: [build]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     steps:
       - name: Checkout Release Branch
         uses: actions/checkout@v6.0.2
