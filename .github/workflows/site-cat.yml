@@ -6,7 +6,7 @@ on:
     types: [submitted]
 jobs:
   post:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     if: (!contains(github.actor, '[bot]'))
     permissions:
       issues: write
