@@ -1,64 +1,77 @@
-# see: https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+# see: https://docs.github.com/code-security/reference/supply-chain-security/dependabot-options-reference
 version: 2
 updates:
   # GitHub Actions (/.github/workflows/*.yml)
   - package-ecosystem: github-actions
-    directory: '/'
+    directory: /
     schedule:
-      interval: monthly
-      time: '18:00'
-      timezone: 'Asia/Tokyo'
+      interval: daily
+      time: '19:00'
+      timezone: Asia/Tokyo
+    cooldown:
+      default-days: 5
     reviewers:
-      - 'ddradar/action-maintainer'
+      - ddradar/action-maintainer
     labels:
       - 'dependabot :robot:'
-    milestone: 15
     commit-message:
       prefix: ci(gh-actions)
 
   # npm/yarn (/**/package.json)
-  - package-ecosystem: 'npm'
-    directory: '/'
+  - package-ecosystem: npm
+    directory: /
     schedule:
-      interval: monthly
+      interval: daily
       time: '18:00'
-      timezone: 'Asia/Tokyo'
+      timezone: Asia/Tokyo
+    cooldown:
+      default-days: 5
+      semver-major-days: 30
+      semver-minor-days: 7
+      semver-patch-days: 3
     groups:
       vitest:
         dependency-type: development
         patterns:
           - '@vitest/*'
           - vitest
+        exclude-patterns:
+          - '@vitest/eslint-plugin'
       lint-tools:
         dependency-type: development
-        exclude-patterns:
-          - '@octokit/*'
-          - '@tsconfig/*'
-          - '@types/*'
-          - '@vercel/*'
-          - '@vitest/*'
-          - typescript
-          - vitest
-    assignees:
-      - 'ddradar/action-maintainer'
+        patterns:
+          - '@eslint/*'
+          - '@vitest/eslint-plugin'
+          - 'eslint*'
+          - husky
+          - lint-staged
+          - npm-run-all2
+          - prettier
+          - typescript-eslint
+    ignore:
+      - dependency-name: '@types/node'
+        update-types:
+          - version-update:semver-major
+    reviewers:
+      - ddradar/action-maintainer
     labels:
       - 'dependabot :robot:'
-    milestone: 15
     commit-message:
-      prefix: fix
+      prefix: chore
       prefix-development: chore
       include: scope
     open-pull-requests-limit: 10
 
   # Development Containers (/.devcontainer/devcontainer.json)
   - package-ecosystem: devcontainers
-    directory: '/'
+    directory: /
     schedule:
-      interval: monthly
-      time: '18:00'
-      timezone: 'Asia/Tokyo'
+      interval: daily
+      time: '19:00'
+      timezone: Asia/Tokyo
+    cooldown:
+      default-days: 5
     labels:
       - 'dependabot :robot:'
-    milestone: 15
     commit-message:
-      prefix: ci(devcontainer)
+      prefix: chore(devcontainer)
