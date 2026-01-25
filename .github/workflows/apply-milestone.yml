@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   apply-milestone:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     if: github.event.pull_request.milestone == null
     steps:
       - name: Apply milestone to PR
