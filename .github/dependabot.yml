@@ -50,7 +50,7 @@ updates:
           - typescript-eslint
     ignore:
       - dependency-name: '@types/node'
-        version-update: semver-major
+        update-types: version-update:semver-major
     reviewers:
       - ddradar/action-maintainer
     labels:
