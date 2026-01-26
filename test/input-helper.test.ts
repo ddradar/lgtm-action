@@ -1,53 +1,67 @@
-import { getInput, getMultilineInput } from '@actions/core'
-import { beforeEach, describe, expect, test, vi } from 'vitest'
+import type { TestContext } from 'node:test'
+import { before, beforeEach, mock, suite, test } from 'node:test'
 
-import { getInputParams } from '../src/input-helper.js'
-import { generateRandomString as random } from './util.js'
+import type { getInput, getMultilineInput } from '@actions/core'
 
-vi.mock('@actions/core')
+import { generateRandomString } from './util.ts'
 
-describe('input-helper.ts', () => {
-  describe('getInputParams()', () => {
+await suite('input-helper.ts', async () => {
+  let getInputParams: typeof import('../src/input-helper.ts').getInputParams
+
+  // Mocks
+  const getInputMock = mock.fn<typeof getInput>()
+  const getMultilineInputMock = mock.fn<typeof getMultilineInput>()
+
+  before(async () => {
+    mock.module('@actions/core', {
+      namedExports: {
+        getInput: getInputMock,
+        getMultilineInput: getMultilineInputMock,
+      },
+    })
+
+    getInputParams = (await import('../src/input-helper.ts')).getInputParams
+  })
+
+  await suite('getInputParams()', async () => {
     const mockGetInput = (token: string, imageUrl: string) =>
-      vi
-        .mocked(getInput)
-        .mockImplementation((name) =>
-          name === 'token' ? token : name === 'image-url' ? imageUrl : ''
-        )
+      getInputMock.mock.mockImplementation((name) =>
+        name === 'token' ? token : name === 'image-url' ? imageUrl : ''
+      )
     beforeEach(() => {
-      vi.mocked(getInput).mockReset()
-      vi.mocked(getMultilineInput).mockReset()
+      getInputMock.mock.resetCalls()
+      getMultilineInputMock.mock.resetCalls()
     })
 
-    test('returns getInput() values', () => {
+    await test('returns getInput() values', (t: TestContext) => {
       // Arrange
-      const token = random(10)
-      const imageUrl = random(30)
+      const token = generateRandomString(10)
+      const imageUrl = generateRandomString(30)
       mockGetInput(token, imageUrl)
-      vi.mocked(getMultilineInput).mockReturnValue(['^LGTM$', '^lgtm$'])
+      getMultilineInputMock.mock.mockImplementation(() => ['^LGTM$', '^lgtm$'])
 
       // Act
       const params = getInputParams()
 
       // Assert
-      expect(params.token).toBe(token)
-      expect(params.imageUrl).toBe(imageUrl)
-      expect(params.searchPattern).toStrictEqual([/^LGTM$/m, /^lgtm$/m])
+      t.assert.strictEqual(params.token, token)
+      t.assert.strictEqual(params.imageUrl, imageUrl)
+      t.assert.deepEqual(params.searchPattern, [/^LGTM$/m, /^lgtm$/m])
     })
-    test('returns default if searchPattern is not set', () => {
+    await test('returns default if searchPattern is not set', (t: TestContext) => {
       // Arrange
-      const token = random(10)
-      const imageUrl = random(30)
+      const token = generateRandomString(10)
+      const imageUrl = generateRandomString(30)
       mockGetInput(token, imageUrl)
-      vi.mocked(getMultilineInput).mockReturnValue([])
+      getMultilineInputMock.mock.mockImplementation(() => [])
 
       // Act
       const params = getInputParams()
 
       // Assert
-      expect(params.token).toBe(token)
-      expect(params.imageUrl).toBe(imageUrl)
-      expect(params.searchPattern).toStrictEqual([/^(lgtm|LGTM)$/m])
+      t.assert.strictEqual(params.token, token)
+      t.assert.strictEqual(params.imageUrl, imageUrl)
+      t.assert.deepEqual(params.searchPattern, [/^(lgtm|LGTM)$/m])
     })
   })
 })

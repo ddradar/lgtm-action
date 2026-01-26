@@ -24,7 +24,7 @@
     "lint": "run-p lint:*",
     "lint:eslint": "eslint .",
     "lint:prettier": "prettier --ignore-path .gitignore -l \"**/*.{ts,mjs,json,md,yml}\"",
-    "test": "vitest run"
+    "test": "node --test --experimental-strip-types --experimental-test-module-mocks"
   },
   "lint-staged": {
     "*.{ts,mjs}": [
