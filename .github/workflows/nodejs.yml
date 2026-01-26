@@ -190,14 +190,22 @@ jobs:
         with:
           ref: ${{ vars.RELEASE_BRANCH }}
 
-      - name: Restore Documents from ${{ github.ref_name }}
+      - name: Checkout Source Files from ${{ github.ref_name }}
+        uses: actions/checkout@v6.0.2
+        with:
+          ref: ${{ github.ref_name }}
+          sparse-checkout: ${{ vars.DEPLOY_FILES }}
+          sparse-checkout-cone-mode: false
+          path: source
+
+      - name: Copy Source Files to Release Branch
         run: |
-          git fetch --no-tags --depth=1 origin +${{ github.ref }}:refs/remotes/origin/${{ github.ref_name }}
-          git restore --source=origin/${{ github.ref_name }} -- *.md
-          git restore --source=origin/${{ github.ref_name }} -- LICENSE
-          git restore --source=origin/${{ github.ref_name }} -- action.yml
-          git restore --source=origin/${{ github.ref_name }} -- images/*.png
-          git restore --source=origin/${{ github.ref_name }} -- .github/workflows/release.yml
+          IFS=$'\n'
+          for file in ${{ vars.DEPLOY_FILES }}; do
+            mkdir -p "$(dirname "$file")"
+            cp -r "source/$file" "$file"
+          done
+          rm -rf source
 
       - name: Download Build Assets
         uses: actions/download-artifact@v7.0.0
