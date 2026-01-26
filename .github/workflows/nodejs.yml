@@ -72,7 +72,12 @@ jobs:
         run: npm ci --ignore-scripts
 
       - name: Test
-        run: npm test -- --coverage
+        run: >
+          npm test --
+          --experimental-test-coverage
+          --test-coverage-include=src/*.ts
+          --test-reporter=lcov
+          --test-reporter-destination=coverage.lcov
 
       - name: Report Code Coverage to codecov
         uses: codecov/codecov-action@v5.5.2

@@ -1,24 +1,37 @@
-import { getOctokit } from '@actions/github'
-import { beforeAll, beforeEach, describe, expect, test, vi } from 'vitest'
+import type { TestContext } from 'node:test'
+import { before, beforeEach, mock, suite, test } from 'node:test'
 
-import { sendCommentAsync } from '../src/send-comment.js'
-import { generateRandomString } from './util.js'
+import type { getOctokit } from '@actions/github'
 
-vi.mock('@actions/github')
+import { generateRandomString } from './util.ts'
 
-describe('send-comment.ts', () => {
-  beforeAll(() => {
-    vi.mocked(getOctokit).mockReturnValue(
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-argument -- Mock
-      { rest: { issues: { createComment: vi.fn() } } } as any
-    )
+await suite('send-comment.ts', async () => {
+  let sendCommentAsync: typeof import('../src/send-comment.ts').sendCommentAsync
+
+  // Mocks
+  const createCommentMock =
+    mock.fn<ReturnType<typeof getOctokit>['rest']['issues']['createComment']>()
+  const getOctokitMock = mock.fn<typeof getOctokit>(
+    () =>
+      ({
+        rest: { issues: { createComment: createCommentMock } },
+      }) as unknown as ReturnType<typeof getOctokit>
+  )
+
+  before(async () => {
+    mock.module('@actions/github', {
+      namedExports: { getOctokit: getOctokitMock },
+    })
+    sendCommentAsync = (await import('../src/send-comment.ts')).sendCommentAsync
   })
+
   beforeEach(() => {
-    vi.mocked(getOctokit).mockClear()
+    getOctokitMock.mock.resetCalls()
+    createCommentMock.mock.resetCalls()
   })
 
-  describe('sendCommentAsync', () => {
-    test('calls Octokit.issues.createComment', async () => {
+  await suite('sendCommentAsync', async () => {
+    await test('calls Octokit.issues.createComment', async (t: TestContext) => {
       // Arrange
       const token = generateRandomString(30)
       const owner = generateRandomString(5)
@@ -30,17 +43,12 @@ describe('send-comment.ts', () => {
       await sendCommentAsync(token, owner, repo, issueNumber, comment)
 
       // Assert
-      expect(vi.mocked(getOctokit)).toHaveBeenCalledTimes(1)
-      expect(vi.mocked(getOctokit)).toHaveBeenCalledWith(token)
-      const octokit = vi.mocked(getOctokit).mock.results[0]
-        ?.value as ReturnType<typeof getOctokit>
-      expect(octokit.rest.issues.createComment).toHaveBeenCalledTimes(1)
-      expect(octokit.rest.issues.createComment).toHaveBeenCalledWith({
-        owner,
-        repo,
-        issue_number: issueNumber,
-        body: comment,
-      })
+      t.assert.strictEqual(getOctokitMock.mock.callCount(), 1)
+      t.assert.strictEqual(getOctokitMock.mock.calls[0].arguments[0], token)
+      t.assert.strictEqual(createCommentMock.mock.callCount(), 1)
+      t.assert.deepEqual(createCommentMock.mock.calls[0].arguments, [
+        { owner, repo, issue_number: issueNumber, body: comment },
+      ])
     })
   })
 })

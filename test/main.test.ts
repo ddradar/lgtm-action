@@ -1,111 +1,191 @@
-import { info, setFailed, warning } from '@actions/core'
-import { beforeEach, describe, expect, test, vi } from 'vitest'
+import type { TestContext } from 'node:test'
+import { before, beforeEach, mock, suite, test } from 'node:test'
 
-import { getEventWebhook, isSupportedEvent } from '../src/event.js'
-import { getInputParams } from '../src/input-helper.js'
-import { run } from '../src/main.js'
-import { sendCommentAsync } from '../src/send-comment.js'
+import type { debug, info, setFailed, warning } from '@actions/core'
 
-vi.mock('@actions/core')
-vi.mock('@actions/github', () => ({
-  context: {
-    eventName: 'event_name',
-    repo: { owner: 'owner', repo: 'repo' },
-  },
-}))
-vi.mock('../src/event')
-vi.mock('../src/input-helper')
-vi.mock('../src/send-comment')
+import { getEventWebhook, isSupportedEvent } from '../src/event.ts'
+import type { getInputParams } from '../src/input-helper.ts'
+import type { sendCommentAsync } from '../src/send-comment.ts'
 
-describe('main.ts', () => {
-  describe('run()', () => {
-    beforeEach(() => {
-      vi.mocked(info).mockClear()
-      vi.mocked(warning).mockClear()
-      vi.mocked(setFailed).mockClear()
+await suite('main.ts', async () => {
+  let run: typeof import('../src/main.ts').run
 
-      vi.mocked(getInputParams).mockClear()
-      vi.mocked(getInputParams).mockReturnValue({
-        token: 'token',
-        imageUrl: 'imageUrl',
-        searchPattern: [/^(lgtm|LGTM)$/m],
-      })
+  // Mocks
+  const searchPattern = [/^(lgtm|LGTM)$/m]
+  const debugMock = mock.fn<typeof debug>()
+  const infoMock = mock.fn<typeof info>()
+  const warningMock = mock.fn<typeof warning>()
+  const setFailedMock = mock.fn<typeof setFailed>()
+  const isSupportedEventMock = mock.fn<typeof isSupportedEvent>(
+    (_): _ is 'issue_comment' | 'pull_request_review' => true
+  )
+  const getEventWebhookMock = mock.fn<typeof getEventWebhook>()
+  const getInputParamsMock = mock.fn<typeof getInputParams>(() => ({
+    token: 'token',
+    imageUrl: 'imageUrl',
+    searchPattern,
+  }))
+  const sendCommentAsyncMock = mock.fn<typeof sendCommentAsync>()
+
+  before(async () => {
+    mock.module('@actions/core', {
+      namedExports: {
+        debug: debugMock,
+        info: infoMock,
+        warning: warningMock,
+        setFailed: setFailedMock,
+      },
+    })
+    mock.module('@actions/github', {
+      namedExports: {
+        context: {
+          eventName: 'event_name',
+          repo: { owner: 'owner', repo: 'repo' },
+        },
+      },
+    })
+    mock.module('../src/event.ts', {
+      namedExports: {
+        isSupportedEvent: isSupportedEventMock,
+        getEventWebhook: getEventWebhookMock,
+      },
+    })
+    mock.module('../src/input-helper.ts', {
+      namedExports: { getInputParams: getInputParamsMock },
+    })
+    mock.module('../src/send-comment.ts', {
+      namedExports: { sendCommentAsync: sendCommentAsyncMock },
     })
 
-    test('ends with warning if isSupportedEvent() is false', async () => {
+    run = (await import('../src/main.ts')).run
+  })
+
+  await suite('run()', async () => {
+    const issueNumber = 1
+    beforeEach(() => {
+      debugMock.mock.resetCalls()
+      infoMock.mock.resetCalls()
+      warningMock.mock.resetCalls()
+      setFailedMock.mock.resetCalls()
+      getInputParamsMock.mock.resetCalls()
+      getEventWebhookMock.mock.resetCalls()
+      sendCommentAsyncMock.mock.resetCalls()
+    })
+
+    await test('ends with warning if isSupportedEvent() is false', async (t: TestContext) => {
       // Arrange
-      vi.mocked(isSupportedEvent).mockReturnValue(false)
+      isSupportedEventMock.mock.mockImplementationOnce(
+        (_): _ is 'issue_comment' | 'pull_request_review' => false
+      )
 
       // Act
       await run()
 
       // Assert
-      expect(warning).toHaveBeenCalledTimes(1)
-      expect(getInputParams).not.toHaveBeenCalled()
-      expect(setFailed).not.toHaveBeenCalled()
-      expect(sendCommentAsync).not.toHaveBeenCalled()
+      t.assert.strictEqual(warningMock.mock.callCount(), 1)
+      t.assert.strictEqual(getInputParamsMock.mock.callCount(), 0)
+      t.assert.strictEqual(setFailedMock.mock.callCount(), 0)
+      t.assert.strictEqual(sendCommentAsyncMock.mock.callCount(), 0)
     })
 
-    test.each([null, ''])(
-      'never calls sendCommentAsync if comment is "%s"',
-      async (comment) => {
+    const nullOrEmptyCases: (string | null)[] = [null, '']
+    for (const comment of nullOrEmptyCases) {
+      await test(`never calls sendCommentAsync if comment is "${comment}"`, async (t: TestContext) => {
         // Arrange
-        vi.mocked(isSupportedEvent).mockReturnValue(true)
-        vi.mocked(getEventWebhook).mockReturnValue({ comment, issueNumber: 1 })
+        getEventWebhookMock.mock.mockImplementationOnce(() => ({
+          comment,
+          issueNumber,
+        }))
 
         // Act
         await run()
 
         // Assert
-        expect(getInputParams).toHaveBeenCalledTimes(1)
-        expect(info).toHaveBeenCalledTimes(1)
-        expect(info).toHaveBeenCalledWith('Comment is null or empty.')
-        expect(setFailed).not.toHaveBeenCalled()
-        expect(sendCommentAsync).not.toHaveBeenCalled()
-      }
-    )
-    test.each(['foo', 'not lgtm'])(
-      'never calls sendCommentAsync if comment does not match pattern.',
-      async (comment) => {
-        // Arrange
-        vi.mocked(isSupportedEvent).mockReturnValue(true)
-        vi.mocked(getEventWebhook).mockReturnValue({ comment, issueNumber: 1 })
-        // Act
-        await run()
-        // Assert
-        expect(getInputParams).toHaveBeenCalledTimes(1)
-        expect(info).toHaveBeenCalledTimes(1)
-        expect(info).toHaveBeenCalledWith('Comment does not match pattern.')
-        expect(setFailed).not.toHaveBeenCalled()
-        expect(sendCommentAsync).not.toHaveBeenCalled()
-      }
-    )
-    test.each(['LGTM', 'lgtm', 'this is multi-line\nlgtm'])(
-      'calls sendCommentAsync if comment is "%s"',
-      async (comment) => {
-        // Arrange
-        vi.mocked(sendCommentAsync).mockClear()
-        vi.mocked(isSupportedEvent).mockReturnValue(true)
-        vi.mocked(getEventWebhook).mockReturnValue({ comment, issueNumber: 1 })
-
-        // Act
-        await run()
-
-        // Assert
-        expect(getInputParams).toHaveBeenCalledTimes(1)
-        expect(info).toHaveBeenCalledWith(
-          'Comment matches pattern: /^(lgtm|LGTM)$/m'
+        t.assert.strictEqual(getInputParamsMock.mock.callCount(), 1)
+        t.assert.strictEqual(infoMock.mock.callCount(), 1)
+        t.assert.strictEqual(
+          infoMock.mock.calls[0].arguments[0],
+          'Comment is null or empty.'
         )
-        expect(setFailed).not.toHaveBeenCalled()
-        expect(sendCommentAsync).toHaveBeenCalledTimes(1)
-        expect(sendCommentAsync).toHaveBeenCalledWith(
+        t.assert.strictEqual(setFailedMock.mock.callCount(), 0)
+        t.assert.strictEqual(sendCommentAsyncMock.mock.callCount(), 0)
+      })
+    }
+
+    const notMatchCases = ['foo', 'not lgtm']
+    for (const comment of notMatchCases) {
+      await test(`never calls sendCommentAsync if comment does not match pattern: "${comment}"`, async (t: TestContext) => {
+        // Arrange
+        t.assert.doesNotMatch(comment, searchPattern[0])
+        getEventWebhookMock.mock.mockImplementationOnce(() => ({
+          comment,
+          issueNumber,
+        }))
+
+        // Act
+        await run()
+
+        // Assert
+        t.assert.strictEqual(getInputParamsMock.mock.callCount(), 1)
+        t.assert.strictEqual(infoMock.mock.callCount(), 1)
+        t.assert.strictEqual(
+          infoMock.mock.calls[0].arguments[0],
+          'Comment does not match pattern.'
+        )
+        t.assert.strictEqual(setFailedMock.mock.callCount(), 0)
+        t.assert.strictEqual(sendCommentAsyncMock.mock.callCount(), 0)
+      })
+    }
+
+    const matchCases = ['LGTM', 'lgtm', 'this is multi-line\nlgtm']
+    for (const comment of matchCases) {
+      await test(`calls sendCommentAsync if comment is "${comment}"`, async (t: TestContext) => {
+        // Arrange
+        t.assert.match(comment, searchPattern[0])
+        getEventWebhookMock.mock.mockImplementationOnce(() => ({
+          comment,
+          issueNumber,
+        }))
+
+        // Act
+        await run()
+
+        // Assert
+        t.assert.strictEqual(getInputParamsMock.mock.callCount(), 1)
+        t.assert.strictEqual(
+          infoMock.mock.calls[0].arguments[0],
+          `Comment matches pattern: ${searchPattern[0]}`
+        )
+        t.assert.strictEqual(setFailedMock.mock.callCount(), 0)
+        t.assert.strictEqual(sendCommentAsyncMock.mock.callCount(), 1)
+        t.assert.deepEqual(sendCommentAsyncMock.mock.calls[0].arguments, [
           'token',
           'owner',
           'repo',
           1,
-          '![LGTM](imageUrl)'
-        )
-      }
-    )
+          '![LGTM](imageUrl)',
+        ])
+      })
+    }
+
+    const errors = [new Error('Some error'), 'Some error string']
+    for (const error of errors) {
+      await test(`calls core.setFailed() when throws "${error}"`, async (t: TestContext) => {
+        // Arrange
+        getInputParamsMock.mock.mockImplementationOnce(() => {
+          // eslint-disable-next-line @typescript-eslint/only-throw-error
+          throw error
+        })
+
+        // Act
+        await run()
+
+        // Assert
+        t.assert.strictEqual(getEventWebhookMock.mock.callCount(), 0)
+        t.assert.strictEqual(sendCommentAsyncMock.mock.callCount(), 0)
+        t.assert.strictEqual(setFailedMock.mock.callCount(), 1)
+        t.assert.strictEqual(setFailedMock.mock.calls[0].arguments[0], error)
+      })
+    }
   })
 })
