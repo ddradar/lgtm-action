@@ -212,10 +212,13 @@ jobs:
         with: *download-dist-artifact
 
       - name: Commit and Push
-        continue-on-error: true
         run: |
           git config user.name ${{ vars.GH_ACTIONS_COMMIT_NAME }}
           git config user.email ${{ vars.GH_ACTIONS_COMMIT_EMAIL }}
           git add .
-          git commit -m "build: deploy via ${{ github.sha }}"
-          git push
+          if git diff --staged --quiet; then
+            echo "::notice::No changes to commit"
+          else
+            git commit -m "build: deploy via ${{ github.sha }}"
+            git push
+          fi
