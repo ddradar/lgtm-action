@@ -40,3 +40,5 @@ export async function run(): Promise<void> {
     setFailed(error instanceof Error ? error : `${error as string}`)
   }
 }
+
+await run()
