@@ -11,16 +11,6 @@
 
 Post image if you comment "LGTM"
 
-## TOC
-
-- [Usage](#usage)
-  - [Basic](#basic)
-  - [Use with Choose Random Action](#use-with-choose-random-action)
-- [Options](#options)
-- [Screenshots](#screenshots)
-- [License](#license)
-- [Contributing](#contributing)
-
 ## Usage
 
 See [action.yml](./action.yml)
@@ -41,7 +31,7 @@ jobs:
       issues: write
       pull-requests: write
     steps:
-      - uses: ddradar/lgtm-action@v4.0.0
+      - uses: ddradar/lgtm-action@v4.0.1
         with:
           image-url: '{ Your LGTM image URL }'
           search-pattern: |
@@ -66,14 +56,14 @@ jobs:
       issues: write
       pull-requests: write
     steps:
-      - uses: ddradar/choose-random-action@v3
+      - uses: ddradar/choose-random-action@v4
         id: act
         with:
           contents: |
             https://example.com/your-lgtm-image-1.jpg
             https://example.com/your-lgtm-image-2.jpg
             https://example.com/your-lgtm-image-3.jpg
-      - uses: ddradar/lgtm-action@v4.0.0
+      - uses: ddradar/lgtm-action@v4.0.1
         with:
           image-url: ${{ steps.act.outputs.selected }}
 ```
