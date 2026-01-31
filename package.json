@@ -16,12 +16,12 @@
   "scripts": {
     "prepare": "husky",
     "build": "ncc build src/main.ts -m --license licenses.txt --target es2024",
-    "fix": "run-p \"lint:eslint -- --fix\" \"lint:prettier -- --write\"",
+    "fix": "run-p fix:*",
+    "fix:oxfmt": "oxfmt",
+    "fix:oxlint": "oxlint --type-aware --fix",
     "lint": "run-p lint:*",
-    "lint:eslint": "eslint .",
-    "lint:oxfmt": "oxfmt",
+    "lint:oxfmt": "oxfmt --check",
     "lint:oxlint": "oxlint --type-aware",
-    "lint:prettier": "prettier --ignore-path .gitignore -l \"**/*.{ts,mjs,json,md,yml}\"",
     "test": "node --test --experimental-strip-types --experimental-test-module-mocks"
   },
   "dependencies": {
@@ -51,10 +51,10 @@
   },
   "lint-staged": {
     "*.{ts,mjs}": [
-      "eslint --fix",
-      "prettier --write"
+      "oxlint --type-aware --fix",
+      "oxfmt"
     ],
-    "*.{json,md,yml}": "prettier --write"
+    "*.{json,jsonc,md,yml}": "oxfmt"
   },
   "engines": {
     "node": ">=24"
