@@ -24,8 +24,10 @@ jobs:
       - name: Install Dependencies
         run: npm ci --ignore-scripts
 
-      - name: Lint
-        run: npm run lint
+      - name: Oxlint
+        run: npm run lint:oxlint
+      - name: Oxfmt
+        run: npm run lint:oxfmt
 
   build:
     name: Build Action Assets

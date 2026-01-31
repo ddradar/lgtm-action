@@ -20,7 +20,7 @@ export function getInputParams(): InputParameter {
     token,
     imageUrl,
     searchPattern: pattern.length
-      ? pattern.map((x) => new RegExp(x, 'm'))
+      ? pattern.map(x => new RegExp(x, 'm'))
       : [/^(lgtm|LGTM)$/m],
   }
 }

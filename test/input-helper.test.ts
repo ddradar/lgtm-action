@@ -25,7 +25,7 @@ await suite('input-helper.ts', async () => {
 
   await suite('getInputParams()', async () => {
     const mockGetInput = (token: string, imageUrl: string) =>
-      getInputMock.mock.mockImplementation((name) =>
+      getInputMock.mock.mockImplementation(name =>
         name === 'token' ? token : name === 'image-url' ? imageUrl : ''
       )
     beforeEach(() => {

@@ -30,24 +30,16 @@ updates:
       semver-minor-days: 7
       semver-patch-days: 3
     groups:
-      vitest:
+      tsconfig:
         dependency-type: development
         patterns:
-          - '@vitest/*'
-          - vitest
-        exclude-patterns:
-          - '@vitest/eslint-plugin'
-      lint-tools:
+          - '@tsconfig/*'
+      oxc:
         dependency-type: development
         patterns:
-          - '@eslint/*'
-          - '@vitest/eslint-plugin'
-          - 'eslint*'
-          - husky
-          - lint-staged
-          - npm-run-all2
-          - prettier
-          - typescript-eslint
+          - oxfmt
+          - oxlint
+          - oxlint-tsgolint
     ignore:
       - dependency-name: '@types/node'
         update-types:
