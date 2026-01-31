@@ -11,16 +11,6 @@ English guide is [here](./README.md).
 
 "LGTM" コメント時に画像を投稿します。
 
-## TOC
-
-- [使い方](#usage)
-  - [基本](#basic)
-  - [Choose Random Actionと使う](#use-with-choose-random-action)
-- [オプション](#options)
-- [スクリーンショット](#screenshots)
-- [ライセンス](#license)
-- [プロジェクトへの貢献](#contributing)
-
 ## Usage
 
 [action.yml](./action.yml)をご覧ください。
@@ -41,7 +31,7 @@ jobs:
       issues: write
       pull-requests: write
     steps:
-      - uses: ddradar/lgtm-action@v4.0.0
+      - uses: ddradar/lgtm-action@v4.0.1
         with:
           image-url: '{ Your LGTM image URL }'
           search-pattern: |
@@ -67,14 +57,14 @@ jobs:
       issues: write
       pull-requests: write
     steps:
-      - uses: ddradar/choose-random-action@v3
+      - uses: ddradar/choose-random-action@v4
         id: act
         with:
           contents: |
             https://example.com/your-lgtm-image-1.jpg
             https://example.com/your-lgtm-image-2.jpg
             https://example.com/your-lgtm-image-3.jpg
-      - uses: ddradar/lgtm-action@v4.0.0
+      - uses: ddradar/lgtm-action@v4.0.1
         with:
           image-url: ${{ steps.act.outputs.selected }}
 ```

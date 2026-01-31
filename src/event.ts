@@ -1,8 +1,5 @@
 import { context } from '@actions/github'
-import type {
-  IssueCommentEvent,
-  PullRequestReviewEvent,
-} from '@octokit/webhooks-types'
+import type { webhooks } from '@octokit/openapi-webhooks-types'
 
 const supportedEvent = new Set([
   'issue_comment',
@@ -27,20 +24,25 @@ interface EventWebhook {
   issueNumber: number
 }
 
+type IssueCommentPayload =
+  webhooks['issue-comment-created']['post']['requestBody']['content']['application/json']
+type PullRequestReviewPayload =
+  webhooks['pull-request-review-submitted']['post']['requestBody']['content']['application/json']
+
 /** Gets event info from stored webfook JSON.
  * @param eventName Fooked event name
  */
 export function getEventWebhook(eventName: SupportedEvent): EventWebhook {
   switch (eventName) {
     case 'issue_comment': {
-      const payload = context.payload as IssueCommentEvent
+      const payload = context.payload as IssueCommentPayload
       return {
         comment: payload.comment.body,
         issueNumber: payload.issue.number,
       }
     }
     case 'pull_request_review': {
-      const payload = context.payload as PullRequestReviewEvent
+      const payload = context.payload as PullRequestReviewPayload
       return {
         comment: payload.review.body,
         issueNumber: payload.pull_request.number,
