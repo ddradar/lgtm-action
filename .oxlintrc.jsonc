@@ -2,7 +2,7 @@
   "$schema": "./node_modules/oxlint/configuration_schema.json",
   "plugins": ["eslint", "node", "typescript", "unicorn"],
   "categories": {
-    "correctness": "error"
+    "correctness": "error",
   },
   "ignorePatterns": ["node_modules/**", "dist/**"],
   "rules": {
@@ -84,9 +84,9 @@
     "typescript/prefer-function-type": "error",
     "typescript/prefer-includes": "error",
     "typescript/prefer-nullish-coalescing": "error",
-    "typescript/prefer-optional-chain": "error"
+    "typescript/prefer-optional-chain": "error",
     // "@typescript-eslint/prefer-regexp-exec": "error",
     // "@typescript-eslint/prefer-string-starts-ends-with": "error"
     // #endregion typescript-eslint Stylistic Type Checked (excepts correctness category)
-  }
+  },
 }
