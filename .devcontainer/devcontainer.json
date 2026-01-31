@@ -4,11 +4,9 @@
   "customizations": {
     "vscode": {
       "extensions": [
-        "dbaeumer.vscode-eslint",
         "EditorConfig.EditorConfig",
-        "esbenp.prettier-vscode",
         "github.vscode-github-actions",
-        "vitest.explorer"
+        "oxc.oxc-vscode"
       ]
     }
   },
