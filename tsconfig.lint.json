@@ -1,8 +1,0 @@
-{
-  "extends": ["./tsconfig"],
-  "compilerOptions": {
-    "rootDir": "."
-  },
-  "include": ["src/**/*", "test/**/*", "*.config.*"],
-  "exclude": ["coverage", "dist", "node_modules"]
-}
