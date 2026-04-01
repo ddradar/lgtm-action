@@ -82,7 +82,7 @@ jobs:
           --test-reporter-destination=coverage.lcov
 
       - name: Report Code Coverage to codecov
-        uses: codecov/codecov-action@v5.5.3
+        uses: codecov/codecov-action@v6.0.0
         with:
           use_oidc: true
 
