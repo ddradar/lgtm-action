@@ -28,7 +28,7 @@ If your current version differs, check for a version manager (`nvm`, `fnm`, `vol
 
 ```sh
 # nvm
-nvm use
+nvm use "$(cat .node-version)"
 # fnm
 fnm use
 ```
