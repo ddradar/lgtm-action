@@ -9,7 +9,7 @@ If the user writes in Japanese, reply in Japanese. If in English, reply in Engli
 
 ## Required Checks After Every Code Change
 
-After **any** code change, always run both steps in order:
+After **any** code change, always run all three steps in order:
 
 ```sh
 npm run lint   # 1. Lint (must pass with no errors)
@@ -17,7 +17,7 @@ npm test       # 2. Test (must pass with no failures)
 npm run build  # 3. Build (must complete without errors)
 ```
 
-Do not submit changes that fail either check.
+Do not submit changes that fail any of these checks.
 
 ---
 
