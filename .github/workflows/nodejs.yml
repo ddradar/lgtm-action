@@ -166,7 +166,7 @@ jobs:
           echo '```' >> $GITHUB_STEP_SUMMARY
       - name: Report diff
         if: steps.compare.outcome == 'failure'
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           script: |
             const message = 'There is a difference in the build results.'
