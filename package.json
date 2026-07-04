@@ -33,7 +33,7 @@
     "@tsconfig/node24": "^24.0.4",
     "@tsconfig/strictest": "^2.0.8",
     "@types/node": "24.x",
-    "@vercel/ncc": "^0.44.0",
+    "@vercel/ncc": "^0.44.1",
     "husky": "^9.1.7",
     "lint-staged": "^17.0.8",
     "npm-run-all2": "^9.0.2",
