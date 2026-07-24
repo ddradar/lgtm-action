@@ -14,7 +14,7 @@ jobs:
       contents: read
     steps:
       - name: Checkout
-        uses: actions/checkout@v7.0.0
+        uses: actions/checkout@v7.0.1
       - name: Enable Corepack
         run: corepack enable
       - name: Use Node.js
@@ -36,7 +36,7 @@ jobs:
       contents: read
     steps:
       - name: Checkout
-        uses: actions/checkout@v7.0.0
+        uses: actions/checkout@v7.0.1
       - name: Enable Corepack
         run: corepack enable
       - name: Use Node.js
@@ -64,7 +64,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v7.0.0
+        uses: actions/checkout@v7.0.1
       - name: Enable Corepack
         run: corepack enable
       - name: Use Node.js
@@ -111,7 +111,7 @@ jobs:
       pull-requests: write
     steps:
       - name: Checkout
-        uses: actions/checkout@v7.0.0
+        uses: actions/checkout@v7.0.1
       - name: Download Action Assets
         uses: actions/download-artifact@v8.0.1
         with: &download-dist-artifact
@@ -133,7 +133,7 @@ jobs:
       pull-requests: write
     steps:
       - name: Checkout Release Branch
-        uses: actions/checkout@v7.0.0
+        uses: actions/checkout@v7.0.1
         with:
           ref: ${{ vars.RELEASE_BRANCH }}
           sparse-checkout: dist
@@ -188,7 +188,7 @@ jobs:
     runs-on: ubuntu-slim
     steps:
       - name: Checkout Release Branch
-        uses: actions/checkout@v7.0.0
+        uses: actions/checkout@v7.0.1
         with:
           ref: ${{ vars.RELEASE_BRANCH }}
 
