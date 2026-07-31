@@ -35,7 +35,7 @@
     "@types/node": "24.x",
     "@vercel/ncc": "^0.44.1",
     "husky": "^9.1.7",
-    "lint-staged": "^17.1.1",
+    "lint-staged": "^17.2.0",
     "npm-run-all2": "^9.0.2",
     "oxfmt": "^0.60.0",
     "oxlint": "^1.75.0",
