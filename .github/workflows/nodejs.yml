@@ -133,7 +133,6 @@ jobs:
     needs: [build]
     runs-on: ubuntu-slim
     permissions:
-      issues: write
       pull-requests: write
     steps:
       - name: Checkout Release Branch
@@ -150,38 +149,39 @@ jobs:
           name: dist
           path: current
 
-      - name: Setup js-beautify to compare minified js files
+      - name: Get oxfmt version from package-lock.json
+        id: version
         run: |
-          npm install --global js-beautify
-          git config --local diff.minjs.textconv js-beautify
-          echo "index.js diff=minjs" > .gitattributes
+          git fetch --depth=1 origin ${{ github.sha }}
+          VERSION=$(git show FETCH_HEAD:package-lock.json | jq -r '.packages["node_modules/oxfmt"].version')
+          echo "oxfmt=$VERSION" >> $GITHUB_OUTPUT
+      - name: Format minified js files for comparison
+        run: |
+          npm install --global "oxfmt@${{ steps.version.outputs.oxfmt }}"
+          oxfmt dist/ current/
       - name: Compare
         id: compare
         continue-on-error: true
-        run: git diff --no-index --exit-code ./current/ ./dist/
+        run: git diff --no-index ./dist/ ./current/ > $RUNNER_TEMP/diff.txt
 
-      - name: Report Summary
-        if: steps.compare.outcome == 'failure'
-        continue-on-error: true
-        run: |
-          echo '# Compare ${{ github.sha }} to ${{ github.base_ref }}' >> $GITHUB_STEP_SUMMARY
-          echo '```diff' >> $GITHUB_STEP_SUMMARY
-          git diff --no-index ./current/ ./dist/ >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
-      - name: Report diff
-        if: steps.compare.outcome == 'failure'
-        uses: actions/github-script@v9
-        with:
-          script: |
-            const message = 'There is a difference in the build results.'
-
-            core.warning(message)
-            await github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: `${message} [Show More](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})`
-            })
+      - parallel:
+          - name: Report Summary
+            if: steps.compare.outcome == 'failure'
+            run: |
+              echo '# Compare ${{ github.sha }} to ${{ github.base_ref }}' >> $GITHUB_STEP_SUMMARY
+              echo '```diff' >> $GITHUB_STEP_SUMMARY
+              cat $RUNNER_TEMP/diff.txt >> $GITHUB_STEP_SUMMARY
+              echo '```' >> $GITHUB_STEP_SUMMARY
+          - name: Report diff
+            if: steps.compare.outcome == 'failure'
+            run: |
+              echo "::warning::${MESSAGE}"
+              gh pr comment "$PR_URL" --body "${MESSAGE} [Show More](${RUN_URL})"
+            env:
+              GH_TOKEN: ${{ github.token }}
+              PR_URL: ${{ github.event.pull_request.html_url }}
+              MESSAGE: 'There is a difference in the build results.'
+              RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
   deploy:
     name: Deploy to Release branch
