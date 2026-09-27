@@ -104,7 +104,7 @@ await suite('main.ts', async () => {
         t.assert.strictEqual(getInputParamsMock.mock.callCount(), 1)
         t.assert.strictEqual(infoMock.mock.callCount(), 1)
         t.assert.strictEqual(
-          infoMock.mock.calls[0].arguments[0],
+          infoMock.mock.calls[0]?.arguments[0],
           'Comment is null or empty.'
         )
         t.assert.strictEqual(setFailedMock.mock.callCount(), 0)
@@ -116,7 +116,7 @@ await suite('main.ts', async () => {
     for (const comment of notMatchCases) {
       await test(`never calls sendCommentAsync if comment does not match pattern: "${comment}"`, async (t: TestContext) => {
         // Arrange
-        t.assert.doesNotMatch(comment, searchPattern[0])
+        t.assert.doesNotMatch(comment, searchPattern[0]!)
         getEventWebhookMock.mock.mockImplementationOnce(() => ({
           comment,
           issueNumber,
@@ -129,7 +129,7 @@ await suite('main.ts', async () => {
         t.assert.strictEqual(getInputParamsMock.mock.callCount(), 1)
         t.assert.strictEqual(infoMock.mock.callCount(), 1)
         t.assert.strictEqual(
-          infoMock.mock.calls[0].arguments[0],
+          infoMock.mock.calls[0]?.arguments[0],
           'Comment does not match pattern.'
         )
         t.assert.strictEqual(setFailedMock.mock.callCount(), 0)
@@ -141,7 +141,7 @@ await suite('main.ts', async () => {
     for (const comment of matchCases) {
       await test(`calls sendCommentAsync if comment is "${comment}"`, async (t: TestContext) => {
         // Arrange
-        t.assert.match(comment, searchPattern[0])
+        t.assert.match(comment, searchPattern[0]!)
         getEventWebhookMock.mock.mockImplementationOnce(() => ({
           comment,
           issueNumber,
@@ -153,12 +153,12 @@ await suite('main.ts', async () => {
         // Assert
         t.assert.strictEqual(getInputParamsMock.mock.callCount(), 1)
         t.assert.strictEqual(
-          infoMock.mock.calls[0].arguments[0],
+          infoMock.mock.calls[0]?.arguments[0],
           `Comment matches pattern: ${searchPattern[0]}`
         )
         t.assert.strictEqual(setFailedMock.mock.callCount(), 0)
         t.assert.strictEqual(sendCommentAsyncMock.mock.callCount(), 1)
-        t.assert.deepEqual(sendCommentAsyncMock.mock.calls[0].arguments, [
+        t.assert.deepEqual(sendCommentAsyncMock.mock.calls[0]?.arguments, [
           'token',
           'owner',
           'repo',
@@ -184,7 +184,7 @@ await suite('main.ts', async () => {
         t.assert.strictEqual(getEventWebhookMock.mock.callCount(), 0)
         t.assert.strictEqual(sendCommentAsyncMock.mock.callCount(), 0)
         t.assert.strictEqual(setFailedMock.mock.callCount(), 1)
-        t.assert.strictEqual(setFailedMock.mock.calls[0].arguments[0], error)
+        t.assert.strictEqual(setFailedMock.mock.calls[0]?.arguments[0], error)
       })
     }
   })
