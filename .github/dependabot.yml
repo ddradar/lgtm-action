@@ -10,8 +10,6 @@ updates:
       timezone: Asia/Tokyo
     cooldown:
       default-days: 5
-    reviewers:
-      - ddradar/action-maintainer
     labels:
       - 'dependabot :robot:'
     commit-message:
@@ -44,8 +42,6 @@ updates:
       - dependency-name: '@types/node'
         update-types:
           - version-update:semver-major
-    reviewers:
-      - ddradar/action-maintainer
     labels:
       - 'dependabot :robot:'
     commit-message:
