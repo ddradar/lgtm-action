@@ -14,7 +14,7 @@ await suite('input-helper.ts', async () => {
 
   before(async () => {
     mock.module('@actions/core', {
-      namedExports: {
+      exports: {
         getInput: getInputMock,
         getMultilineInput: getMultilineInputMock,
       },

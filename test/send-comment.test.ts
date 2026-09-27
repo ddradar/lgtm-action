@@ -19,9 +19,7 @@ await suite('send-comment.ts', async () => {
   )
 
   before(async () => {
-    mock.module('@actions/github', {
-      namedExports: { getOctokit: getOctokitMock },
-    })
+    mock.module('@actions/github', { exports: { getOctokit: getOctokitMock } })
     sendCommentAsync = (await import('../src/send-comment.ts')).sendCommentAsync
   })
 
