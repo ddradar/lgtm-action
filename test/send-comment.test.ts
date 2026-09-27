@@ -44,9 +44,9 @@ await suite('send-comment.ts', async () => {
 
       // Assert
       t.assert.strictEqual(getOctokitMock.mock.callCount(), 1)
-      t.assert.strictEqual(getOctokitMock.mock.calls[0].arguments[0], token)
+      t.assert.strictEqual(getOctokitMock.mock.calls[0]?.arguments[0], token)
       t.assert.strictEqual(createCommentMock.mock.callCount(), 1)
-      t.assert.deepEqual(createCommentMock.mock.calls[0].arguments, [
+      t.assert.deepEqual(createCommentMock.mock.calls[0]?.arguments, [
         { owner, repo, issue_number: issueNumber, body: comment },
       ])
     })
