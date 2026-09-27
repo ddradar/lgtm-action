@@ -16,9 +16,7 @@ await suite('event.ts', async () => {
 
   before(async () => {
     mock.module('@actions/github', {
-      namedExports: {
-        context: { payload } as unknown as typeof context,
-      },
+      exports: { context: { payload } as unknown as typeof context },
     })
 
     const eventModule = await import('../src/event.ts')

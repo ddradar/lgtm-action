@@ -29,7 +29,7 @@ await suite('main.ts', async () => {
 
   before(async () => {
     mock.module('@actions/core', {
-      namedExports: {
+      exports: {
         debug: debugMock,
         info: infoMock,
         warning: warningMock,
@@ -37,7 +37,7 @@ await suite('main.ts', async () => {
       },
     })
     mock.module('@actions/github', {
-      namedExports: {
+      exports: {
         context: {
           eventName: 'event_name',
           repo: { owner: 'owner', repo: 'repo' },
@@ -45,16 +45,16 @@ await suite('main.ts', async () => {
       },
     })
     mock.module('../src/event.ts', {
-      namedExports: {
+      exports: {
         isSupportedEvent: isSupportedEventMock,
         getEventWebhook: getEventWebhookMock,
       },
     })
     mock.module('../src/input-helper.ts', {
-      namedExports: { getInputParams: getInputParamsMock },
+      exports: { getInputParams: getInputParamsMock },
     })
     mock.module('../src/send-comment.ts', {
-      namedExports: { sendCommentAsync: sendCommentAsyncMock },
+      exports: { sendCommentAsync: sendCommentAsyncMock },
     })
 
     run = (await import('../src/main.ts')).run
