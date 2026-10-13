@@ -118,7 +118,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7.0.1
       - name: Download Action Assets
-        uses: actions/download-artifact@v8.0.1
+        uses: actions/download-artifact@v8.0.2
         with: &download-dist-artifact
           name: dist
           path: dist
@@ -145,7 +145,7 @@ jobs:
         run: corepack enable
 
       - name: Download Current Action Assets
-        uses: actions/download-artifact@v8.0.1
+        uses: actions/download-artifact@v8.0.2
         with:
           name: dist
           path: current
@@ -219,7 +219,7 @@ jobs:
           RELEASE_FILES: ${{ vars.RELEASE_FILES }}
 
       - name: Download Build Assets
-        uses: actions/download-artifact@v8.0.1
+        uses: actions/download-artifact@v8.0.2
         with: *download-dist-artifact
 
       - name: Generate GitHub App Token
