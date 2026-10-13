@@ -18,7 +18,7 @@ jobs:
       - name: Enable Corepack
         run: corepack enable
       - name: Use Node.js
-        uses: actions/setup-node@v7.0.0
+        uses: actions/setup-node@v7.1.0
         with: &setup-node-with
           node-version-file: .node-version
           cache: npm
@@ -42,7 +42,7 @@ jobs:
       - name: Enable Corepack
         run: corepack enable
       - name: Use Node.js
-        uses: actions/setup-node@v7.0.0
+        uses: actions/setup-node@v7.1.0
         with: *setup-node-with
       - name: Install Dependencies
         run: npm ci --ignore-scripts
@@ -70,7 +70,7 @@ jobs:
       - name: Enable Corepack
         run: corepack enable
       - name: Use Node.js
-        uses: actions/setup-node@v7.0.0
+        uses: actions/setup-node@v7.1.0
         with: *setup-node-with
       - name: Install Dependencies
         run: npm ci --ignore-scripts
