@@ -66,7 +66,7 @@ action.yml       GitHub Actions action definition
 
 | Tool                               | Purpose                                |
 | ---------------------------------- | -------------------------------------- |
-| TypeScript 5.x                     | Language                               |
+| TypeScript 6.x                     | Language                               |
 | Node.js 24                         | Runtime                                |
 | `@actions/core`, `@actions/github` | GitHub Actions SDK                     |
 | oxlint                             | Linting                                |
@@ -82,10 +82,10 @@ action.yml       GitHub Actions action definition
 - All code must be **ESM**: use `import`/`export`; never use `require()`.
 - When importing local modules, always include the `.ts` extension:
   ```ts
-  // correct
-  import { foo } from './foo.ts'
   // incorrect
   import { foo } from './foo'
+  // correct
+  import { foo } from './foo.ts'
   ```
 - Prefer **named exports** over default exports.
 - Prefer **`interface`** over `type` for object shapes.
