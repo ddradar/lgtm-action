@@ -39,7 +39,7 @@
     "npm-run-all2": "^9.0.4",
     "oxfmt": "^0.75.0",
     "oxlint": "^1.90.0",
-    "oxlint-tsgolint": "^7.0.2005",
+    "oxlint-tsgolint": "^7.0.2006",
     "typescript": "~6.0.3"
   },
   "lint-staged": {
